@@ -10,6 +10,8 @@ var config = {
     publicPath: '/js/',
     filename: 'bundle.js'
   },
+  watch: true,
+  devtool: 'inline-source-map',
   module: {
     loaders: [{
       test: /\.js$/,

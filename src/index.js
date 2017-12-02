@@ -1,9 +1,33 @@
 import React from 'react';
-import {render} from 'react-dom';
+import ReactDOM from 'react-dom';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import { Route, BrowserRouter } from 'react-router-dom';
+import registerServiceWorker from './registerServiceWorker';
+import rootReducer from './rootReducer';
 
-const rootElement = document.getElementById('main');
+// Theme
+import mainTheme from './theme/mainTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import createMuiTheme from 'material-ui/styles/createMuiTheme';
 
-render(
-  <div><h1>Our website is under construction. We will be here soon with awesome site.</h1>
-  <h2>Contact us through <a href='https://www.facebook.com/toursforbooks/app/138037989567125/'>Facebook</a></h2></div>,
-  rootElement);
+// Components
+import App from './App';
+
+// Store
+const middleware = applyMiddleware(thunk);
+const store = createStore(
+	rootReducer,
+  	compose(middleware, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+);
+
+ReactDOM.render(
+  <MuiThemeProvider theme={createMuiTheme(mainTheme)}>
+    <Provider store = {store}>
+      <BrowserRouter>
+        <Route component={App}/>
+      </BrowserRouter>
+    </Provider>
+  </MuiThemeProvider>, document.getElementById('main'));          
+registerServiceWorker();
