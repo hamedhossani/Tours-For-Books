@@ -14,7 +14,7 @@ class App extends Component {
     const { classes } = this.props
     return (
       <div className={classes.test}>
-        Hello!
+        Our website is under construction. We will be here soon with awesome site.
       </div>
     )
   }
