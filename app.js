@@ -35,4 +35,6 @@ http.createServer(function (req, res) {
       res.end();
     });
   }
-}).listen(port, '0.0.0.0');
+}).listen(port, '0.0.0.0', function(){
+    console.log('Listening on port ' + port)
+});
