@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
+import Header from './page/Header';
 
 // Style
 import { withStyles } from 'material-ui/styles';
@@ -14,7 +15,7 @@ class App extends Component {
     const { classes } = this.props
     return (
       <div className={classes.test}>
-        Our website is under construction. We will be here soon with awesome site.
+        <Header />
       </div>
     )
   }

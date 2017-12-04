@@ -11,6 +11,9 @@ var config = {
     filename: 'bundle.js'
   },
   watch: true,
+  watchOptions: {
+    ignored: /node_modules/
+  },
   devtool: 'inline-source-map',
   module: {
     loaders: [{
@@ -20,6 +23,9 @@ var config = {
       query: {
         presets: ["env", 'react']
       }
+    },{
+      test: /\.(png|jpg|gif)$/,
+      loader: 'url-loader',
     }]
   },
   

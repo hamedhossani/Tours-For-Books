@@ -8,19 +8,24 @@ export default createMuiTheme({
       "black": "#000",
       "white": "#fff",
       "transparent": "rgba(0, 0, 0, 0)",
+      "primary": "#189AB4"
     }
   },
-  // "typography": {
-  //   "display4": {
-  //   },
+  "typography": {
+    // "display4": {
+    // },
   //   "display3": {
   //   },
   //   "display2": {
   //   },
   //   "display1": {
   //   },
-  //   "headline": {
-  //   },
+    "headline": {
+      "fontSize": 55,
+      "fontWeight": 800,
+      "fontFamily": "\"Open Sans\", sans-serif",
+      "textTransform": "uppercase"
+    },
   //   "title": {
   //   },
   //   "subheading": {
@@ -33,7 +38,7 @@ export default createMuiTheme({
   //   },
   //   "button": {
   //   }
-  // },
+  },
   "breakpoints": {
     "keys": Object.keys(breakpoints),
     "values": breakpoints,
@@ -82,9 +87,11 @@ export default createMuiTheme({
       "leavingScreen": 195
     }
   },
-  // "custom": {
-    
-  // },
+  "custom": {
+    // "alignCenter": {
+    //   textAlign: 'center'
+    // }    
+  },
   overrides: {
     MuiBottomNavigation: {
       root: {
