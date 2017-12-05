@@ -24,9 +24,7 @@ class Header extends Component {
       <div>
         <div className={classes.heroWrapper}>
             <div className={classes.logo}></div>
-            {/**<Typography type='headline' align='center' className={classes.heroText}>start your adventure today</Typography> **/}
-            <Typography type='headline' align='center' className={classes.heroText}>Hello! Our site is currently underconstruction. We will come back soon with an awesome website.</Typography>
-            <Typography type='subheading' align='center' className={classes.heroText}>Contact Us through <a href='https://www.facebook.com/toursforbooks/'>Facebook</a></Typography>
+            <Typography type='headline' align='center' className={classes.heroText}>start your adventure today</Typography>
             <Search />
         </div>
       </div>

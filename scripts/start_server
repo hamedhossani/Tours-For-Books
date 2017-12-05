@@ -1,5 +1,5 @@
 #!/bin/bash
 cd /home/ec2-user/node-website
+export GENERATE_SOURCEMAP=false
 export PORT=80
-webpack
 forever start app.js
