@@ -58,4 +58,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(Body));
+export default withStyles(styles)(Body);

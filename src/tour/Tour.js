@@ -42,4 +42,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(Tour));
+export default withStyles(styles)(Tour);

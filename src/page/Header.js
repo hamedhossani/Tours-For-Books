@@ -24,9 +24,9 @@ class Header extends Component {
       <div>
         <div className={classes.heroWrapper}>
             <div className={classes.logo}></div>
-            {/**<Typography type='headline' className={classes.heroText}>start your adventure today</Typography> **/}
-            <h1 className={classes.heroText}>Hello! Our site is currently underconstruction. We will come back soon with an awesome website.</h1>
-            <h3 className={classes.heroText}>Contact Us through <a href='https://www.facebook.com/toursforbooks/'>Facebook</a></h3>
+            {/**<Typography type='headline' align='center' className={classes.heroText}>start your adventure today</Typography> **/}
+            <Typography type='headline' align='center' className={classes.heroText}>Hello! Our site is currently underconstruction. We will come back soon with an awesome website.</Typography>
+            <Typography type='subheading' align='center' className={classes.heroText}>Contact Us through <a href='https://www.facebook.com/toursforbooks/'>Facebook</a></Typography>
             <Search />
         </div>
       </div>
@@ -55,13 +55,18 @@ const styles = theme => ({
         backgroundColor: 'white'
     },
     heroText: {
-        fontFamily: "Open Sans",
         color: theme.palette.common.white,
-        margin: '5% 0 2% 0',
         '&>a':{
           color: theme.palette.common.white,
         }
-    }
+    },
+    [theme.breakpoints.down('sm')]: {
+      logo: {
+        height: '80px',
+        width: '80px',
+        backgroundSize: '70px'
+      },
+    },
 });
 
 const mapStateToProps = state => {
@@ -69,4 +74,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(Header));
+export default withStyles(styles)(Header);

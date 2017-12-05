@@ -21,15 +21,19 @@ export default createMuiTheme({
   //   "display1": {
   //   },
     "headline": {
-      "fontSize": 55,
+      "fontSize": 40,
       "fontWeight": 800,
       "fontFamily": "\"Open Sans\", sans-serif",
-      "textTransform": "uppercase"
+      "textTransform": "uppercase",
     },
+    
   //   "title": {
   //   },
-  //   "subheading": {
-  //   },
+    "subheading": {
+      "fontSize": 30,
+      "fontWeight": 800,
+      "fontFamily": "\"Open Sans\", sans-serif",
+    },
   //   "body2": {
   //   },
   //   "body1": {
@@ -96,6 +100,18 @@ export default createMuiTheme({
     // }    
   },
   overrides: {
+    MuiTypography: {
+      headline: {
+        [`@media (max-width: ${breakpoints['sm']}px)`]:{
+          "fontSize": 25
+        } 
+      },
+      subheading: {
+        [`@media (max-width: ${breakpoints['sm']}px)`]:{
+          "fontSize": 20
+        } 
+      }
+    },
     MuiBottomNavigation: {
       root: {
         height: 'auto'

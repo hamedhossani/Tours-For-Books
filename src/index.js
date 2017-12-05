@@ -16,18 +16,22 @@ import createMuiTheme from 'material-ui/styles/createMuiTheme';
 import App from './App';
 
 // Store
-const middleware = applyMiddleware(thunk);
-const store = createStore(
-	rootReducer,
-  	compose(middleware, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-);
+// const middleware = applyMiddleware(thunk);
+// const store = createStore(
+// 	rootReducer,
+//   	compose(middleware, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+// );
 
 ReactDOM.render(
-  <MuiThemeProvider theme={createMuiTheme(mainTheme)}>
-    <Provider store = {store}>
+    <MuiThemeProvider theme={createMuiTheme(mainTheme)}>
       <BrowserRouter>
         <Route component={App}/>
       </BrowserRouter>
-    </Provider>
-  </MuiThemeProvider>, document.getElementById('main'));          
-registerServiceWorker();
+    </MuiThemeProvider>
+    , document.getElementById('main'));          
+// registerServiceWorker();
+
+{/**
+    <Provider store = {store}>**/}
+    {/**</Provider>
+  **/}

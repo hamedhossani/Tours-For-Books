@@ -55,4 +55,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(Search));
+export default withStyles(styles)(Search);
