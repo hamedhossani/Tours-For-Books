@@ -24,7 +24,9 @@ class Header extends Component {
       <div>
         <div className={classes.heroWrapper}>
             <div className={classes.logo}></div>
-            <Typography type='headline' className={classes.heroText}>start your adventure today</Typography>
+            {/**<Typography type='headline' className={classes.heroText}>start your adventure today</Typography> **/}
+            <h1 className={classes.heroText}>Hello! Our site is currently underconstruction. We will come back soon with an awesome website.</h1>
+            <h3 className={classes.heroText}>Contact Us through <a href='https://www.facebook.com/toursforbooks/'>Facebook</a></h3>
             <Search />
         </div>
       </div>
@@ -53,8 +55,12 @@ const styles = theme => ({
         backgroundColor: 'white'
     },
     heroText: {
+        fontFamily: "Open Sans",
         color: theme.palette.common.white,
         margin: '5% 0 2% 0',
+        '&>a':{
+          color: theme.palette.common.white,
+        }
     }
 });
 
