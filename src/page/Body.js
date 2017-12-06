@@ -8,25 +8,33 @@ import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 
 // Component
-import Tour from '../tour/Tour'
+import Tour from '../tour/Tour';
 
-
-const tourList = [
-  { name: 'hagiang'}, { name: 'saigon'}, { name: 'hanoi'}, { name: 'hue'}
-  ]
+// Images
+import getTours from '../utils/getTours';
+import * as firebase from 'firebase';
 
 class Body extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      tours: []
+    }
+  }
+  componentDidMount(){
+    getTours.list().once('value').then((tours) => {
+      this.setState({tours: tours.val()});
+    })
   }
 
   render() {
     const { classes } = this.props
+    const { tours } = this.state
     return (
       <div className={classes.bodyWrapper}>
         <Grid container spacing={24} className={classes.tourWrapper}>
-          { tourList.map(tour => (
-            <Tour key={tour.name} tour={tour}/>
+          { tours && tours.map(tour => (
+            <Tour key={tour.id} tour={tour}/>
           ))}
         </Grid>
         {/** Filter wrapper will be different in mobile**/}

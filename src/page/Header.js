@@ -7,8 +7,8 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 
 // Image
+import getImage from '../utils/getImageUrl';
 import heroImage from '../images/central_tour.jpg';
-import logo from '../images/logo.png';
 
 // Component
 import Search from '../search/Search';
@@ -16,14 +16,23 @@ import Search from '../search/Search';
 class Header extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      imgUrl: ''
+    }
   }
-
+  componentDidMount(){
+    getImage.url('appImg/favicon.png').then((url) => {
+      this.setState({
+        imgUrl: url
+      });
+    })
+  }
   render() {
-    const { classes } = this.props
+    const { classes } = this.props;
     return (
       <div>
         <div className={classes.heroWrapper}>
-            <div className={classes.logo}></div>
+            <div className={classes.logo} style={{backgroundImage: `url(${this.state.imgUrl})`}}></div>
             <Typography type='headline' align='center' className={classes.heroText}>start your adventure today</Typography>
             <Search />
         </div>
@@ -46,11 +55,11 @@ const styles = theme => ({
     logo: {
         height: '150px',
         width: '150px',
-        background: `url(${logo}) no-repeat`,
-        backgroundSize: '120px 120px',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '80% 80%',
         backgroundPosition: '50% 50%',
         borderRadius: '50%',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     heroText: {
         color: theme.palette.common.white,

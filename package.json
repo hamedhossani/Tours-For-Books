@@ -12,6 +12,7 @@
     "babel-loader": "^7.1.2",
     "babel-preset-react": "^6.24.1",
     "concurrently": "^3.5.1",
+    "firebase": "^4.7.0",
     "material-ui": "^1.0.0-beta.22",
     "material-ui-icons": "^1.0.0-beta.17",
     "react": "^15.6.2",

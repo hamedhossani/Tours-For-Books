@@ -8,18 +8,18 @@ import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
-// Component
-
 class Tour extends Component {
   constructor(props) {
     super(props);
   }
-
   render() {
-    const { classes, tour } = this.props
+    const { classes, tour } = this.props;
     return (
       <Grid item sm={12} md={6} >
-        <Paper className={classes.paper}>{tour.name}</Paper>
+        <Paper className={classes.paper}>
+          <div>{tour.name}</div>
+          <div>{tour.price.amount}</div>
+        </Paper>
       </Grid>
     )
   }
