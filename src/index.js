@@ -17,11 +17,11 @@ import createMuiTheme from 'material-ui/styles/createMuiTheme';
 import App from './App';
 
 // Create Store
-// const middleware = applyMiddleware(thunk);
-// const store = createStore(
-// 	rootReducer,
-//   	compose(middleware, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-// );
+const middleware = applyMiddleware(thunk);
+const store = createStore(
+	rootReducer,
+  	compose(middleware, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+);
 
 // Initialize Database
 var config = {
@@ -36,15 +36,13 @@ firebase.initializeApp(config);
 
 // Render
 ReactDOM.render(
-    <MuiThemeProvider theme={createMuiTheme(mainTheme)}>
-      <BrowserRouter>
-        <Route component={App}/>
-      </BrowserRouter>
-    </MuiThemeProvider>
-    , document.getElementById('main'));          
-// registerServiceWorker();
-
-{/**
-    <Provider store = {store}>**/}
-    {/**</Provider>
-  **/}
+    <Provider store = {store}>
+        <MuiThemeProvider theme={createMuiTheme(mainTheme)}>
+          <BrowserRouter>
+            <Route component={App}/>
+          </BrowserRouter>
+        </MuiThemeProvider>
+    </Provider>
+    , document.getElementById('main')
+);          
+registerServiceWorker();

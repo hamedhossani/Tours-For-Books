@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 
 // Components
-import Header from './page/Header';
-import Body from './page/Body';
+import InitPage from './page/InitPage';
+import TourPage from './tour/TourPage';
 
 // Style
 import { withStyles } from 'material-ui/styles';
@@ -18,8 +18,8 @@ class App extends Component {
     const { classes } = this.props
     return (
       <div className={classes.test}>
-        <Header />
-        <Body />
+        <Route exact path='/' render={(props)=><InitPage routing={props}/>}/>
+        <Route exact path='/tours/:tour_id' render={(props)=><TourPage routing={props}/>}/>
       </div>
     )
   }

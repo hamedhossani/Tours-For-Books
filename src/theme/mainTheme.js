@@ -8,7 +8,7 @@ export default createMuiTheme({
       "black": "#000",
       "white": "#fff",
       "transparent": "rgba(0, 0, 0, 0)",
-      "primary": "#189AB4"
+      "dardGrey": "rgba(0, 0, 0, 0.7)",
     },
     "primary": {
       "50": "#189AB4",
@@ -82,8 +82,14 @@ export default createMuiTheme({
   "typography": {
     // "display4": {
     // },
-  //   "display3": {
-  //   },
+    "display3": { // card detail headline, don't change!
+      "fontSize": 40,
+      "fontWeight": 600,
+      "fontFamily": "\"Lato\", sans-serif",
+      [`@media (max-width: ${breakpoints['sm']}px)`]:{
+        "fontSize": 30
+      }
+    },
     "display2": {
       "fontSize": '1.8rem',
       "fontWeight": 400,
@@ -124,6 +130,7 @@ export default createMuiTheme({
       "fontSize": '0.9rem',
       "fontWeight": 400,
       "fontFamily": "\"Open Sans\", sans-serif",
+      "color": "rgba(0, 0, 0, 0.87)"
     },
   //   "caption": {
   //   },
@@ -211,22 +218,29 @@ export default createMuiTheme({
         }
       }
     },
-    MuiAppBar: {
-      colorPrimary: {
-        backgroundColor: "#fff",
-        color: "rgba(0, 0, 0, 0.87)"
-      }
-    },
-    MuiPaper: {
-      shadow4: {
-        boxShadow: '0px 1px 0px 0px rgba(0, 0, 0, 0.2)'
-      }
-    },
-    MuiTextarea: {
+    MuiTab: {
       root: {
-        width: '100%',
-        marginTop: '0px'
+        textTransform: 'capitalize'
       }
-    }
+    },
+    MuiMobileStepper: {
+      root: {
+        backgroundColor: "rgba(0,0,0,0.5)",
+        padding: 0
+      },
+      dot: {
+        backgroundColor: "rgba(250,250,250,0.56)",
+        borderColor: "#189AB4"
+      }
+    },
+    MuiIconButton: {
+      root: {
+        
+        color: "rgba(250,250,250,0.87)"
+      },
+      disabled: {
+        color: "rgba(250,250,250,0.56)"
+      }
+    },
   }
 });

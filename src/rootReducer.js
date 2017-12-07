@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
-// import CategoryReducer from './category/reducer';
+import ToursReducer from './tour/reducer';
 
 export default combineReducers({
+    ToursReducer
 });

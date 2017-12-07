@@ -39,8 +39,7 @@ class Search extends Component {
 
 const styles = theme => ({
   root: {
-    marginTop: theme.spacing.unit * 3,
-    width: '80%',
+    width: '100%',
     boxShadow: theme.shadows[2]
   },
   menuButton: {
