@@ -7,7 +7,7 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 
 // Image
-import getImage from '../utils/getImageUrl';
+import getImage from '../utils/getImage';
 import heroImage from '../images/central_tour.jpg';
 
 // Component

@@ -9,35 +9,122 @@ export default createMuiTheme({
       "white": "#fff",
       "transparent": "rgba(0, 0, 0, 0)",
       "primary": "#189AB4"
-    }
+    },
+    "primary": {
+      "50": "#189AB4",
+      "100": "#189AB4",
+      "200": "#189AB4",
+      "300": "#189AB4",
+      "400": "#189AB4",
+      "500": "#189AB4", //main
+      "600": "#189AB4",
+      "700": "#6a88c0",
+      "800": "#6a88c0",
+      "900": "#6a88c0",
+      "A100": "#189AB4",
+      "A200": "#6a88c0",
+      "A400": "#6a88c0",
+      "A700": "#189AB4",
+      "contrastDefaultColor": "light"
+    },
+    "secondary": {
+      "50": "#FF632B",
+      "100": "#FF632B",
+      "200": "#FF632B",
+      "300": "#FF632B",
+      "400": "#FF632B",
+      "500": "#FF632B",
+      "600": "#FF632B",
+      "700": "#FF632B",
+      "800": "#FF632B",
+      "900": "#FF632B",
+      "A100": "#FF632B",
+      "A200": "#FF632B",
+      "A400": "#FF632B",
+      "A700": "#FF632B",
+      "contrastDefaultColor": "light"
+    },
+    "error": {
+      "50": "#ffebee",
+      "100": "#ffcdd2",
+      "200": "#ef9a9a",
+      "300": "#e57373",
+      "400": "#ef5350",
+      "500": "#f44336",
+      "600": "#e53935",
+      "700": "#d32f2f",
+      "800": "#c62828",
+      "900": "#b71c1c",
+      "A100": "#ff8a80",
+      "A200": "#ff5252",
+      "A400": "#ff1744",
+      "A700": "#d50000",
+      "contrastDefaultColor": "light"
+    },
+    "grey": {
+      "50": "#fafafa",
+      "100": "#f5f5f5",
+      "200": "#eeeeee",
+      "300": "#e0e0e0",
+      "400": "#bdbdbd",
+      "500": "#9e9e9e",
+      "600": "#757575",
+      "700": "#616161",
+      "800": "#424242",
+      "900": "#212121",
+      "A100": "#d5d5d5",
+      "A200": "#aaaaaa",
+      "A400": "#303030",
+      "A700": "#616161",
+      "contrastDefaultColor": "dark"
+    },
   },
   "typography": {
     // "display4": {
     // },
   //   "display3": {
   //   },
-  //   "display2": {
-  //   },
-  //   "display1": {
-  //   },
+    "display2": {
+      "fontSize": '1.8rem',
+      "fontWeight": 400,
+      "fontFamily": "\"Lato\", sans-serif",
+      "textDecoration": "line-through"
+    },
+    "display1": { // price's style, don't change!
+      "fontSize": '1.8rem',
+      "fontWeight": 600,
+      "fontFamily": "\"Lato\", sans-serif",
+      "color": "#189AB4"
+    },
     "headline": {
       "fontSize": 40,
       "fontWeight": 800,
       "fontFamily": "\"Open Sans\", sans-serif",
       "textTransform": "uppercase",
     },
-    
-  //   "title": {
-  //   },
+    "title": {
+      "fontSize": "1.3rem",
+      "lineHeight": 1.4 ,
+      "fontWeight": 400,
+      "fontFamily": "\"Lato\", sans-serif",
+      "marginBottom": "5px"
+    },
     "subheading": {
-      "fontSize": 30,
-      "fontWeight": 800,
+      "fontSize": "0.9rem",
+      "fontWeight": 400,
       "fontFamily": "\"Open Sans\", sans-serif",
     },
-  //   "body2": {
-  //   },
-  //   "body1": {
-  //   },
+    "body2": { // tour stats, don't change
+      "fontSize": '0.8rem',
+      "fontWeight": 400,
+      "fontFamily": "\"Lato\", sans-serif",
+      "color": "white"
+    },
+    "body1": {
+      "fontSize": '0.9rem',
+      "fontWeight": 400,
+      "fontFamily": "\"Open Sans\", sans-serif",
+    },
   //   "caption": {
   //   },
   //   "button": {
@@ -94,27 +181,27 @@ export default createMuiTheme({
       "leavingScreen": 195
     }
   },
-  "custom": {
-    // "alignCenter": {
-    //   textAlign: 'center'
-    // }    
-  },
   overrides: {
     MuiTypography: {
       headline: {
         [`@media (max-width: ${breakpoints['sm']}px)`]:{
-          "fontSize": 25
+          "fontSize": "1.5rem"
+        } 
+      },
+      title: {
+        [`@media (max-width: ${breakpoints['sm']}px)`]:{
+          "fontSize": "1.2rem"
+        } 
+      },
+      body1: {
+        [`@media (max-width: ${breakpoints['sm']}px)`]:{
+          "fontSize": "0.8rem"
         } 
       },
       subheading: {
         [`@media (max-width: ${breakpoints['sm']}px)`]:{
-          "fontSize": 20
+          "fontSize": "0.8rem"
         } 
-      }
-    },
-    MuiBottomNavigation: {
-      root: {
-        height: 'auto'
       }
     },
     MuiInput: {

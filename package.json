@@ -11,6 +11,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-react": "^6.24.1",
+    "classnames": "^2.2.5",
     "concurrently": "^3.5.1",
     "firebase": "^4.7.0",
     "material-ui": "^1.0.0-beta.22",
