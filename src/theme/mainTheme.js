@@ -80,8 +80,12 @@ export default createMuiTheme({
     },
   },
   "typography": {
-    // "display4": {
-    // },
+    "display4": { // step label, don't change!
+      "fontSize": '0.9rem',
+      "fontWeight": 600,
+      "fontFamily": "\"Open Sans\", sans-serif",
+      "color": "rgba(0, 0, 0, 0.87)"
+    },
     "display3": { // card detail headline, don't change!
       "fontSize": 40,
       "fontWeight": 600,
@@ -254,5 +258,12 @@ export default createMuiTheme({
         color: "rgba(250,250,250,0.56)"
       }
     },
+    StepLabel: {
+      root: {
+        '& div + div': {
+          display: 'none'
+        }
+      }
+    }
   }
 });
