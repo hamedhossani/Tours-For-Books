@@ -6,13 +6,17 @@ import { Route, Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Divider from 'material-ui/Divider';
+import List, { ListItem, ListItemText } from 'material-ui/List';
 
 // Icons
 import ItineraryIcon from 'material-ui-icons/FormatListBulleted';
 import ServiceIcon from 'material-ui-icons/Announcement';
 
+// Components
+import TourItinerary from './TourItinerary';
+
 function TabContainer(props) {
-  return <div style={{ padding: 8 * 3 }}>{props.children}</div>;
+  return <div style={{ padding: '5%' }}>{props.children}</div>;
 }
 
 class TourDetail extends Component {
@@ -38,12 +42,40 @@ class TourDetail extends Component {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab icon={<ItineraryIcon />} label="Itinerary" />
-          <Tab icon={<ServiceIcon />} label="Important" />
+          <Tab label="Itinerary" />
+          <Tab label="What's Included" />
+          <Tab label="Excluded Fee" />
         </Tabs>
         <Divider light />
-        {value === 0 && <TabContainer>Item One</TabContainer>}
-        {value === 1 && <TabContainer>Item Two</TabContainer>}
+        {value === 0 && 
+          <TabContainer><TourItinerary tour={tour} activities={tour.activities}/></TabContainer>
+        }
+        {value === 1 && 
+          <TabContainer>
+            <List>
+              { tour.includes.map((item,i) => (
+                <ListItem button key={i}>
+                  <ListItemText
+                    primary={item}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </TabContainer>
+        }
+        {value === 2 && 
+          <TabContainer>
+            <List>
+              { tour.excludes.map((item,i) => (
+                <ListItem button key={i}>
+                  <ListItemText
+                    primary={item}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </TabContainer>
+        }
       </div>
     )
   }

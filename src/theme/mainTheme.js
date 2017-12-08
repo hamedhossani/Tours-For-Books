@@ -8,7 +8,7 @@ export default createMuiTheme({
       "black": "#000",
       "white": "#fff",
       "transparent": "rgba(0, 0, 0, 0)",
-      "dardGrey": "rgba(0, 0, 0, 0.7)",
+      "dardGrey": "rgba(0, 0, 0, 0.4)",
     },
     "primary": {
       "50": "#189AB4",
@@ -221,11 +221,23 @@ export default createMuiTheme({
     MuiTab: {
       root: {
         textTransform: 'capitalize'
+      },
+      rootPrimarySelected: {
+        "color": "rgba(0, 0, 0, 0.87)"
+      },
+      label: {
+        "fontSize": "0.9rem",
+        "lineHeight": 1.4 ,
+        "fontWeight": 400,
+        "fontFamily": "\"Lato\", sans-serif",
+        [`@media (min-width: ${breakpoints['sm']}px)`]:{
+          "fontSize": "1.3rem",
+        }
       }
     },
     MuiMobileStepper: {
       root: {
-        backgroundColor: "rgba(0,0,0,0.5)",
+        backgroundColor: "rgba(0,0,0,0.2)",
         padding: 0
       },
       dot: {

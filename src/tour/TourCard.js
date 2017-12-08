@@ -133,7 +133,7 @@ class TourCard extends Component {
               { tour.highlights.map(hl => (
               <ListItem disableGutters key={hl.icon}>
                 <ListItemAvatar>
-                  <MaterialIcon iconName={hl.icon} backgroundColor={hl.bgColor}/>
+                  <MaterialIcon iconName={hl.icon} />
                 </ListItemAvatar>
                 <ListItemText
                   primary={hl.name}
