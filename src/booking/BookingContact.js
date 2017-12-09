@@ -4,30 +4,54 @@ import { Route, Link } from 'react-router-dom';
 
 // Style
 import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
+import FacebookLogin from 'react-facebook-login';
 
 class BookingContact extends Component {
   constructor(props) {
     super(props);
-  }
-
-  render() {
-    const { classes, stepper } = this.props
-    return (
-        <div className={classes.actionsContainer}>
-          </div>
-        )
+    this.state={
+      authorized: false,
+      name: ''
     }
+    this.componentClicked = this.componentClicked.bind(this)
+    this.responseFacebook = this.responseFacebook.bind(this)
+  }
+  
+  componentClicked(){
+    console.log('clicked')
+  }
+  
+  responseFacebook(res){
+    if (res.name && res.email) {
+      this.setState({ authorized: true, name: res.name})
+    } else {
+      console.log("Login not successful")
+    }
+  }
+  render() {
+    const { classes } = this.props
+    const { authorized, name } = this.state
+    return (
+      <div>
+        { authorized? 
+          <Typography type='body1'>You are logged in as {name}</Typography>
+          : 
+          <FacebookLogin
+            appId="133018877378513"
+            autoLoad={true}
+            fields="name,email,picture"
+            onClick={this.componentClicked}
+            callback={this.responseFacebook} 
+            size="medium"/>
+        }
+      </div>
+    )
+  }
 }
 
 const styles = theme => ({
-  button: {
-    marginRight: theme.spacing.unit,
-  },
-  actionsContainer: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-  }
+  
 });
 
 const mapStateToProps = state => {
