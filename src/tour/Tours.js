@@ -32,9 +32,7 @@ class Body extends Component {
         <Grid container spacing={0} className={classes.tourWrapper}>
           { tours && tours.map(tour => (
             <Grid item xs={12} sm={6} key={tour.id}>
-              <Link to={`/tours/${tour.id}`}>
-                <TourCard tour={tour} />
-              </Link>
+              <TourCard tour={tour} />
             </Grid>
           ))}
         </Grid>

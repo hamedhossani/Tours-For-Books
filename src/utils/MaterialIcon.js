@@ -10,6 +10,10 @@ import ExperienceIcon from 'material-ui-icons/NaturePeople';
 import GuiderIcon from 'material-ui-icons/SupervisorAccount';
 import WalkingIcon from 'material-ui-icons/DirectionsWalk';
 import BikingIcon from 'material-ui-icons/DirectionsBike';
+import MotorcycleIcon from 'material-ui-icons/Motorcycle';
+import LocationCityIcon from 'material-ui-icons/LocationCity';
+import LocalDrinkIcon from 'material-ui-icons/LocalDrink';
+import MusicNoteIcon from 'material-ui-icons/MusicNote';
 
 const Icon = (props) => {
     const { iconName } = props;
@@ -28,6 +32,14 @@ const Icon = (props) => {
             return <WalkingIcon />
         case 'Bicycle':
             return <BikingIcon />
+        case 'Motorcycle':
+            return <MotorcycleIcon />
+        case 'LocationCity':
+            return <LocationCityIcon />
+        case 'LocalDrink':
+            return <LocalDrinkIcon />
+        case 'MusicNote':
+            return <MusicNoteIcon />
         default:
             return null
     }
@@ -43,9 +55,17 @@ function getColor(iconName) {
             return ['#fff','#0099FF']
         case 'Guider':
             return ['#fff','#E5008D']
+        case 'LocationCity':
+            return ['#fff','#7012BC']
+        case 'LocalDrink':
+            return ['#fff','#FF4800']  
+        case 'MusicNote':
+            return ['#fff','#00A54D']  
         case 'Walking':
             return ['rgba(0, 0, 0, 0.4)','rgba(0,0,0,0)']
         case 'Bicycle':
+            return ['rgba(0, 0, 0, 0.4)','rgba(0,0,0,0)']
+        case 'Motorcycle':
             return ['rgba(0, 0, 0, 0.4)','rgba(0,0,0,0)']
         default:
             return []

@@ -67,12 +67,12 @@ class TourImage extends Component {
           activeStep={this.state.activeStep}
           className={classes.stepper}
           nextButton={
-            <IconButton aria-label="Next" onClick={this.handleNext} disabled={this.state.activeStep === imgUrls.length-1}>
+            <IconButton color='contrast' aria-label="Next" onClick={this.handleNext} disabled={this.state.activeStep === imgUrls.length-1}>
               {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
             </IconButton>
           }
           backButton={
-            <IconButton aria-label="Back" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
+            <IconButton color='contrast' aria-label="Back" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
               {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
             </IconButton>
           }

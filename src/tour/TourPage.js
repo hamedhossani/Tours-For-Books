@@ -38,7 +38,7 @@ class TourPage extends Component {
         <div className={classes.root}>
           <Typography type='display3'>{tour.name}</Typography>
           {/** Tour Review Summary**/}
-          <Grid container spacing={24}>
+          <Grid container spacing={16}>
             <Grid item xs={12} md={8}>
               <TourImage tourImgs={tour.images}/>
               <TourDetail tour={tour}/>

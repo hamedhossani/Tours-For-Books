@@ -4,7 +4,10 @@ import { Route, Link } from 'react-router-dom';
 
 // Style
 import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
+import TextField from 'material-ui/TextField';
+
+// Component
+// import Calendar from 'react-calendar-material';
 
 class BookingOption extends Component {
   constructor(props) {
@@ -12,22 +15,33 @@ class BookingOption extends Component {
   }
 
   render() {
-    const { classes, stepper } = this.props
+    const { classes } = this.props
     return (
-        <div className={classes.actionsContainer}>
-          </div>
-        )
-    }
+      <form className={classes.container} noValidate>
+        <TextField
+          id="date"
+          type="date"
+          placeholder="mm/dd/yyyy"
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+      </form>
+    )
+  }
 }
 
 const styles = theme => ({
-  button: {
-    marginRight: theme.spacing.unit,
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
-  actionsContainer: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-  }
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
 });
 
 const mapStateToProps = state => {

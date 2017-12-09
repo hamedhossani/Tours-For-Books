@@ -63,7 +63,7 @@ class TourBook extends Component {
             return (
               <Step key={label}>
                 <StepLabel><Typography type='display4'>{label}</Typography></StepLabel>
-                <StepContent>
+                <StepContent className={classes.stepContent}>
                   <BookingContent activeStep={activeStep}/>
                   <BookingAction steps={steps} activeStep={activeStep} onClickNext={this.handleNext} onClickBack={this.handleBack} />
                 </StepContent>
@@ -89,10 +89,6 @@ const styles = theme => ({
   },
   button: {
     marginRight: theme.spacing.unit,
-  },
-  actionsContainer: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
   },
   postSubmitContainer: {
     marginTop: 0,

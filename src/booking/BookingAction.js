@@ -6,6 +6,9 @@ import { Route, Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 
+// Component
+import ActionButton from '../utils/ActionButton';
+
 class BookingAction extends Component {
   constructor(props) {
     super(props);
@@ -13,24 +16,18 @@ class BookingAction extends Component {
 
   render() {
     const { classes, steps, activeStep, onClickBack, onClickNext } = this.props
-    console.log(steps)
     return (
         <div className={classes.actionsContainer}>
-            <Button
-                disabled={activeStep === 0}
-                onClick={onClickBack}
-                className={classes.button}
+            <ActionButton 
+              variant='secondary' 
+              disabled={activeStep === 0}            
+              onClick={onClickBack}
             >
                 Back
-            </Button>
-            <Button
-                raised
-                color="primary"
-                onClick={onClickNext}
-                className={classes.button}
-            >
+            </ActionButton>
+            <ActionButton variant='primary' onClick={onClickNext}>
                 {activeStep === steps.length - 1 ? 'Place Order' : 'Next'}
-            </Button>
+            </ActionButton>
           </div>
         )
     }
@@ -43,6 +40,9 @@ const styles = theme => ({
   actionsContainer: {
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
   }
 });
 

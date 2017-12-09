@@ -101,28 +101,30 @@ class TourCard extends Component {
     const { imgUrl } = this.state
     return (
       <Card className={classes.card}>
-        { imgUrl &&
-        <CardMedia
-          className={classes.media}
-          image={`${this.state.imgUrl}`}
-          title={tour.name}
-        />
-        }
-        <CardContent>
-          <Typography type='title'>
-            {tour.name}
-          </Typography>
-          <Typography type='body1' component="p" align='justify'>
-            {tour.description}
-          </Typography>
-        </CardContent>
+        <Link to={`/tours/${tour.id}`}>
+          { imgUrl &&
+          <CardMedia
+            className={classes.media}
+            image={`${this.state.imgUrl}`}
+            title={tour.name}
+          />
+          }
+          <CardContent>
+            <Typography type='title'>
+              {tour.name}
+            </Typography>
+            <Typography type='body1' component="p" align='justify'>
+              {tour.description}
+            </Typography>
+          </CardContent>
+        </Link>
         <CardActions disableActionSpacing>
           <div className={classes.price}>
             <Typography type='display2'>${tour.price.amount}</Typography>
             <Typography type='display1'>${tour.price.discountAmount}</Typography>
           </div>
           <div className={classes.flexGrow} />
-          <IconButton onClick={this.handleExpandClick}>
+          <IconButton onClick={this.handleExpandClick} color='primary'>
             {this.state.expanded ? <ExpandLess /> : <ExpandMore />}
           </IconButton>
         </CardActions>

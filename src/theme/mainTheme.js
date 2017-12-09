@@ -10,6 +10,7 @@ export default createMuiTheme({
       "transparent": "rgba(0, 0, 0, 0)",
       "dardGrey": "rgba(0, 0, 0, 0.4)",
     },
+    "contrast": "#fff",
     "primary": {
       "50": "#189AB4",
       "100": "#189AB4",
@@ -242,7 +243,8 @@ export default createMuiTheme({
     MuiMobileStepper: {
       root: {
         backgroundColor: "rgba(0,0,0,0.2)",
-        padding: 0
+        padding: 0,
+        height: '30px'
       },
       dot: {
         backgroundColor: "rgba(250,250,250,0.56)",
@@ -251,8 +253,7 @@ export default createMuiTheme({
     },
     MuiIconButton: {
       root: {
-        
-        color: "rgba(250,250,250,0.87)"
+        height: 36
       },
       disabled: {
         color: "rgba(250,250,250,0.56)"
@@ -262,8 +263,18 @@ export default createMuiTheme({
       root: {
         '& div + div': {
           display: 'none'
-        }
+        },
+      },
+    },
+    MuiCollapse: {
+      wrapper: {
+        minHeight: 150
+      },
+      wrapperInner: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between"
       }
-    }
+    },
   }
 });
