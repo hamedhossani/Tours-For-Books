@@ -4,6 +4,7 @@ import { Route, Link } from 'react-router-dom';
 
 // Style
 import { withStyles } from 'material-ui/styles';
+import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Divider from 'material-ui/Divider';
 import List, { ListItem, ListItemText } from 'material-ui/List';
@@ -35,7 +36,7 @@ class TourDetail extends Component {
     const { classes, tour } = this.props
     const { value } = this.state;
     return (
-      <div>
+      <Paper elevation={2} className={classes.root}>
         <Tabs
           value={value}
           onChange={this.handleChange}
@@ -76,18 +77,17 @@ class TourDetail extends Component {
             </List>
           </TabContainer>
         }
-      </div>
+      </Paper>
     )
   }
 }
 
 const styles = theme => ({
-    root: {
-        flexGrow: 1,
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
-        backgroundColor: theme.palette.background.paper,
-    },
+  root: {
+    flexGrow: 1,
+    marginTop: theme.spacing.unit,
+    backgroundColor: theme.palette.background.paper,
+  },
 });
 
 const mapStateToProps = state => {

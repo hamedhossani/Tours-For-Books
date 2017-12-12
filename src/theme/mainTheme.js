@@ -240,6 +240,11 @@ export default createMuiTheme({
         }
       }
     },
+    MuiTabIndicator: {
+      root: {
+        height: 4
+      }
+    },
     MuiMobileStepper: {
       root: {
         backgroundColor: "rgba(0,0,0,0.2)",

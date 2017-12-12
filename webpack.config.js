@@ -3,7 +3,7 @@ var path = require("path");
 
 var config = {
   entry: [
-    './src/index.js'
+    'whatwg-fetch', './src/index.js'
   ],
   output: {
     path: __dirname+'/public/js',

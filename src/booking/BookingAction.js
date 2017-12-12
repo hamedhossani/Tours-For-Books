@@ -15,9 +15,10 @@ class BookingAction extends Component {
   }
 
   render() {
-    const { classes, steps, activeStep, onClickBack, onClickNext } = this.props
+    const { classes, steps, activeStep, activeButton, onClickBack, onClickNext } = this.props
     return (
         <div className={classes.actionsContainer}>
+          {activeStep === 0 || activeStep === steps.length - 1 ? '' :
             <ActionButton 
               variant='secondary' 
               disabled={activeStep === 0}            
@@ -25,11 +26,17 @@ class BookingAction extends Component {
             >
                 Back
             </ActionButton>
-            <ActionButton variant='primary' onClick={onClickNext}>
-                {activeStep === steps.length - 1 ? 'Place Order' : 'Next'}
+          }
+          {activeStep === steps.length - 1 || activeStep === 2 ? '' :
+            <ActionButton 
+              variant='primary' 
+              disabled={activeButton}
+              onClick={onClickNext}>
+              Next
             </ActionButton>
-          </div>
-        )
+          }
+        </div>
+      )
     }
 }
 

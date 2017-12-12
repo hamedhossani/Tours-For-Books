@@ -5,41 +5,64 @@ import { Route, Link } from 'react-router-dom';
 // Style
 import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
-
-// Component
-// import Calendar from 'react-calendar-material';
+import { FormGroup } from 'material-ui/Form';
 
 class BookingOption extends Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this)
   }
-
+  handleChange(e) {
+    e.preventDefault()
+    this.props.onChange({ [e.target.name]: e.target.value })
+  }
   render() {
     const { classes } = this.props
     return (
-      <form className={classes.container} noValidate>
+      <FormGroup className={classes.root}>
         <TextField
-          id="date"
-          type="date"
-          placeholder="mm/dd/yyyy"
+          type='date'
+          name='startDate'
+          helperText='departure date'
           className={classes.textField}
-          InputLabelProps={{
-            shrink: true,
-          }}
+          onChange={this.handleChange}
+          required
         />
-      </form>
+        <TextField
+          name='numberOfPax'
+          type='number'
+          placeholder='Number of travellers'
+          label='Number of travellers'
+          helperText='include adults and children'
+          className={classes.textField}
+          onChange={this.handleChange}
+          required
+        />
+        <TextField
+          name='note'
+          type='textarea'
+          placeholder='Other requests'
+          label='Other requests'
+          helperText='hotel standard, special interest, etc.'
+          multiline
+          rowsMax='4'
+          fullWidth
+          className={classes.textField}
+          onChange={this.handleChange}
+        />
+      </FormGroup>
     )
   }
 }
 
 const styles = theme => ({
-  container: {
+  root: {
     display: 'flex',
     flexWrap: 'wrap',
+    marginBottom: theme.spacing.unit * 3
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 3,
     width: 200,
   },
 });

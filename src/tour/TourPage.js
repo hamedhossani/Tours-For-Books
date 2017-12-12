@@ -14,6 +14,7 @@ import Typography from 'material-ui/Typography';
 import Search from '../search/Search';
 import TourImage from './TourImage';
 import TourDetail from './TourDetail';
+import TourPrice from './TourPrice';
 import TourBook from './TourBook';
 
 // Store
@@ -44,7 +45,8 @@ class TourPage extends Component {
               <TourDetail tour={tour}/>
             </Grid>
             <Grid item xs={12} md={4}>
-              <TourBook />
+              <TourPrice price={tour.price}/>
+              <TourBook tour={tour}/>
             </Grid>
           </Grid>
         </div>
@@ -64,12 +66,7 @@ const styles = theme => ({
     root: {
       padding: '0 8% 0 8%'
     }
-  },
-  paper: {
-    padding: 16,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+  }
 });
 
 const mapStateToProps = (state, ownProps) => {

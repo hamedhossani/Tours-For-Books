@@ -13,22 +13,38 @@ class BookingPayment extends Component {
   constructor(props) {
     super(props);
     this.payment = this.payment.bind(this)
+    this.onAuthorize = this.onAuthorize.bind(this)
   }
   
   payment(data, actions) {
+    const { tour, submittedContent } = this.props
     return actions.payment.create({
       payment: {
-        transactions: [{
-            amount: { total: '1.00', currency: 'USD' }
-        }]
+        "transactions": [
+          {
+            "amount": {
+              "total": `${tour.price.discountAmount}`,
+              "currency": "USD",
+            },
+            "description": 
+              `TOUR_ID:${tour.id} 
+              # NAME: ${submittedContent.name}
+              # TOUR_DATE: ${submittedContent.date} 
+              }`,
+          }
+        ]
       }
     });
   }
   
   onAuthorize(data, actions) {
-    return actions.payment.execute().then(function(payment) {
-      console.log('Payment completed:', payment);
-    });
+    return actions.payment.execute()
+      .then(payment => {
+        this.props.onSelectPayment(payment)
+      .catch(error => {
+        this.props.onErrorPayment
+      });
+    })
   }
   
   render() {
@@ -36,11 +52,18 @@ class BookingPayment extends Component {
       sandbox:'ARPpBhSOyCpdeA6gdHukK6n2CeDT_MT3vejEFU5AnCR7B-htXAbstreFnwbSQiZtkklZ7f1V3eoqhPBe',
       production: 'something else'
     }
+    let style = {
+        size: 'responsive',
+        color: 'gold',
+        shape: 'rect',
+        label: 'paypal'
+    }
     return (
-      <div className='shoppingCart'>
+      <div>
         <PayPalButton
           env='sandbox'
           client={client}
+          style={style}
           payment={this.payment}
           commit={true}
           onAuthorize={this.onAuthorize} />
