@@ -1,4 +1,3 @@
-import fetchTour from '../utils/fetchTour'
 export const GET_INIT_TOURS = 'GET_INITL_TOURS'
 export const GET_ONE_TOUR = 'GET_ONE_TOUR'
 
@@ -12,19 +11,22 @@ const getOneTourById = (tour) => ({
 })
 export function fetchInitialTours() {
     return function (dispatch) {
-        fetchTour.list().once('value')
-        .then(tours => {
-            dispatch(getInitialTours(tours.val()))
+        return fetch('/api/tours') // fetch from Express.js server
+        .then((res) => {
+            res.json().then((data) => {
+                dispatch(getInitialTours(data))
+            })
         })
-        .catch(error => console.log(error))
-    };
+        
+    }
 }
 export function fetchOneTourById(id) {
     return function (dispatch) {
-        fetchTour.byId(id).once('value')
-        .then(tour => {
-            dispatch(getOneTourById(tour.val()))
+        return fetch(`/api/tour/${id}`) // fetch from Express.js server
+        .then((res) => {
+            res.json().then((data) => {
+                dispatch(getOneTourById(data))
+            })
         })
-        .catch(error => console.log(error))
     };
 }

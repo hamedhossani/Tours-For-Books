@@ -80,32 +80,23 @@ class TourCard extends Component {
   constructor(props) {
     super(props);
     this.state={
-      imgUrl:'',
       expanded: false
     }
     this.handleExpandClick = this.handleExpandClick.bind(this)
-  }
-  componentWillMount(){
-    const { tour } = this.props;
-    getImage.url(`tourImg/${tour.images[0]}.jpg`).then((url) => {
-      this.setState({
-        imgUrl: url
-      });
-    })
   }
   handleExpandClick(){
     this.setState({ expanded: !this.state.expanded });
   };
   render() {
     const { classes, tour } = this.props;
-    const { imgUrl } = this.state
+    let imgUrl = `https://storage.googleapis.com/bloggy-170620.appspot.com/tourImg/${tour.images[0]}.jpg`
     return (
       <Card className={classes.card}>
-        <Link to={`/tours/${tour.id}`}>
+        <Link to={`/tour/${tour.id}`}>
           { imgUrl &&
           <CardMedia
             className={classes.media}
-            image={`${this.state.imgUrl}`}
+            image={imgUrl}
             title={tour.name}
           />
           }

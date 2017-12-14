@@ -19,7 +19,7 @@ class App extends Component {
     return (
       <div className={classes.test}>
         <Route exact path='/' render={(props)=><InitPage routing={props}/>}/>
-        <Route exact path='/tours/:tour_id' render={(props)=><TourPage routing={props}/>}/>
+        <Route exact path='/tour/:tour_id' render={(props)=><TourPage routing={props}/>}/>
       </div>
     )
   }

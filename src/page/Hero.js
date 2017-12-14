@@ -7,7 +7,6 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 
 // Image
-import getImage from '../utils/getImage';
 import heroImage from '../images/central_tour.jpg';
 
 // Component
@@ -16,23 +15,14 @@ import Search from '../search/Search';
 class Hero extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      imgUrl: ''
-    }
-  }
-  componentDidMount(){
-    getImage.url('appImg/favicon.png').then((url) => {
-      this.setState({
-        imgUrl: url
-      });
-    })
   }
   render() {
     const { classes } = this.props;
+    let logoImgUrl = `https://storage.googleapis.com/bloggy-170620.appspot.com/appImg/logo.png`
     return (
       <div>
         <div className={classes.heroWrapper}>
-            <div className={classes.logo} style={{backgroundImage: `url(${this.state.imgUrl})`}}></div>
+            <div className={classes.logo} style={{backgroundImage: `url(${logoImgUrl})`}}></div>
             <Typography type='headline' align='center' className={classes.heroText}>start your adventure today</Typography>
             <Search />
         </div>

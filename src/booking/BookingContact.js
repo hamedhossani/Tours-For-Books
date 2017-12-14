@@ -18,7 +18,6 @@ class BookingContact extends Component {
       name: '',
       email: ''
     }
-    this.componentClicked = this.componentClicked.bind(this)
     this.responseFacebook = this.responseFacebook.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleFbInfo = this.handleFbInfo.bind(this)
@@ -31,10 +30,6 @@ class BookingContact extends Component {
   
   handleFbInfo(name, email) {
     this.props.onChange({ name, email })
-  }
-  
-  componentClicked(){
-    console.log('clicked')
   }
   
   responseFacebook(res){
@@ -61,7 +56,6 @@ class BookingContact extends Component {
                 autoLoad={true}
                 fields="name,email,picture"
                 textButton='using facebook'
-                onClick={this.componentClicked}
                 callback={this.responseFacebook} 
                 size="small"/>
               {/**Google Login**/}

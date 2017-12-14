@@ -36,38 +36,30 @@ class TourImage extends Component {
     });
   };
   
-  componentDidMount(){
-    const { tourImgs } = this.props
-    const { imgUrls } = this.state
-    let newImgUrls = [];
-    tourImgs.map(img => (
-      getImage.url(`tourImg/${img}.jpg`).then((url) => {
-        newImgUrls = update(newImgUrls, {$push: [url]})
-        this.setState({
-          imgUrls: newImgUrls
-        });
-      })
-    ))
+  componentWillMount(){
     
   }
 
   render() {
-    const { classes, theme } = this.props
-    const { activeStep, imgUrls } = this.state
+    const { classes, theme, tourImgs } = this.props
+    const { activeStep } = this.state
     return (
       <div className={classes.root}>
-        { imgUrls.map((imgUrl,index) => (
-          activeStep === index &&
+        {tourImgs.map((img,index) => {
+          let imgUrl = `https://storage.googleapis.com/bloggy-170620.appspot.com/tourImg/${img}.jpg`
+          return (
+            activeStep === index &&
             <div key={index} style={{backgroundImage: `url(${imgUrl})`}} className={classes.tourImg}></div>
-        ))}
+          )
+        })}
         <MobileStepper
           type="dots"
-          steps={imgUrls.length}
+          steps={tourImgs.length}
           position="static"
           activeStep={this.state.activeStep}
           className={classes.stepper}
           nextButton={
-            <IconButton color='contrast' aria-label="Next" onClick={this.handleNext} disabled={this.state.activeStep === imgUrls.length-1}>
+            <IconButton color='contrast' aria-label="Next" onClick={this.handleNext} disabled={this.state.activeStep === tourImgs.length-1}>
               {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
             </IconButton>
           }

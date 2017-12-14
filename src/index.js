@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { Route, BrowserRouter } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './rootReducer';
-import * as firebase from "firebase";
 
 // Theme
 import mainTheme from './theme/mainTheme';
@@ -23,23 +22,12 @@ const store = createStore(
   	compose(middleware, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 );
 
-// Initialize Database
-var config = {
-    apiKey: "AIzaSyDX8HXto42pWC12zdcZwrt-RIPScFyJBik",
-    authDomain: "bloggy-170620.firebaseapp.com",
-    databaseURL: "https://bloggy-170620.firebaseio.com",
-    projectId: "bloggy-170620",
-    storageBucket: "bloggy-170620.appspot.com",
-    messagingSenderId: "634344137184"
-};
-firebase.initializeApp(config);
-
 // Render
 ReactDOM.render(
     <Provider store = {store}>
         <MuiThemeProvider theme={createMuiTheme(mainTheme)}>
           <BrowserRouter>
-            <Route component={App}/>
+            <Route path='/' render={(props) => (<App/>)}/>
           </BrowserRouter>
         </MuiThemeProvider>
     </Provider>
