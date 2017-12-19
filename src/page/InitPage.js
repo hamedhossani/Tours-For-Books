@@ -17,7 +17,7 @@ class App extends Component {
   render() {
     const { classes } = this.props
     return (
-      <div className={classes.test}>
+      <div>
         <Hero />
         <Tours />
       </div>
@@ -26,9 +26,6 @@ class App extends Component {
 }
 
 const styles = theme => ({
-    test: {
-        color: 'red'
-    }
 });
 
 const mapStateToProps = state => {

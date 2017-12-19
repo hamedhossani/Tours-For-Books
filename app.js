@@ -3,12 +3,17 @@ const port = process.env.PORT || 3000,
       express = require('express'),
       bodyParser = require('body-parser'),
       path = require('path')
-let request = require('request')
 
 // PRESET
 const app = express()
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // BASE SETUP
 app.use(express.static(path.resolve(__dirname, 'public')))
@@ -56,59 +61,52 @@ app.get('/api/images/:folder', (req, res) => {
   })
 })
 
-// Make Payment call: 
-// get token and send payment info to PayPal
-// return payment id
-// TO DO: fix this paypal server integration
-app.post('/api/make_payment', async function(req, res) {
-  try {
-    let oauth = await request.post({
-      uri:  'https://api.paypal.com/v1/oauth2/token',
-      body: 'grant_type=client_credentials',
-      auth: {
-        user: process.env.NODE_ENV='development'? process.env.PAYPAL_SANDBOX_CLIENT_ID : process.env.PAYPAL_PROD_CLIENT_ID,
-        pass: process.env.NODE_ENV='development'? process.env.PAYPAL_SANDBOX_SECRET : process.env.PAYPAL_PROD_CLIENT_ID_SECRET
-      }
-    })
-    
-    let payment = await request.post({
-      uri: 'https://api.paypal.com/v1/payments/payment',
-      auth: { bearer: oauth.access_token },
-      json: true,
-      body: req.body
-    })
-    
-    res.send({ id: payment.id })
-  }   catch(e) {
-    res.send(e)
+// Payment
+var braintree = require("braintree");
+var gateway = braintree.connect({
+  environment: braintree.Environment.Sandbox,
+  accessToken: process.env.BRAINTREE_SANDBOX_ACCESS_TOKEN
+});
+// Get client token 
+app.get('/api/client_token', function (req, res) {
+  gateway.clientToken.generate({}, function (err, response) {
+    res.send({'clientToken': response.clientToken});
+  });
+});
+
+// Make payment
+app.post('/api/checkout', (req, res) => {
+  var nonce = req.body.payload.nonce;
+  var transaction = req.body.transaction;
+  
+  var saleRequest = {
+    amount: 0.1,
+    merchantAccountId: "USD",
+    paymentMethodNonce: nonce,
+    orderId: 15, //"Mapped to PayPal Invoice Number",
+    options: {
+      paypal: {
+        customField: "Extra Info",
+        description: "Description for PayPal email receipt"
+      },
+      submitForSettlement: true
+    }
   }
   
+  gateway.transaction.sale(saleRequest, function (error, result) {
+  if (error) {
+    res.send({ "error": error });
+  } else if (result.success) {
+    res.send({"status": "success", "transactionID": result.transaction.id});
+  } else {
+    res.send({"status": "failed", "message": result.message});
+  }
+});
 })
 
-// Execute Payment call: 
-// get token and send payer info to PayPal
-// return execution result
+// Execute Payment call
 app.post('/api/execute_payment', async function(req, res) {
-  let paymentID = req.body.paymentID;
-  let payerID = req.body.payerID;
-  console.log(paymentID)
-  let oauth = await request.post({
-    uri:  'https://api.paypal.com/v1/oauth2/token',
-    body: 'grant_type=client_credentials',
-    auth: {
-      user: process.env.NODE_ENV='development'? process.env.PAYPAL_SANDBOX_CLIENT_ID : process.env.PAYPAL_PROD_CLIENT_ID,
-      pass: process.env.NODE_ENV='development'? process.env.PAYPAL_SANDBOX_SECRET : process.env.PAYPAL_PROD_CLIENT_ID_SECRET
-    }
-  });
-
-  let payment = await request.post({
-    uri:  `https://api.paypal.com/v1/payments/payment/${paymentID}/execute`,
-    auth: { bearer: oauth.access_token },
-    json: true,
-    body: { payer_id: payerID }
-  });
-
-  res.json({ status: 'success' });
+  
 })
 
 // RUN APP

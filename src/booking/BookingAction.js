@@ -15,7 +15,28 @@ class BookingAction extends Component {
   }
 
   render() {
-    const { classes, steps, activeStep, activeButton, onClickBack, onClickNext } = this.props
+    const { classes, steps, activeStep, activeButton, onClickBack, onClickNext, onClickBooking, isDisabled } = this.props
+    let button;
+    if (activeStep === steps.length - 1) {
+      button= ''
+    } else if (activeStep === 1) {
+      button= (
+        <ActionButton 
+          variant='primary' 
+          disabled={activeButton}
+          onClick={onClickBooking}>
+          Book Now
+        </ActionButton>
+      )
+    } else {
+      button= (<ActionButton 
+        variant='primary' 
+        disabled={activeButton}
+        onClick={onClickNext}>
+        Next
+      </ActionButton>
+      )
+    }
     return (
         <div className={classes.actionsContainer}>
           {activeStep === 0 || activeStep === steps.length - 1 ? '' :
@@ -27,14 +48,7 @@ class BookingAction extends Component {
                 Back
             </ActionButton>
           }
-          {activeStep === steps.length - 1 || activeStep === 2 ? '' :
-            <ActionButton 
-              variant='primary' 
-              disabled={activeButton}
-              onClick={onClickNext}>
-              Next
-            </ActionButton>
-          }
+          { button }
         </div>
       )
     }

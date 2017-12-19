@@ -17,29 +17,31 @@ import BookingContact from '../booking/BookingContact';
 import BookingPayment from '../booking/BookingPayment';
 
 function getSteps() {
-  return ['Pick your day', "Let's connect", 'Select payment method', 'All done!'];
+  return ['Pick your day', 'Select payment method', 'All done!'];
 }
 
 const BookingContent = (props) => {
   switch (props.activeStep) {
     case 0:
       return <BookingOption onChange={props.onChange}/>;
+    // case 1:
+    //   return <BookingContact onChange={props.onChange}/>;
     case 1:
-      return <BookingContact onChange={props.onChange}/>;
-    case 2:
       return !props.isError?
       <BookingPayment 
         tour={props.tour} 
         onSelectPayment={props.onSelectPayment} 
         onErrorPayment={props.onErrorPayment}
         submittedContent={props.submittedContent}
+        isBooked={props.isBooked}
+        buttonStatus={props.buttonStatus}
         />
       :
       <div>
         <Typography>Oh no! Something went wrong. Please contact us at: </Typography>
         <Typography color='primary'>inquiry@vietnamtoursforbooks.com</Typography>
       </div>
-    case 3:
+    case 2:
       return <div>
         <Typography>Hooray! Thank you for booking a tour with us. We are so excited to show you around.</Typography>
         <Typography>Please check your email for confirmation.</Typography>
@@ -56,14 +58,18 @@ class TourBook extends Component {
     this.state = {
       activeStep: 0,
       isError: false,
+      isBooked: false,
+      buttonStatus: true,
       activeButton: false,
       submittedContent: {}
     };
     this.handleNext = this.handleNext.bind(this)
     this.handleBack = this.handleBack.bind(this)
+    this.handleBooking = this.handleBooking.bind(this)
     this.handleSelectPayment = this.handleSelectPayment.bind(this)
     this.handleErrorPayment = this.handleErrorPayment.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleButtonStatus = this.handleButtonStatus.bind(this)
   }
   handleNext(){
     this.setState({
@@ -81,6 +87,14 @@ class TourBook extends Component {
   handleChange(input) {
     const newInput = update(this.state.submittedContent, {$merge: input})
     this.setState({submittedContent: newInput})
+  }
+  
+  handleBooking(){
+    this.setState({isBooked: true})
+  }
+  
+  handleButtonStatus(isDisabled){
+    this.setState({isDisabled})  
   }
   
   handleSelectPayment(payment){
@@ -117,7 +131,7 @@ class TourBook extends Component {
   render() {
     const { classes, tour } = this.props
     const steps = getSteps();
-    const { activeStep, isError, activeButton, submittedContent } = this.state;
+    const { activeStep, isError, isBooked, activeButton, submittedContent } = this.state;
     return (
       <Paper elevation={2} className={classes.root}>
         <Stepper activeStep={activeStep} orientation="vertical">
@@ -134,8 +148,10 @@ class TourBook extends Component {
                     tour={tour}
                     isError={isError}
                     submittedContent={submittedContent}
+                    isBooked={isBooked}
+                    buttonStatus={this.handleButtonStatus}
                     />
-                  <BookingAction activateButton={activeButton} steps={steps} activeStep={activeStep} onClickNext={this.handleNext} onClickBack={this.handleBack} />
+                  <BookingAction activateButton={activeButton} steps={steps} activeStep={activeStep} onClickNext={this.handleNext} onClickBack={this.handleBack} onClickBooking={this.handleBooking} isDisabled={this.state.buttonStatus} />
                 </StepContent>
               </Step>
             );

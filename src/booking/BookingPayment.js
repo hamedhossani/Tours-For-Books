@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 
@@ -7,89 +8,112 @@ import { Route, Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 
-const PayPalButton = paypal.Button.driver('react', { React, ReactDOM })
+// Braintree
+import BraintreeDropIn from 'braintree-dropin-react';
+var braintree = require('braintree-web-drop-in');
 
-class BookingPayment extends Component {
-  constructor(props) {
-    super(props);
-    this.state={
-      paymentId: ''
-    }
-    this.payment = this.payment.bind(this)
-    this.onAuthorize = this.onAuthorize.bind(this)
-  }
-  
-  payment() {
-    const { tour, submittedContent } = this.props
-    const body = {
-      intent: 'sale',
-      payer: {
-        payment_method: 'paypal'
-      },
-      transactions: [{
-        amount: { total: '0.01', currency: 'USD' }
-      }],
-      redirect_urls: {
-        return_url: 'http://www.vietnamtoursforbooks.com',
-        cancel_url: 'http://www.vietnamtoursforbooks.com'
+class BookingPayment extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      clientToken: '',
+      paypal: {
+        flow: 'checkout',
+        amount: '10.00',
+        currency: 'USD',
+        buttonStyle: {
+          shape: 'rect',
+          size: 'responsive',
+          label: 'paypal',
+          tagline: false
+        }
       }
     }
-    fetch('/api/make_payment', 
-    { 
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "cache-control": "no-cache",
-      },
-      body: JSON.stringify(body)
-    })
-    .then(res => res.json().then(paymentID => {
-      console.log(paymentID.id)
-      this.setState({ paymentID : paymentID.id })
-      // this.onAuthorize(0, paymentID.id)
-    }).catch(error => {
-      console.log(error)
-    })
-    )
+    this.handlePaymentMethod = this.handlePaymentMethod.bind(this)
+    this.onCreate = this.onCreate.bind(this)
+    this.onDestroyStart = this.onDestroyStart.bind(this)
+    this.onDestroyEnd = this.onDestroyEnd.bind(this)
+    this.onError = this.onError.bind(this)
   }
   
-  onAuthorize(payerID, paymentID) {
-    const body = {
-      payerID,
-      paymentID
-    }
-    fetch('/api/execute_payment', 
-    { 
+  componentWillMount() {
+    fetch('/api/client_token', {
+      method: 'GET',
+      headers: {
+        "cache-control": "no-cache",
+        'Accept': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.setState({clientToken:data.clientToken})
+    })
+  }
+  
+  handlePaymentMethod(payload){
+    console.log('payload ', payload)
+    
+    fetch('/api/checkout', {
       method: 'POST',
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "cache-control": "no-cache",
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify({ payload: { nonce: payload.nonce },
+     transaction: { paypal: { amount: '10.00' } } })
     })
-    .then(res => res.json().then(result => {
-      console.log(result.status)
-    }))
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+    })
+  }
+
+  onCreate(instance){
+    console.log('onCreate')
+  }
+
+  onDestroyStart(){
+    console.log('onDestroyStart')
+  }
+
+  onDestroyEnd(){
+    console.log('onDestroyEnd')
+  }
+
+  onError(error){
+    console.log('onError', error)
   }
   
   render() {
-    let style = {
-        size: 'responsive',
-        color: 'gold',
-        shape: 'rect',
-        label: 'paypal'
-    }
+    const { classes, isBooked, buttonStatus } = this.props
     return (
       <div>
-        <PayPalButton
-          env={process.env.NODE_ENV==='development'? 'sandbox' : 'production'}
-          style={style}
-          payment={this.payment}
-          commit={true}
-          onAuthorize={this.onAuthorize} />
+        {this.state.clientToken &&
+        <BraintreeDropIn
+          className={classes.root}
+          braintree={braintree}
+          authorizationToken={this.state.clientToken}
+          handlePaymentMethod={this.handlePaymentMethod}
+          paypal={this.state.paypal}
+          paypalCredit={this.state.paypal}
+          onCreate={this.onCreate}
+          onDestroyStart={this.onDestroyStart}
+          onDestroyEnd={this.onDestroyEnd}
+          onError={this.onError}
+          renderSubmitButton={(ref) => {isBooked? ref.onClick() : ''}}
+        />
+        }
       </div>
     )
   }
 }
 
-export default BookingPayment;
+const styles = theme => ({
+  // padding: 20,
+  // '&.braintree-dropin-react-submit-btn-wrapper': {
+  //   padding: 10,
+  //   backgroundColor: '#eee',
+  // }
+})
+
+export default withStyles(styles)(BookingPayment);
