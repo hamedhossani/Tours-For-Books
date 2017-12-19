@@ -21,6 +21,7 @@ class BookingContact extends Component {
     this.responseFacebook = this.responseFacebook.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleFbInfo = this.handleFbInfo.bind(this)
+    this.onError = this.onError.bind(this)
   }
   
   handleChange(e) {
@@ -29,18 +30,19 @@ class BookingContact extends Component {
   }
   
   handleFbInfo(name, email) {
-    this.props.onChange({ name, email })
+    this.props.onChange({ type:'contact', fields: {name, email }})
   }
   
   responseFacebook(res){
     const { name, email } = res
-    if (name && email) {
-      this.setState({ authorized: true, name, email})
-      this.handleFbInfo( name, email)
-    } else {
-      console.log("Login not successful")
-    }
+    this.setState({ authorized: true, name, email})
+    this.handleFbInfo( name, email)
   }
+  
+  onError(res){
+    console.log('Error login')
+  }
+  
   render() {
     const { classes } = this.props
     const { authorized, name, email } = this.state
@@ -56,8 +58,9 @@ class BookingContact extends Component {
                 autoLoad={true}
                 fields="name,email,picture"
                 textButton='using facebook'
-                callback={this.responseFacebook} 
-                size="small"/>
+                callback={this.responseFacebook}
+                onFailure={this.onError}
+                size="metro"/>
               {/**Google Login**/}
             </div>
             <div></div>

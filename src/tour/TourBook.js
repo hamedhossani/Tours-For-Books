@@ -17,31 +17,30 @@ import BookingContact from '../booking/BookingContact';
 import BookingPayment from '../booking/BookingPayment';
 
 function getSteps() {
-  return ['Pick your day', 'Select payment method', 'All done!'];
+  return ['Pick your day', "Let's connect", 'Make a payment', 'All done!'];
 }
 
 const BookingContent = (props) => {
   switch (props.activeStep) {
     case 0:
       return <BookingOption onChange={props.onChange}/>;
-    // case 1:
-    //   return <BookingContact onChange={props.onChange}/>;
     case 1:
+      return <BookingContact onChange={props.onChange}/>;
+    case 2:
       return !props.isError?
       <BookingPayment 
         tour={props.tour} 
-        onSelectPayment={props.onSelectPayment} 
+        onSuccessPayment={props.onSuccessPayment} 
         onErrorPayment={props.onErrorPayment}
         submittedContent={props.submittedContent}
         isBooked={props.isBooked}
-        buttonStatus={props.buttonStatus}
         />
       :
       <div>
         <Typography>Oh no! Something went wrong. Please contact us at: </Typography>
         <Typography color='primary'>inquiry@vietnamtoursforbooks.com</Typography>
       </div>
-    case 2:
+    case 3:
       return <div>
         <Typography>Hooray! Thank you for booking a tour with us. We are so excited to show you around.</Typography>
         <Typography>Please check your email for confirmation.</Typography>
@@ -59,17 +58,20 @@ class TourBook extends Component {
       activeStep: 0,
       isError: false,
       isBooked: false,
-      buttonStatus: true,
       activeButton: false,
-      submittedContent: {}
+      submittedContent: {
+        date: '',
+        numberOfPax: 0,
+        name: '',
+        email: '',
+      }
     };
     this.handleNext = this.handleNext.bind(this)
     this.handleBack = this.handleBack.bind(this)
     this.handleBooking = this.handleBooking.bind(this)
-    this.handleSelectPayment = this.handleSelectPayment.bind(this)
+    this.handleSuccessPayment = this.handleSuccessPayment.bind(this)
     this.handleErrorPayment = this.handleErrorPayment.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.handleButtonStatus = this.handleButtonStatus.bind(this)
   }
   handleNext(){
     this.setState({
@@ -85,29 +87,31 @@ class TourBook extends Component {
   };
   
   handleChange(input) {
-    const newInput = update(this.state.submittedContent, {$merge: input})
-    this.setState({submittedContent: newInput})
+    const { submittedContent } = this.state
+    if (input.type === 'option' || input.type === 'contact'){
+      const newInput = update(submittedContent, {$merge: input.fields})
+      console.log(newInput)
+      this.setState({submittedContent: newInput})
+    }
+    
+    if (submittedContent.date.length>0 && submittedContent.numberOfPax.length>0 
+    || submittedContent.name.length>0 && submittedContent.email.length>0) {
+      this.setState({activeButton: true})
+    } else {
+      this.setState({activateButton: false})
+    }
   }
   
   handleBooking(){
     this.setState({isBooked: true})
   }
   
-  handleButtonStatus(isDisabled){
-    this.setState({isDisabled})  
-  }
-  
-  handleSelectPayment(payment){
-    if (payment.state === 'approved') {
-      this.setState({ activeStep: 3 })
-      this.handleNext
-    }
+  handleSuccessPayment(response){
     // Trigger webhook to send email
     const { tour } = this.props
     const { submittedContent } = this.state
     const url = 'https://hooks.zapier.com/hooks/catch/2690251/s7buaa/'
     let payload = { tour, submittedContent }
-    console.log(payload)
     fetch(url, {
       method: 'POST',
       headers: {
@@ -117,8 +121,12 @@ class TourBook extends Component {
     })
     .then(response => {
       if (response.status === 200) {
-        console.log('Good to go');
+        if (response.status === 'success') {
+          this.setState({ activeButton: false, activeStep: 3 })
+          this.handleNext()
+        }
       } else {
+        this.setState({ activeButton: false })
         console.log('Oops! Something went wrong.');
       }
     })
@@ -138,20 +146,21 @@ class TourBook extends Component {
           {steps.map((label, index) => {
             return (
               <Step key={label}>
-                <StepLabel><Typography type='display4'>{label}</Typography></StepLabel>
-                <StepContent className={classes.stepContent}>
+                <StepLabel><Typography type='display4' component='span'>{label}</Typography></StepLabel>
+                <StepContent>
+                  <div>
                   <BookingContent 
                     activeStep={activeStep} 
-                    onSelectPayment={this.handleSelectPayment}
+                    onSuccessPayment={this.handleSuccessPayment}
                     onErrorPayment={this.handleErrorPayment}
                     onChange={this.handleChange}
                     tour={tour}
                     isError={isError}
                     submittedContent={submittedContent}
                     isBooked={isBooked}
-                    buttonStatus={this.handleButtonStatus}
                     />
-                  <BookingAction activateButton={activeButton} steps={steps} activeStep={activeStep} onClickNext={this.handleNext} onClickBack={this.handleBack} onClickBooking={this.handleBooking} isDisabled={this.state.buttonStatus} />
+                  <BookingAction activeButton={activeButton} steps={steps} activeStep={activeStep} onClickNext={this.handleNext} onClickBack={this.handleBack} onClickBooking={this.handleBooking} />
+                  </div>
                 </StepContent>
               </Step>
             );

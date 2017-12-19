@@ -11,6 +11,7 @@ import Button from 'material-ui/Button';
 // Braintree
 import BraintreeDropIn from 'braintree-dropin-react';
 var braintree = require('braintree-web-drop-in');
+var shortid = require('shortid');
 
 class BookingPayment extends React.Component {
   constructor(props, context) {
@@ -19,7 +20,7 @@ class BookingPayment extends React.Component {
       clientToken: '',
       paypal: {
         flow: 'checkout',
-        amount: '10.00',
+        amount: '',
         currency: 'USD',
         buttonStyle: {
           shape: 'rect',
@@ -37,6 +38,10 @@ class BookingPayment extends React.Component {
   }
   
   componentWillMount() {
+    const {tour} = this.props
+    let newPaypal = this.state.paypal
+    newPaypal.amount = tour.price.discountAmount
+    this.setState({ paypal: newPaypal })
     fetch('/api/client_token', {
       method: 'GET',
       headers: {
@@ -51,7 +56,8 @@ class BookingPayment extends React.Component {
   }
   
   handlePaymentMethod(payload){
-    console.log('payload ', payload)
+    const { paypal } = this.state
+    const { tour } = this.props
     
     fetch('/api/checkout', {
       method: 'POST',
@@ -59,12 +65,20 @@ class BookingPayment extends React.Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ payload: { nonce: payload.nonce },
-     transaction: { paypal: { amount: '10.00' } } })
+      body: JSON.stringify({ 
+        payload: { nonce: payload.nonce },
+        transaction: { 
+          paypal: { 
+            orderId: shortid.generate(),
+            tourId: tour.id,
+            amount: tour.price.discountAmount
+          } 
+        } 
+      })
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
+      this.props.onSuccessPayment(data)
     })
   }
 

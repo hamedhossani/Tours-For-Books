@@ -14,7 +14,7 @@ class BookingOption extends Component {
   }
   handleChange(e) {
     e.preventDefault()
-    this.props.onChange({ [e.target.name]: e.target.value })
+    this.props.onChange({ type: 'option', fields: {[e.target.name]: e.target.value }})
   }
   render() {
     const { classes } = this.props
@@ -22,7 +22,7 @@ class BookingOption extends Component {
       <FormGroup className={classes.root}>
         <TextField
           type='date'
-          name='startDate'
+          name='date'
           helperText='departure date'
           className={classes.textField}
           onChange={this.handleChange}

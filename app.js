@@ -80,14 +80,14 @@ app.post('/api/checkout', (req, res) => {
   var transaction = req.body.transaction;
   
   var saleRequest = {
-    amount: 0.1,
+    amount: transaction.paypal.amount,
     merchantAccountId: "USD",
     paymentMethodNonce: nonce,
-    orderId: 15, //"Mapped to PayPal Invoice Number",
+    orderId: transaction.paypal.orderId,
     options: {
       paypal: {
-        customField: "Extra Info",
-        description: "Description for PayPal email receipt"
+        customField: "TourID",
+        description: transaction.paypal.tourId
       },
       submitForSettlement: true
     }
@@ -97,7 +97,7 @@ app.post('/api/checkout', (req, res) => {
   if (error) {
     res.send({ "error": error });
   } else if (result.success) {
-    res.send({"status": "success", "transactionID": result.transaction.id});
+    res.send({"status": "success", "transactionID": result.transaction.id, "payerEmail": result.transaction.paypal.payerEmail  });
   } else {
     res.send({"status": "failed", "message": result.message});
   }

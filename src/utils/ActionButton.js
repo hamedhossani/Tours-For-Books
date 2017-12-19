@@ -24,11 +24,15 @@ const styles = theme => ({
     color: theme.palette.common.dardGrey,
     padding: `0px ${theme.spacing.unit}px`,
   },
+  disabled: {
+    opacity: 0.5
+  }
 });
 
 // Custom Button component with variant property
 function ActionButton(props) {
   const { children, classes, className, variant, onClick, disabled } = props;
+  console.log(disabled)
   return (
     <Button disabled={disabled} className={classNames(
         classes.button,

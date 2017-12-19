@@ -15,15 +15,16 @@ class BookingAction extends Component {
   }
 
   render() {
-    const { classes, steps, activeStep, activeButton, onClickBack, onClickNext, onClickBooking, isDisabled } = this.props
+    const { classes, steps, activeStep, activeButton, onClickBack, onClickNext, onClickBooking } = this.props
+    console.log(activeButton)
     let button;
     if (activeStep === steps.length - 1) {
       button= ''
-    } else if (activeStep === 1) {
+    } else if (activeStep === 2) {
       button= (
         <ActionButton 
           variant='primary' 
-          disabled={activeButton}
+          disabled={!activeButton}
           onClick={onClickBooking}>
           Book Now
         </ActionButton>
@@ -31,7 +32,7 @@ class BookingAction extends Component {
     } else {
       button= (<ActionButton 
         variant='primary' 
-        disabled={activeButton}
+        disabled={!activeButton}
         onClick={onClickNext}>
         Next
       </ActionButton>
