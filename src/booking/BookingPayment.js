@@ -99,7 +99,7 @@ class BookingPayment extends React.Component {
   }
   
   render() {
-    const { classes, isBooked, buttonStatus } = this.props
+    const { classes, allowBookNow, submitBookNow, activateBookNow } = this.props
     return (
       <div>
         {this.state.clientToken &&
@@ -114,7 +114,7 @@ class BookingPayment extends React.Component {
           onDestroyStart={this.onDestroyStart}
           onDestroyEnd={this.onDestroyEnd}
           onError={this.onError}
-          renderSubmitButton={(ref) => {isBooked? ref.onClick() : ''}}
+          renderSubmitButton={(ref) => {submitBookNow? ref.onClick() : ''; console.log(ref.isDisabled); allowBookNow && !ref.isDisabled ?  activateBookNow() : ''}}
         />
         }
       </div>

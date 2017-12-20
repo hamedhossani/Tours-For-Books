@@ -17,13 +17,14 @@ class BookingOption extends Component {
     this.props.onChange({ type: 'option', fields: {[e.target.name]: e.target.value }})
   }
   render() {
-    const { classes } = this.props
+    const { classes, date, numberOfPax, note } = this.props
     return (
       <FormGroup className={classes.root}>
         <TextField
           type='date'
           name='date'
           helperText='departure date'
+          value={date}
           className={classes.textField}
           onChange={this.handleChange}
           required
@@ -31,6 +32,7 @@ class BookingOption extends Component {
         <TextField
           name='numberOfPax'
           type='number'
+          value={numberOfPax}
           placeholder='Number of travellers'
           label='Number of travellers'
           helperText='include adults and children'
@@ -41,6 +43,7 @@ class BookingOption extends Component {
         <TextField
           name='note'
           type='textarea'
+          value={note}
           placeholder='Other requests'
           label='Other requests'
           helperText='hotel standard, special interest, etc.'

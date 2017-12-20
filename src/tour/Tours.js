@@ -11,7 +11,6 @@ import Paper from 'material-ui/Paper';
 
 // Component
 import TourCard from './TourCard';
-import Filter from '../filter/Filter';
 
 // Store
 import { fetchInitialTours } from './action';
@@ -31,18 +30,11 @@ class Body extends Component {
       <div className={classes.bodyWrapper}>
         <Grid container spacing={16} className={classes.tourWrapper}>
           { tours && tours.map(tour => (
-            <Grid item xs={12} sm={6} key={tour.id}>
+            <Grid item xs={12} sm={4} key={tour.id}>
               <TourCard tour={tour} />
             </Grid>
           ))}
         </Grid>
-        { !isMobile ? 
-        <div className={classes.filterWrapper}>
-          <Filter />
-        </div>
-        :
-        null
-        }
       </div>
     )
   }
@@ -62,7 +54,7 @@ const styles = theme => ({
       flexDirection: 'row',
     },
     tourWrapper: {
-      width: '75%',
+      // width: '75%',
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'stretch',

@@ -11,7 +11,6 @@ import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
 // Components
-import Search from '../search/Search';
 import TourImage from './TourImage';
 import TourDetail from './TourDetail';
 import TourPrice from './TourPrice';
@@ -34,7 +33,6 @@ class TourPage extends Component {
     const { tour, isFetching } = this.props
     return (
       <div >
-        <Search />
         {!isFetching? 
         <div className={classes.root}>
           <Typography type='display3'>{tour.name}</Typography>

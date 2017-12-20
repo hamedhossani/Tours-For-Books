@@ -5,71 +5,35 @@ import { Route, Link } from 'react-router-dom';
 // Style
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
-import FacebookLogin from 'react-facebook-login';
+import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import { FormGroup } from 'material-ui/Form';
 
+// Component
+import FacebookLogin from 'react-facebook-login';
+
 class BookingContact extends Component {
   constructor(props) {
     super(props);
-    this.state={
-      authorized: false,
-      name: '',
-      email: ''
-    }
-    this.responseFacebook = this.responseFacebook.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.handleFbInfo = this.handleFbInfo.bind(this)
-    this.onError = this.onError.bind(this)
   }
   
   handleChange(e) {
     e.preventDefault()
-    this.props.onChange({ [e.target.name]: e.target.value })
-  }
-  
-  handleFbInfo(name, email) {
-    this.props.onChange({ type:'contact', fields: {name, email }})
-  }
-  
-  responseFacebook(res){
-    const { name, email } = res
-    this.setState({ authorized: true, name, email})
-    this.handleFbInfo( name, email)
-  }
-  
-  onError(res){
-    console.log('Error login')
+    this.props.onChange({ type: 'contact', fields: {[e.target.name]: e.target.value }})
   }
   
   render() {
-    const { classes } = this.props
-    const { authorized, name, email } = this.state
+    const { classes, name, email, phone } = this.props
     return (
       <div>
-        { authorized? 
-          <Typography type='body1'>You are logged in as {name}. We will send the tour confirmation to {email}. </Typography>
-          :
-          <div>
-            <div className={classes.container}>
-              <FacebookLogin
-                appId="133018877378513"
-                autoLoad={true}
-                fields="name,email,picture"
-                textButton='using facebook'
-                callback={this.responseFacebook}
-                onFailure={this.onError}
-                size="metro"/>
-              {/**Google Login**/}
-            </div>
-            <div></div>
-            <Divider light />
             <FormGroup className={classes.container} noValidate>
               <TextField
                 type='text'
                 label='Full Name'
                 name='name'
+                value={name}
                 className={classes.textField}
                 onChange={this.handleChange}
                 required
@@ -78,6 +42,7 @@ class BookingContact extends Component {
                 type='tel'
                 label='Phone Number'
                 name='phone'
+                value={phone}
                 onChange={this.handleChange}
                 className={classes.textField}
                 required
@@ -86,13 +51,12 @@ class BookingContact extends Component {
                 type='email'
                 label='Email'
                 name='email'
+                value={email}
                 onChange={this.handleChange}
                 className={classes.textField}
                 required
               />
             </FormGroup>
-          </div>
-        }
       </div>
     )
   }
@@ -102,6 +66,7 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+    flexDirection: 'column',
     justifyContent: 'center',
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3

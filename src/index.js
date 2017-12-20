@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { Route, BrowserRouter } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './rootReducer';
+import { CookiesProvider } from 'react-cookie';
 
 // Theme
 import mainTheme from './theme/mainTheme';
@@ -24,6 +25,7 @@ const store = createStore(
 
 // Render
 ReactDOM.render(
+  <CookiesProvider>
     <Provider store = {store}>
         <MuiThemeProvider theme={createMuiTheme(mainTheme)}>
           <BrowserRouter>
@@ -31,6 +33,7 @@ ReactDOM.render(
           </BrowserRouter>
         </MuiThemeProvider>
     </Provider>
+  </CookiesProvider>
     , document.getElementById('main')
 );          
 registerServiceWorker();

@@ -23,9 +23,9 @@ function getSteps() {
 const BookingContent = (props) => {
   switch (props.activeStep) {
     case 0:
-      return <BookingOption onChange={props.onChange}/>;
+      return <BookingOption onChange={props.onChange} date={props.date} numberOfPax={props.numberOfPax} note={props.note}/>;
     case 1:
-      return <BookingContact onChange={props.onChange}/>;
+      return <BookingContact onChange={props.onChange} name={props.name} email={props.email} phone={props.phone}/>;
     case 2:
       return !props.isError?
       <BookingPayment 
@@ -33,7 +33,9 @@ const BookingContent = (props) => {
         onSuccessPayment={props.onSuccessPayment} 
         onErrorPayment={props.onErrorPayment}
         submittedContent={props.submittedContent}
-        isBooked={props.isBooked}
+        allowBookNow={props.allowBookNow}
+        activateBookNow={props.activateBookNow}
+        submitBookNow={props.submitBookNow}
         />
       :
       <div>
@@ -57,18 +59,21 @@ class TourBook extends Component {
     this.state = {
       activeStep: 0,
       isError: false,
-      isBooked: false,
+      allowBookNow: true,
+      submitBookNow: false,
       activeButton: false,
       submittedContent: {
         date: '',
-        numberOfPax: 0,
+        numberOfPax: '',
         name: '',
         email: '',
+        phone: ''
       }
     };
     this.handleNext = this.handleNext.bind(this)
     this.handleBack = this.handleBack.bind(this)
     this.handleBooking = this.handleBooking.bind(this)
+    this.handleActivateBookNow = this.handleActivateBookNow.bind(this)
     this.handleSuccessPayment = this.handleSuccessPayment.bind(this)
     this.handleErrorPayment = this.handleErrorPayment.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -95,18 +100,21 @@ class TourBook extends Component {
     }
     
     if (submittedContent.date.length>0 && submittedContent.numberOfPax.length>0 
-    || submittedContent.name.length>0 && submittedContent.email.length>0) {
+    || submittedContent.name.length>0 && submittedContent.email.length>0 && submittedContent.phone.length>0) {
       this.setState({activeButton: true})
     } else {
       this.setState({activateButton: false})
     }
   }
-  
+  handleActivateBookNow() {
+    this.setState({allowBookNow: false, activeButton: true})
+  }
   handleBooking(){
-    this.setState({isBooked: true})
+    this.setState({submitBookNow: true})
   }
   
-  handleSuccessPayment(response){
+  handleSuccessPayment(result){
+    console.log(result)
     // Trigger webhook to send email
     const { tour } = this.props
     const { submittedContent } = this.state
@@ -121,13 +129,11 @@ class TourBook extends Component {
     })
     .then(response => {
       if (response.status === 200) {
-        if (response.status === 'success') {
-          this.setState({ activeButton: false, activeStep: 3 })
+        if (result.status === 'success') {
           this.handleNext()
         }
       } else {
-        this.setState({ activeButton: false })
-        console.log('Oops! Something went wrong.');
+        this.setState({ activeButton: false, activeStep: 2, isError: true })
       }
     })
   }
@@ -139,7 +145,8 @@ class TourBook extends Component {
   render() {
     const { classes, tour } = this.props
     const steps = getSteps();
-    const { activeStep, isError, isBooked, activeButton, submittedContent } = this.state;
+    const { activeStep, isError, allowBookNow, submitBookNow, activeButton, submittedContent } = this.state;
+    console.log(activeStep)
     return (
       <Paper elevation={2} className={classes.root}>
         <Stepper activeStep={activeStep} orientation="vertical">
@@ -157,7 +164,15 @@ class TourBook extends Component {
                     tour={tour}
                     isError={isError}
                     submittedContent={submittedContent}
-                    isBooked={isBooked}
+                    allowBookNow={allowBookNow}
+                    activateBookNow={this.handleActivateBookNow}
+                    submitBookNow={submitBookNow}
+                    date={submittedContent.date}
+                    numberOfPax={submittedContent.numberOfPax}
+                    note={submittedContent.note}
+                    email={submittedContent.email}
+                    name={submittedContent.name}
+                    phone={submittedContent.phone}
                     />
                   <BookingAction activeButton={activeButton} steps={steps} activeStep={activeStep} onClickNext={this.handleNext} onClickBack={this.handleBack} onClickBooking={this.handleBooking} />
                   </div>

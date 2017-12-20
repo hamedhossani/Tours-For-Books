@@ -9,9 +9,6 @@ import Typography from 'material-ui/Typography';
 // Image
 import heroImage from '../images/central_tour.jpg';
 
-// Component
-import Search from '../search/Search';
-
 class Hero extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +21,6 @@ class Hero extends Component {
         <div className={classes.heroWrapper}>
             <div className={classes.logo} style={{backgroundImage: `url(${logoImgUrl})`}}></div>
             <Typography type='headline' align='center' className={classes.heroText}>start your adventure today</Typography>
-            <Search />
         </div>
       </div>
     )

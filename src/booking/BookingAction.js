@@ -16,7 +16,6 @@ class BookingAction extends Component {
 
   render() {
     const { classes, steps, activeStep, activeButton, onClickBack, onClickNext, onClickBooking } = this.props
-    console.log(activeButton)
     let button;
     if (activeStep === steps.length - 1) {
       button= ''

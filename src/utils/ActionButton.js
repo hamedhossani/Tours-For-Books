@@ -32,7 +32,6 @@ const styles = theme => ({
 // Custom Button component with variant property
 function ActionButton(props) {
   const { children, classes, className, variant, onClick, disabled } = props;
-  console.log(disabled)
   return (
     <Button disabled={disabled} className={classNames(
         classes.button,

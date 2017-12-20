@@ -140,7 +140,11 @@ class TourCard extends Component {
         <IconButton className={classes.shareButton} aria-label="Share">
           <ShareIcon />
         </IconButton>
-        <div className={classes.tag}><Typography type='body2'>{tour.boughts}+ bought</Typography></div>
+        { tour.boughts > 0 ?
+          <div className={classes.tag}><Typography type='body2'>{tour.boughts}+ bought</Typography></div>  
+          :
+          ''
+        }
       </Card>
     )
   }
