@@ -4,7 +4,8 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "concurrently \"webpack\" \"node app.js\""
+    "start": "concurrently \"webpack\" \"node app.js\"",
+    "prod": "node_modules/webpack/bin/webpack.js --progress --hide-modules --config=webpack.config.js"
   },
   "dependencies": {
     "@google-cloud/storage": "^1.5.1",

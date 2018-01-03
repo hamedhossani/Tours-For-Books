@@ -104,11 +104,6 @@ app.post('/api/checkout', (req, res) => {
 });
 })
 
-// Execute Payment call
-app.post('/api/execute_payment', async function(req, res) {
-  
-})
-
 // RUN APP
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public/index.html'))
