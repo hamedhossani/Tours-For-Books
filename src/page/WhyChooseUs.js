@@ -15,7 +15,7 @@ class WhyChooseUs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    expanded: null,
+    expanded: 'panel1',
   };
   }
   handleClick(panel){

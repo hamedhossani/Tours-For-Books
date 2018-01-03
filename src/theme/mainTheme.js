@@ -112,6 +112,8 @@ export default createMuiTheme({
       "fontWeight": 800,
       "fontFamily": "\"Open Sans\", sans-serif",
       "textTransform": "uppercase",
+      "marginBottom": "30px",
+      "lineHeight": 1
     },
     "title": {
       "fontSize": "1.3rem",
@@ -258,7 +260,8 @@ export default createMuiTheme({
     },
     MuiIconButton: {
       root: {
-        height: 36
+        height: 36,
+        width: 36
       },
       disabled: {
         color: "rgba(250,250,250,0.56)"

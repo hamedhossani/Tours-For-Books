@@ -5,8 +5,6 @@ import { Route, Link } from 'react-router-dom';
 // Style
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import { FormGroup } from 'material-ui/Form';
 

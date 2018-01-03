@@ -25,15 +25,15 @@ class AboutUs extends Component {
         <Grid container spacing={24}>
           <Grid item xs={12} sm={4} className={classes.alignCenter}>
             <img className={classes.logo} src={TFBImage} />
-            <Typography type='body1' className={classes.alignCenter}>Tours For Books is a social enterprise which offer a wide range of package tours, travel services and other travel solutions to individuals, families, large groups and travel agencies.</Typography>
+            <Typography type='body1' className={classes.alignCenter}><span className={classes.strongText}>Tours For Books</span> is a social enterprise which offer a wide range of package tours, travel services and other travel solutions to individuals, families, large groups and travel agencies.</Typography>
           </Grid>
           <Grid item xs={12} sm={4} className={classes.alignCenter}>
             <div className={classes.alignMiddle}><img className={classes.logo} src={VDGImage} /></div>
-            <Typography type='body1'>VietDan Travel is a fully licensed international inbound tour operator recognized by Vietnam National Administration of Tourism.</Typography>
+            <Typography type='body1'><span className={classes.strongText}>VietDan Travel</span> is a fully licensed international inbound tour operator recognized by Vietnam National Administration of Tourism.</Typography>
           </Grid>
           <Grid item xs={12} sm={4} className={classes.alignCenter}>
             <img className={classes.logo} src={BLVImage} />
-            <Typography type='body1'>Better Life Vietnam, a non-profit organization that works to improve education conditions for underprivileged children and youth in Vietnam.</Typography>
+            <Typography type='body1'><span className={classes.strongText}>Better Life Vietnam</span>, a non-profit organization that works to improve education conditions for underprivileged children and youth in Vietnam.</Typography>
           </Grid>
         </Grid>
       </div>
@@ -62,6 +62,9 @@ const styles = theme => ({
     flexDirection:'column',
     justifyContent:'center',
     alignItems:'center'
+  },
+  strongText: {
+    fontWeight: 'bold'
   }
 });
 

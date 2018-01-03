@@ -5,9 +5,13 @@ import { Route, Link } from 'react-router-dom';
 // Components
 import Hero from './Hero';
 import Tours from '../tour/Tours';
+import WhyChooseUs from './WhyChooseUs';
+import AboutUs  from './AboutUs';
+import ContactUs from './ContactUs';
 
 // Style
 import { withStyles } from 'material-ui/styles';
+import Divider from 'material-ui/Divider';
 
 class App extends Component {
   constructor(props) {
@@ -20,6 +24,12 @@ class App extends Component {
       <div>
         <Hero />
         <Tours />
+        <Divider />
+        <WhyChooseUs />
+        <Divider />
+        <AboutUs />
+        <Divider />
+        <ContactUs />
       </div>
     )
   }

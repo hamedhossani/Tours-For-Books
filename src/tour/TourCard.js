@@ -137,9 +137,10 @@ class TourCard extends Component {
             </List>
           </CardContent>
         </Collapse>
-        <IconButton className={classes.shareButton} aria-label="Share">
+        {/**<IconButton className={classes.shareButton} aria-label="Share">
           <ShareIcon />
         </IconButton>
+        **/}
         { tour.boughts > 0 ?
           <div className={classes.tag}><Typography type='body2'>{tour.boughts}+ bought</Typography></div>  
           :
