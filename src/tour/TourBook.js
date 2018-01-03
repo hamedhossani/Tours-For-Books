@@ -153,7 +153,7 @@ class TourBook extends Component {
           {steps.map((label, index) => {
             return (
               <Step key={label}>
-                <StepLabel><Typography type='display4' component='span'>{label}</Typography></StepLabel>
+                <StepLabel><Typography type='subheading' component='span'>{label}</Typography></StepLabel>
                 <StepContent>
                   <div>
                   <BookingContent 

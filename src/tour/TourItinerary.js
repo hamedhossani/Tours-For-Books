@@ -25,13 +25,13 @@ class TourImage extends Component {
         {activities.map((activity, index) => (
           <Grid container spacing={24} key={index} className={classes.activityRoot}>
             <Grid item xs={12} sm={2}>
-              <Typography type='display4'>{activity.time}</Typography>
+              <Typography type='subheading'>{activity.time}</Typography>
             </Grid>
             <Grid item xs={12} sm={10} className={classes.activityByNameWrapper}>
               {activity.icon.map((item,index)=> (
                 <MaterialIcon key={index} iconName={item} />
               ))}
-              <Typography type='display4' className={classes.activityName}>{activity.name}</Typography>
+              <Typography type='subheading' className={classes.activityName}>{activity.name}</Typography>
             </Grid>
             <Grid item xs={12} sm={2} className={classes.activityBy}>
               {activity.by && <MaterialIcon iconName={activity.by} />}

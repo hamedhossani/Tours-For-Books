@@ -33,7 +33,7 @@ class WhyChooseUs extends Component {
     const { expanded } = this.state
     return (
       <div className={classes.root}>
-        <Typography type='headline' color='primary' style={{textAlign: 'center'}}>Why Choose Us?</Typography>
+        <Typography type='display4' color='primary' style={{textAlign: 'center'}}>Why Choose Us?</Typography>
         <ExpansionPanel expanded={expanded === 'panel1'}  onClick={(e) => this.handleClick('panel1')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography type='title'  >Comprehensive Services</Typography>

@@ -82,10 +82,11 @@ export default createMuiTheme({
   },
   "typography": {
     "display4": { // step label, don't change!
-      "fontSize": '0.9rem',
+      "fontSize": 40,
       "fontWeight": 600,
       "fontFamily": "\"Open Sans\", sans-serif",
-      "color": "rgba(0, 0, 0, 0.87)"
+      "marginBottom": "30px",
+      "lineHeight": 1
     },
     "display3": { // card detail headline, don't change!
       "fontSize": 40,
@@ -118,14 +119,16 @@ export default createMuiTheme({
     "title": {
       "fontSize": "1.3rem",
       "lineHeight": 1.4 ,
-      "fontWeight": 400,
+      "fontWeight": 600,
       "fontFamily": "\"Lato\", sans-serif",
-      "marginBottom": "5px"
+      "marginBottom": "5px",
+      "color": 'rgba(0,0,0,0.8)'
     },
     "subheading": {
-      "fontSize": "0.9rem",
-      "fontWeight": 400,
+      "fontSize": '0.9rem',
+      "fontWeight": 600,
       "fontFamily": "\"Open Sans\", sans-serif",
+      "color": "rgba(0, 0, 0, 0.87)"
     },
     "body2": { // tour stats, don't change
       "fontSize": '0.8rem',
@@ -139,8 +142,8 @@ export default createMuiTheme({
       "fontFamily": "\"Open Sans\", sans-serif",
       "color": "rgba(0, 0, 0, 0.87)"
     },
-  //   "caption": {
-  //   },
+    // "caption": {
+    // },
   //   "button": {
   //   }
   },
@@ -284,5 +287,26 @@ export default createMuiTheme({
         justifyContent: "space-between"
       }
     },
+    MuiListItemText: {
+      root: {
+        '&>h3': {
+          "fontSize": '0.9rem',
+          "fontWeight": 400,
+          "fontFamily": "\"Open Sans\", sans-serif",
+          "color": "rgba(0, 0, 0, 0.87)"  
+        }
+        
+      }
+    },
+    MuiCardActions: {
+      root: {
+        display: 'flex',
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        position: 'absolute',
+        bottom: 0,
+      }
+    }
   }
 });

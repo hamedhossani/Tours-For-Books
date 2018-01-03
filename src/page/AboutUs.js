@@ -21,7 +21,7 @@ class AboutUs extends Component {
     const { classes } = this.props
     return (
       <div className={classes.root}>
-        <Typography type='headline' color='primary'>About Us</Typography>
+        <Typography type='display4' color='primary'>About Us</Typography>
         <Grid container spacing={24}>
           <Grid item xs={12} sm={4} className={classes.alignCenter}>
             <img className={classes.logo} src={TFBImage} />

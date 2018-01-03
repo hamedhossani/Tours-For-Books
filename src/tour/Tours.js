@@ -42,7 +42,7 @@ class Body extends Component {
 
 const styles = theme => ({
   bodyWrapper: {
-    padding: '2%',
+    padding: '5% 10%',
     flexGrow: 1,
   },
   filterWrapper: {

@@ -21,7 +21,7 @@ class ContactUs extends Component {
     const { classes } = this.props
     return (
       <div className={classes.root}>
-        <Typography type='headline' color='primary'>Contact Us</Typography>
+        <Typography type='display4' color='primary'>Let's Connect!</Typography>
         <Grid container spacing={0} style={{width: '60%'}}>
           <Grid item xs={12} md={4}>
             <a href='https://www.facebook.com/toursforbooks' className={classes.contactItem} target='_blank'>
