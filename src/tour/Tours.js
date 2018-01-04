@@ -30,7 +30,7 @@ class Body extends Component {
       <div className={classes.bodyWrapper}>
         <Grid container spacing={16} className={classes.tourWrapper}>
           { tours && tours.map(tour => (
-            <Grid item xs={12} sm={4} key={tour.id}>
+            <Grid item xs={12} sm={6} md={4} key={tour.id}>
               <TourCard tour={tour} />
             </Grid>
           ))}

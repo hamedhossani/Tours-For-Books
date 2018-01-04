@@ -20,7 +20,7 @@ class AboutUs extends Component {
   render() {
     const { classes } = this.props
     return (
-      <div className={classes.root}>
+      <div className={classes.root} id='about'>
         <Typography type='display4' color='primary'>About Us</Typography>
         <Grid container spacing={24}>
           <Grid item xs={12} sm={4} className={classes.alignCenter}>
@@ -48,7 +48,7 @@ const styles = theme => ({
     justifyContent: 'flex-start',
     alignItems: 'center',
     padding: '5%',
-    textAligns: 'center'
+    textAlign: 'center'
   },
   logo: {
     width: 120,

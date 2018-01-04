@@ -17,7 +17,7 @@ class App extends Component {
   render() {
     const { classes } = this.props
     return (
-      <div>
+      <div className={classes.root}>
         <Route exact path='/' render={(props)=><InitPage routing={props}/>}/>
         <Route exact path='/tour/:tour_id' render={(props)=><TourPage routing={props}/>}/>
       </div>
@@ -26,6 +26,12 @@ class App extends Component {
 }
 
 const styles = theme => ({
+  root: {
+    '& a': {
+      cursor: 'pointer',
+      textDecoration: 'none'
+    }
+  }
 });
 
 const mapStateToProps = state => {

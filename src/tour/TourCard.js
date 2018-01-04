@@ -32,8 +32,11 @@ const styles = theme => ({
     position: 'relative'
   },
   cardHeader: {
-    minHeight: 400,
-    position: 'relative'
+    position: 'relative',
+    minHeight: 340,
+    [`@media (min-width: ${breakpoints['md']}px)`]:{
+      minHeight: 400,
+    }
   },
   media: {
     height: 150,
@@ -75,9 +78,13 @@ const styles = theme => ({
       right: 0,
       bottom: 0,
       marginRight: '1em',
-      lineHeight: '0.7em',
+      paddingLeft: '0.2em',
+      lineHeight: '1.3em',
       backgroundColor: 'white',
-      color: 'black'
+      color: 'black',
+      [`@media (min-width: ${breakpoints['sm']}px)`]:{
+        lineHeight: '0.8em',
+      }
     },
     /* hide ... if we have text, which is less than or equal to max lines */
     '&:after': {

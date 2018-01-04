@@ -15,9 +15,11 @@ import TourImage from './TourImage';
 import TourDetail from './TourDetail';
 import TourPrice from './TourPrice';
 import TourBook from './TourBook';
+import ContactUs from '../page/ContactUs';
 
 // Store
 import { fetchOneTourById } from './action';
+import Divider from 'material-ui/Divider';
 
 class TourPage extends Component {
   constructor(props) {
@@ -49,6 +51,8 @@ class TourPage extends Component {
           </Grid>
         </div>
         :''}
+        <Divider />
+        <ContactUs />
       </div>
     )
   }
@@ -58,11 +62,11 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     marginTop: 30,
-    padding: '0 2% 0 2%' 
+    padding: '0 2% 5% 2%' 
   },
   [`@media (min-width: ${breakpoints['md']}px)`]:{
     root: {
-      padding: '0 8% 0 8%'
+      padding: '0 10% 5% 10%'
     }
   }
 });

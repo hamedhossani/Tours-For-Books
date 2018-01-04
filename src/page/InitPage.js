@@ -8,6 +8,7 @@ import Tours from '../tour/Tours';
 import WhyChooseUs from './WhyChooseUs';
 import AboutUs  from './AboutUs';
 import ContactUs from './ContactUs';
+import Footer from './Footer';
 
 // Style
 import { withStyles } from 'material-ui/styles';
@@ -30,6 +31,7 @@ class App extends Component {
         <AboutUs />
         <Divider />
         <ContactUs />
+        <Footer />
       </div>
     )
   }
