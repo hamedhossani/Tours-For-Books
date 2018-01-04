@@ -212,14 +212,20 @@ export default createMuiTheme({
       },
       body1: {
         [`@media (max-width: ${breakpoints['sm']}px)`]:{
-          "fontSize": "0.8rem"
+          "fontSize": "0.8rem",
+          "lineHeight": 1.5,
         } 
       },
       subheading: {
         [`@media (max-width: ${breakpoints['sm']}px)`]:{
           "fontSize": "0.8rem"
         } 
-      }
+      },
+      display4: {
+        [`@media (max-width: ${breakpoints['sm']}px)`]:{
+          "fontSize": 25
+        } 
+      },
     },
     MuiInput: {
       underline: {

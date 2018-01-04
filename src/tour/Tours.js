@@ -42,7 +42,7 @@ class Body extends Component {
 
 const styles = theme => ({
   bodyWrapper: {
-    padding: '5% 10%',
+    padding: '5%',
     flexGrow: 1,
   },
   filterWrapper: {
@@ -51,6 +51,7 @@ const styles = theme => ({
   [`@media (min-width: ${breakpoints['md']}px)`]:{
     bodyWrapper: {
       display: 'flex',
+      padding: '5% 10%',
       flexDirection: 'row',
     },
     tourWrapper: {

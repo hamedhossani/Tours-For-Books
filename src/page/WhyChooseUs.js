@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 
 // Style
+import breakpoints from '../theme/breakpoints';
 import { withStyles } from 'material-ui/styles';
 import ExpansionPanel, {
   ExpansionPanelDetails,
@@ -71,7 +72,12 @@ class WhyChooseUs extends Component {
 
 const styles = theme => ({
   root: {
-    padding: '5% 10%',
+    padding: '5%',
+  },
+  [`@media (min-width: ${breakpoints['md']}px)`]:{
+    root: {
+      padding: '5% 10%'
+    }
   }
 });
 
