@@ -13,13 +13,9 @@ import MaterialIcon from '../utils/MaterialIcon';
 class TourImage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      activeStep: 0,
-    };
   }
   render() {
     const { classes, tour, activities } = this.props
-    const { activeStep } = this.state
     return (
       <div>
         {activities.map((activity, index) => (

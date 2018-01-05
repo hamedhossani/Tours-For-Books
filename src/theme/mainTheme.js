@@ -8,6 +8,7 @@ export default createMuiTheme({
       "black": "#000",
       "white": "#fff",
       "transparent": "rgba(0, 0, 0, 0)",
+      "lightWhite": "rgba(250,250,250,0.7)",
       "dardGrey": "rgba(0, 0, 0, 0.4)",
     },
     "contrast": "#fff",
@@ -92,11 +93,8 @@ export default createMuiTheme({
       "fontSize": 40,
       "fontWeight": 600,
       "fontFamily": "\"Lato\", sans-serif",
-      [`@media (max-width: ${breakpoints['sm']}px)`]:{
-        "fontSize": 30
-      }
     },
-    "display2": {
+    "display2": {// price's style, don't change!
       "fontSize": '1.8rem',
       "fontWeight": 400,
       "fontFamily": "\"Lato\", sans-serif",
@@ -120,7 +118,7 @@ export default createMuiTheme({
       "fontSize": "1.3rem",
       "lineHeight": 1.4 ,
       "fontWeight": 600,
-      "fontFamily": "\"Lato\", sans-serif",
+      "fontFamily": "\"Open Sans\", sans-serif",
       "marginBottom": "5px",
       "color": 'rgba(0,0,0,0.8)'
     },
@@ -226,6 +224,11 @@ export default createMuiTheme({
           "fontSize": 25
         } 
       },
+      display3: {
+        [`@media (max-width: ${breakpoints['sm']}px)`]:{
+          "fontSize": 30
+        }
+      }
     },
     MuiInput: {
       underline: {
@@ -269,8 +272,8 @@ export default createMuiTheme({
     },
     MuiIconButton: {
       root: {
-        height: 36,
-        width: 36
+        height: 27,
+        width: 27
       },
       disabled: {
         color: "rgba(250,250,250,0.56)"
@@ -313,6 +316,11 @@ export default createMuiTheme({
         position: 'absolute',
         bottom: 0,
       }
-    }
+    },
+    MuiDialogContent: {
+      root: {
+        padding: '0 !important'
+      }
+    },
   }
 });

@@ -10,7 +10,6 @@ import Grid from 'material-ui/Grid';
 // Icon
 var FontAwesome = require('react-fontawesome');
 import EmailIcon from 'material-ui-icons/Email';
-import IconButton from 'material-ui/IconButton';
 
 class ContactUs extends Component {
   constructor(props) {
