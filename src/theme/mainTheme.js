@@ -196,6 +196,15 @@ export default createMuiTheme({
       "leavingScreen": 195
     }
   },
+  custom: {
+    tag: {
+      display: 'inline-block',
+      opacity: 0.9,
+      textTransform: 'uppercase',
+      backgroundColor: "#FF632B",
+      padding: "0 8px",
+    }
+  },
   overrides: {
     MuiTypography: {
       headline: {

@@ -59,15 +59,11 @@ const styles = theme => ({
     top: '3px',
     right: '3px'
   },
-  tag: {
-    opacity: 0.9,
-    backgroundColor: theme.palette.secondary[500],
-    paddingRight: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
-    textTransform: 'uppercase',
+  tag: theme.custom.tag,
+  topLeft: {
     position: 'absolute',
     top: 0,
-    left: 0
+    left: 0,
   }
 });
 
@@ -122,7 +118,7 @@ class TourCard extends Component {
         </IconButton>
         **/}
         { tour.boughts > 0 ?
-          <div className={classes.tag}><Typography type='body2'>{tour.boughts}+ bought</Typography></div>  
+          <div className={[classes.tag, classes.topLeft].join(' ')}><Typography type='body2'>{tour.boughts}+ bought</Typography></div>  
           :
           ''
         }

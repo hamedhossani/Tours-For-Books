@@ -1,93 +1,140 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
+import SwipeableViews from 'react-swipeable-views';
+import SupportTouch from '../utils/SupportTouch';
 
 // Style
 import { withStyles } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
-import Tabs, { Tab } from 'material-ui/Tabs';
-import Divider from 'material-ui/Divider';
+import breakpoints from '../theme/breakpoints';
+import widthWidth from '../utils/withWidth';
+import Typography from 'material-ui/Typography';
+import MaterialIcon from '../utils/MaterialIcon';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 
-// Icons
-import ItineraryIcon from 'material-ui-icons/FormatListBulleted';
-import ServiceIcon from 'material-ui-icons/Announcement';
-
-// Components
+//Components
+import TourItineraryMobile from './TourItineraryMobile';
 import TourItinerary from './TourItinerary';
-
-function TabContainer(props) {
-  return <div style={{ padding: '5%' }}>{props.children}</div>;
-}
 
 class TourDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-        value: 0
-    };
-    this.handleChange = this.handleChange.bind(this)
   }
-  handleChange(event, value) {
-    this.setState({ value });
-  };
 
   render() {
     const { classes, tour } = this.props
-    const { value } = this.state;
+    const isMobile = this.props.width < breakpoints['md'];
+    let imgUrl = `https://storage.googleapis.com/bloggy-170620.appspot.com/tourImg/${tour.images[0]}.jpg`
     return (
-      <Paper elevation={2} className={classes.root}>
-        <Tabs
-          value={value}
-          onChange={this.handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-        >
-          <Tab label="Itinerary" />
-          <Tab label="What's Included" />
-          <Tab label="Excluded Fee" />
-        </Tabs>
-        <Divider light />
-        {value === 0 && 
-          <TabContainer><TourItinerary tour={tour} activities={tour.activities}/></TabContainer>
-        }
-        {value === 1 && 
-          <TabContainer>
-            <List>
-              { tour.includes.map((item,i) => (
-                <ListItem button key={i}>
-                  <ListItemText
-                    primary={item}
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </TabContainer>
-        }
-        {value === 2 && 
-          <TabContainer>
-            <List>
-              { tour.excludes.map((item,i) => (
-                <ListItem button key={i}>
-                  <ListItemText
-                    primary={item}
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </TabContainer>
-        }
-      </Paper>
+      <div className={classes.root}>
+        <div className={classes.header}
+              style={{backgroundImage: `url(${imgUrl})`}}>
+          <Typography type='body2' className={classes.tag}>+{tour.boughts} boughts</Typography>
+          <Typography type='display4'>{tour.name}</Typography>    
+        </div>
+        <div className={classes.section}>
+          <Typography type='title'>Summary</Typography>
+          <Typography type='body1'>{tour.description}</Typography>
+        </div>
+        <div className={classes.section}>
+          <Typography type='title'>Itinerary</Typography>
+          { isMobile ? 
+            <TourItineraryMobile tour={tour} activities={tour.activities} />
+            :
+            <TourItinerary tour={tour} activities={tour.activities}/>
+          }
+        </div>
+        <div className={classes.section}>
+          <Typography type='title'>What's Included</Typography>
+          <List>
+            { tour.includes.map((item,i) => (
+              <ListItem button key={i}>
+                <ListItemText
+                  primary={item}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </div>
+        <div className={classes.section}>
+          <Typography type='title'>Excluded Fee</Typography>
+          <List>
+            { tour.excludes.map((item,i) => (
+              <ListItem button key={i}>
+                <ListItemText
+                  primary={item}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </div>
+      </div>
     )
   }
 }
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    marginTop: theme.spacing.unit,
-    backgroundColor: theme.palette.background.paper,
+  header: {
+    height: '62vh',
+    backgroundSize: 'cover',
+    backgroundPosition: '50% 50%',
+    padding: '5%',
+    '& >h2, h1': {
+      color: 'white'
+    }
   },
+  [`@media (min-width: ${breakpoints['md']}px)`]:{
+    header: {
+      height: '38vh'
+    }
+  },
+  tag: theme.custom.tag,
+  section: {
+    padding: '5%',
+    paddingBottom: 0,
+    '& p':{
+      lineHeight: 1.4,
+      [`@media (max-width: ${breakpoints['sm']}px)`]:{
+        fontSize: '1.2rem',
+      }
+    }
+  },
+  swipeContainer: {
+    padding: '0 18px',
+    '& >div >div':{
+      padding: '0 8px'
+    }
+  },
+  slide: {
+    padding: theme.spacing.unit,
+    paddingTop: 0,
+    minHeight: '62vh',
+    color: '#fff',
+    marginTop: 40,
+    border: '1px solid lightgrey',
+    borderRadius: 10
+  },
+  activityIcons: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '& >div': {
+      marginTop: -20,
+      padding: `0 ${theme.spacing.unit}px`,
+      backgroundColor: 'white'
+    }
+  },
+  activityName: {
+    textTransform: 'capitalize'
+  },
+  activityNote: {
+    marginTop: theme.spacing.unit * 3,
+    '& p': theme.typography.body1
+  },
+  centerAlign: {
+    textAlign: 'center'
+  }
 });
 
 const mapStateToProps = state => {
@@ -95,4 +142,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default withStyles(styles)(TourDetail);
+export default widthWidth(withStyles(styles)(TourDetail));

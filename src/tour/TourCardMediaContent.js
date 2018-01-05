@@ -9,7 +9,6 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import { CardContent, CardMedia } from 'material-ui/Card';
 import Dialog, {
-  DialogActions,
   DialogContent,
   withMobileDialog,
 } from 'material-ui/Dialog';
@@ -18,7 +17,7 @@ import CloseIcon from 'material-ui-icons/Close';
 import ShareIcon from 'material-ui-icons/Share';
 
 // Components
-import TourDetailMobile from './TourDetailMobile';
+import TourDetail from './TourDetail';
 
 const styles = theme => ({
   media: {
@@ -107,43 +106,7 @@ class TourCardMediaContent extends Component {
     let imgUrl = `https://storage.googleapis.com/bloggy-170620.appspot.com/tourImg/${tour.images[0]}.jpg`
     return (
       <div>
-      { isMobile? 
-      // Mobile: open dialog
-        <div>
-          <div onClick={this.handleClickOpen}>
-            { imgUrl &&
-            <CardMedia
-              className={classes.media}
-              image={imgUrl}
-              title={tour.name}
-            />
-            }
-            <CardContent>
-              <Typography type='title'>
-                {tour.name}
-              </Typography>
-              <div className={classes.overflowText}>
-              <Typography type='body1' component="p" align='justify'>
-                {tour.description}
-              </Typography>
-              </div>
-            </CardContent>
-          </div>
-          <Dialog
-            fullScreen={fullScreen}
-            open={this.state.open}
-            aria-labelledby="responsive-dialog-title"
-          >
-            <DialogContent>
-              <TourDetailMobile tour={tour}/>
-            </DialogContent>
-            <IconButton className={classes.closeDialogButton} onClick={this.handleClose}><CloseIcon />
-            </IconButton>
-          </Dialog>
-        </div>
-        :
-      // Desktop: reroute to `/tour/${tour.id}
-        <Link to={`/tour/${tour.id}`}>
+        <div onClick={this.handleClickOpen}>
           { imgUrl &&
           <CardMedia
             className={classes.media}
@@ -161,8 +124,19 @@ class TourCardMediaContent extends Component {
             </Typography>
             </div>
           </CardContent>
-        </Link>
-      }
+        </div>
+        <Dialog
+          fullScreen={fullScreen}
+          open={this.state.open}
+          aria-labelledby="responsive-dialog-title"
+          onClick={this.handleClose}
+        >
+          <DialogContent>
+            <TourDetail tour={tour}/>
+          </DialogContent>
+          <IconButton className={classes.closeDialogButton} onClick={this.handleClose}><CloseIcon />
+          </IconButton>
+        </Dialog>
       </div>
     )
   }
@@ -173,4 +147,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default  widthWidth(withMobileDialog()(withStyles(styles)(TourCardMediaContent)));
+export default  withMobileDialog()(widthWidth(withStyles(styles)(TourCardMediaContent)));
