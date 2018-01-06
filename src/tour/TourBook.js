@@ -6,6 +6,7 @@ import 'whatwg-fetch';
 
 // Style
 import { withStyles } from 'material-ui/styles';
+import breakpoints from '../theme/breakpoints';
 import Stepper, { Step, StepLabel, StepContent } from 'material-ui/Stepper';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
@@ -131,6 +132,8 @@ class TourBook extends Component {
       if (response.status === 200) {
         if (result.status === 'success') {
           this.handleNext()
+        } else {
+          this.handleErrorPayment
         }
       } else {
         this.setState({ activeButton: false, activeStep: 2, isError: true })
@@ -146,9 +149,11 @@ class TourBook extends Component {
     const { classes, tour } = this.props
     const steps = getSteps();
     const { activeStep, isError, allowBookNow, submitBookNow, activeButton, submittedContent } = this.state;
-    console.log(activeStep)
     return (
       <Paper elevation={2} className={classes.root}>
+        <div className={classes.header}>
+          <Typography type='display4'>{tour.name}</Typography> 
+        </div>
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map((label, index) => {
             return (
@@ -188,7 +193,12 @@ class TourBook extends Component {
 
 const styles = theme => ({
   root: {
+    padding: '5%',
+    paddingTop: 40,
     flexGrow: 1,
+    [`@media (min-width: ${breakpoints['md']}px)`]:{
+      width: 600
+    }
   },
   button: {
     marginRight: theme.spacing.unit,

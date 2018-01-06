@@ -9,7 +9,6 @@ import TextField from 'material-ui/TextField';
 import { FormGroup } from 'material-ui/Form';
 
 // Component
-import FacebookLogin from 'react-facebook-login';
 
 class BookingContact extends Component {
   constructor(props) {

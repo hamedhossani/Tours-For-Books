@@ -22,7 +22,7 @@ class TourItineraryMobile extends Component {
       <SupportTouch>
         <SwipeableViews className={classes.swipeContainer}>
           {activities.map((activity, index) => (
-            <div key={activity.name} className={classes.slide}>
+            <div key={index} className={classes.slide}>
               <div className={classes.activityIcons}>
                 {activity.icon.map((item,index)=> (
                   <MaterialIcon key={index} iconName={item} />

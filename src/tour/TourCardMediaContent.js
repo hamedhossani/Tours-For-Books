@@ -9,15 +9,21 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import { CardContent, CardMedia } from 'material-ui/Card';
 import Dialog, {
+  DialogActions,
   DialogContent,
   withMobileDialog,
 } from 'material-ui/Dialog';
+import Slide from 'material-ui/transitions/Slide';
+import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
+import ForwardIcon from 'material-ui-icons/ArrowForward';
 import ShareIcon from 'material-ui-icons/Share';
 
 // Components
 import TourDetail from './TourDetail';
+import TourBook from './TourBook';
+import ActionButton from '../utils/ActionButton';
 
 const styles = theme => ({
   media: {
@@ -75,23 +81,69 @@ const styles = theme => ({
       background: 'white',
     },
   },
+  dialog: {
+    [`@media (max-width: ${breakpoints['sm']}px)`]:{
+      marginTop: 40,
+      height: '90%'
+    }
+  },
+  hiddenScrollX: {
+    [`@media (min-width: ${breakpoints['md']}px)`]:{
+      '& >div' : {
+        overflowX: 'hidden'
+      }
+    }
+  },
+  hiddenScrollY: {
+    [`@media (min-width: ${breakpoints['md']}px)`]:{
+      marginRight: -18,
+    }
+  },
+  topRight: {
+    position: 'absolute',
+    top: 15,
+    right: 15,
+    '& div + div':{
+      marginLeft: theme.spacing.unit * 2
+    }
+  },
+  backDialogButton: {
+    transform: 'rotate(180deg)'
+  },
   closeDialogButton: {
     backgroundColor: theme.palette.common.lightWhite,
     color: theme.palette.common.darkGrey,
+  },
+  bookNowButton:{
     position: 'absolute',
-    top: 15,
-    right: 15
-  }
+    top: 0,
+    right: -100
+  },
+  price: {
+    display: 'flex',
+    marginLeft: '16px',
+    '& h1 + h1':{
+      marginLeft: theme.spacing.unit
+    }
+  },
 });
+
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 
 class TourCardMediaContent extends Component {
   constructor(props) {
     super(props);
     this.state={
-      open: false
+      open: false,
+      booking: false
     }
     this.handleClickOpen = this.handleClickOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleBooking = this.handleBooking.bind(this)
+    this.handleBack = this.handleBack.bind(this)
+    this.handleCancel = this.handleCancel.bind(this)
   }
   handleClickOpen(){
     this.setState({ open: true });
@@ -100,9 +152,20 @@ class TourCardMediaContent extends Component {
   handleClose(){
     this.setState({ open: false });
   };
+  
+  handleBooking() {
+    this.setState({ booking: true });
+  }
+  
+  handleBack() {
+    this.setState({ open: true, booking: false });
+  }
+  
+  handleCancel() {
+    this.setState({ booking: false });
+  }
   render() {
     const { classes, tour, fullScreen } = this.props;
-    const isMobile = this.props.width < breakpoints['md'];
     let imgUrl = `https://storage.googleapis.com/bloggy-170620.appspot.com/tourImg/${tour.images[0]}.jpg`
     return (
       <div>
@@ -128,14 +191,48 @@ class TourCardMediaContent extends Component {
         <Dialog
           fullScreen={fullScreen}
           open={this.state.open}
+          transition={Transition}
+          keepMounted
           aria-labelledby="responsive-dialog-title"
           onClick={this.handleClose}
+          className={[classes.dialog, classes.hiddenScrollX].join(' ')}
         >
-          <DialogContent>
+          <DialogContent className={classes.hiddenScrollY} >
             <TourDetail tour={tour}/>
           </DialogContent>
-          <IconButton className={classes.closeDialogButton} onClick={this.handleClose}><CloseIcon />
-          </IconButton>
+          <div className={classes.topRight}>
+            <IconButton className={classes.closeDialogButton} onClick={this.handleClose}><CloseIcon />
+            </IconButton>
+          </div>
+          <DialogActions>
+            <div className={classes.price}>
+              <Typography type='display2'>${tour.price.amount}</Typography>
+              <Typography type='display1'>${tour.price.discountAmount}</Typography>
+            </div>
+            <ActionButton 
+              variant='primary'
+              onClick={this.handleBooking}>
+              Book Now
+            </ActionButton>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          fullScreen={fullScreen}
+          open={this.state.booking}
+          transition={Transition}
+          keepMounted
+          aria-labelledby="responsive-dialog-title"
+          className={[classes.dialog, classes.hiddenScrollX].join(' ')}
+        >
+          <DialogContent className={classes.hiddenScrollY}>
+            <TourBook tour={tour}/>
+          </DialogContent>
+          <div className={classes.topRight}>
+            <IconButton className={classes.backDialogButton} onClick={this.handleBack}><ForwardIcon />
+            </IconButton>
+            <IconButton className={classes.closeDialogButton} onClick={this.handleCancel}><CloseIcon />
+            </IconButton>
+          </div>
         </Dialog>
       </div>
     )

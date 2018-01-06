@@ -6,70 +6,45 @@ import update from 'react-addons-update';
 // Style
 import breakpoints from '../theme/breakpoints';
 import { withStyles } from 'material-ui/styles';
-import MobileStepper from 'material-ui/MobileStepper';
-import IconButton from 'material-ui/IconButton';
-import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft';
-import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight';
 
-// Image
-import getImage from '../utils/getImage';
+import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
+import Pagination from '../utils/Pagination';
+import SupportTouch from '../utils/SupportTouch';
+
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 class TourImage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeStep: 0,
-      imgUrls:[]
+      index: 0
     };
-    this.handleBack = this.handleBack.bind(this)
-    this.handleNext = this.handleNext.bind(this)
+    this.handleChangeIndex = this.handleChangeIndex.bind(this)
   }
-  handleNext(){
+  handleChangeIndex(index) {
     this.setState({
-      activeStep: this.state.activeStep + 1,
+      index,
     });
   };
-
-  handleBack(){
-    this.setState({
-      activeStep: this.state.activeStep - 1,
-    });
-  };
-  
-  componentWillMount(){
-    
-  }
 
   render() {
     const { classes, theme, tourImgs } = this.props
-    const { activeStep } = this.state
+    const { index } = this.state;
     return (
-      <div className={classes.root}>
-        {tourImgs.map((img,index) => {
-          let imgUrl = `https://storage.googleapis.com/bloggy-170620.appspot.com/tourImg/${img}.jpg`
-          return (
-            activeStep === index &&
-            <div key={index} style={{backgroundImage: `url(${imgUrl})`}} className={classes.tourImg}></div>
-          )
-        })}
-        <MobileStepper
-          type="dots"
-          steps={tourImgs.length}
-          position="static"
-          activeStep={this.state.activeStep}
-          className={classes.stepper}
-          nextButton={
-            <IconButton color='contrast' aria-label="Next" onClick={this.handleNext} disabled={this.state.activeStep === tourImgs.length-1}>
-              {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-            </IconButton>
-          }
-          backButton={
-            <IconButton color='contrast' aria-label="Back" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
-              {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-            </IconButton>
-          }
-        />
-      </div>
+      <SupportTouch>
+        <div style={styles.root}>
+          <AutoPlaySwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
+            {tourImgs.map((img,index) => {
+              let imgUrl = `https://storage.googleapis.com/bloggy-170620.appspot.com/tourImg/${img}.jpg`
+              return (
+                <div key={index} style={{backgroundImage: `url(${imgUrl})`}} className={[classes.tourImg, classes.slide].join(' ')}></div>
+              )
+            })}
+          </AutoPlaySwipeableViews>
+          <Pagination dots={tourImgs.length} index={index} onChangeIndex={this.handleChangeIndex} />
+        </div>
+      </SupportTouch>
     )
   }
 }
@@ -77,21 +52,17 @@ class TourImage extends Component {
 const styles = theme => ({
   root: {
     position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
   },
-  stepper: {
-    width: '50%',
-    right: 0,
-    bottom: 0,
-    position: 'absolute',
-    marginRight: '25%',
-    borderRadius: 27,
-    marginBottom: theme.spacing.unit
+  slide: {
+    padding: 15,
+    minHeight: 100,
+    color: '#fff',
+    height: '62vh',
+    [`@media (min-width: ${breakpoints['md']}px)`]:{
+      height: '38vh'
+    }
   },
   tourImg: {
-    height: 400,
     backgroundSize: 'cover'
   },
   [`@media (max-width: ${breakpoints['sm']}px)`]:{ 

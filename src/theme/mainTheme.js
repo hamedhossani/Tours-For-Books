@@ -230,7 +230,8 @@ export default createMuiTheme({
       },
       display4: {
         [`@media (max-width: ${breakpoints['sm']}px)`]:{
-          "fontSize": 25
+          "fontSize": 25,
+          marginBottom: 10
         } 
       },
       display3: {
