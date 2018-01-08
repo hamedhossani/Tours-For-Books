@@ -14,7 +14,6 @@ import Dialog, {
   withMobileDialog,
 } from 'material-ui/Dialog';
 import Slide from 'material-ui/transitions/Slide';
-import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import ForwardIcon from 'material-ui-icons/ArrowForward';
@@ -24,6 +23,7 @@ import ShareIcon from 'material-ui-icons/Share';
 import TourDetail from './TourDetail';
 import TourBook from './TourBook';
 import ActionButton from '../utils/ActionButton';
+import TourBookMobile from './TourBookMobile';
 
 const styles = theme => ({
   media: {
@@ -216,24 +216,13 @@ class TourCardMediaContent extends Component {
             </ActionButton>
           </DialogActions>
         </Dialog>
-        <Dialog
-          fullScreen={fullScreen}
-          open={this.state.booking}
-          transition={Transition}
-          keepMounted
-          aria-labelledby="responsive-dialog-title"
-          className={[classes.dialog, classes.hiddenScrollX].join(' ')}
-        >
-          <DialogContent className={classes.hiddenScrollY}>
-            <TourBook tour={tour}/>
-          </DialogContent>
-          <div className={classes.topRight}>
-            <IconButton className={classes.backDialogButton} onClick={this.handleBack}><ForwardIcon />
-            </IconButton>
-            <IconButton className={classes.closeDialogButton} onClick={this.handleCancel}><CloseIcon />
-            </IconButton>
-          </div>
-        </Dialog>
+        <TourBookMobile tour={tour} booking={this.state.booking} backTourCardMediaContent={this.handleBack}/>
+        <div className={classes.topRight}>
+          <IconButton className={classes.backDialogButton} onClick={this.handleBack}><ForwardIcon />
+          </IconButton>
+          <IconButton className={classes.closeDialogButton} onClick={this.handleCancel}><CloseIcon />
+          </IconButton>
+        </div>
       </div>
     )
   }
@@ -244,4 +233,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default  withMobileDialog()(widthWidth(withStyles(styles)(TourCardMediaContent)));
+export default  withMobileDialog()(withStyles(styles)(TourCardMediaContent));

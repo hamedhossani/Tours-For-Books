@@ -8,8 +8,13 @@ import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 
 // Icon
-var FontAwesome = require('react-fontawesome');
-import EmailIcon from 'material-ui-icons/Email';
+import fontawesome from '@fortawesome/fontawesome'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { faEnvelope as fasEnvelope } from '@fortawesome/fontawesome-free-solid';
+import { faFacebook as fasFacebook,
+          faTwitter as fasTwitter,
+          faWhatsapp as fasWhatsapp
+} from '@fortawesome/fontawesome-free-brands';
 
 class ContactUs extends Component {
   constructor(props) {
@@ -23,24 +28,24 @@ class ContactUs extends Component {
         <Typography type='display4' color='primary'>Let's Connect!</Typography>
         <Grid container spacing={0}>
           <Grid item xs={12} md={4} className={classes.contactItem}>
-            <EmailIcon color='accent'/>
+            <FontAwesomeIcon icon={fasEnvelope} size="lg" style={{color: '#FF632B'}}/>
             <Typography type='body1'>inquiry@vietnamtoursforbooks.com</Typography>
           </Grid>
           <Grid item xs={12} md={2}>
             <a href='https://www.facebook.com/toursforbooks' className={classes.contactItem} target='_blank'>
-              <FontAwesome name='facebook' size='2x' style={{color: '#3b5998'}}/>
+              <FontAwesomeIcon icon={fasFacebook} style={{color: '#3b5998'}} size="lg"/>
               <Typography type='body1' className={classes.alignCenter}>toursforbooks</Typography>
             </a>
           </Grid>
           <Grid item xs={12} md={2}>
             <a href='https://twitter.com/toursforbooks' className={classes.contactItem} target='_blank'>
-              <FontAwesome name='twitter' size='2x' style={{color: '#1da1f2'}} />
+              <FontAwesomeIcon icon={fasTwitter}style={{color: '#1da1f2'}} size="lg"/>
               <Typography type='body1'>@toursforbooks</Typography>
             </a>
           </Grid>
           <Grid item xs={12} md={4}>
             <a href='https://api.whatsapp.com/send?phone=84986894714' className={classes.contactItem} target='_blank'>
-              <FontAwesome name='whatsapp' size='2x' style={{color: '#25d366'}} />
+              <FontAwesomeIcon icon={fasWhatsapp} style={{color: '#25d366'}} size="lg"/>
               <Typography type='body1'>+84 98 6894714 (WhatsApp/Zalo)</Typography>
             </a>
           </Grid>

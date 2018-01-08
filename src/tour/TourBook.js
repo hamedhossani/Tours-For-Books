@@ -17,8 +17,9 @@ import BookingOption from '../booking/BookingOption';
 import BookingContact from '../booking/BookingContact';
 import BookingPayment from '../booking/BookingPayment';
 
-function getSteps() {
-  return ['Pick your day', "Let's connect", 'Make a payment', 'All done!'];
+function getSteps(step) {
+  const stepName = ['Pick your day', "Let's connect", 'Make a payment', 'All done!'];
+  return stepName[step]
 }
 
 const BookingContent = (props) => {

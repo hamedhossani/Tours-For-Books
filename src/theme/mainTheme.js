@@ -332,5 +332,15 @@ export default createMuiTheme({
         padding: '0 !important'
       }
     },
+    MuiFormHelperText: {
+      root: {
+        color: "#189AB4"
+      }
+    },
+    MuiButton: {
+      root: {
+        color: "#189AB4"
+      }
+    }
   }
 });

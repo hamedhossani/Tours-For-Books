@@ -9,6 +9,11 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.0.0-beta.33",
+    "@fortawesome/fontawesome": "^1.1.0",
+    "@fortawesome/fontawesome-free-brands": "^5.0.2",
+    "@fortawesome/fontawesome-free-regular": "^5.0.2",
+    "@fortawesome/fontawesome-free-solid": "^5.0.2",
+    "@fortawesome/react-fontawesome": "0.0.17",
     "@google-cloud/storage": "^1.5.1",
     "autosuggest-highlight": "^3.1.1",
     "babel-cli": "^6.26.0",
