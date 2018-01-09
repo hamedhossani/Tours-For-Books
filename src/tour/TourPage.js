@@ -8,10 +8,8 @@ import widthWidth from '../utils/withWidth';
 import breakpoints from '../theme/breakpoints';
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
 
 // Components
-import TourImage from './TourImage';
 import TourDetail from './TourDetail';
 import TourPrice from './TourPrice';
 import TourBook from './TourBook';

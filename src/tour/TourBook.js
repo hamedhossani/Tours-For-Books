@@ -25,6 +25,9 @@ import { CircularProgress } from 'material-ui/Progress';
 import TourBookContent from './TourBookContent';
 import CloseIcon from 'material-ui-icons/Close';
 
+// Store
+import { fetchCurrentMessage } from '../page/action';
+
 function getStepName(step) {
   const stepName = ['Pick your day', "Let's connect", 'Review and Make a payment', 'All done!'];
   return stepName[step]
@@ -59,6 +62,7 @@ class TourBook extends Component {
     this.validateEmail = this.validateEmail.bind(this)
     this.handleBooking = this.handleBooking.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.sendEmail = this.sendEmail.bind(this)
   }
   handleNext(){
     this.setState({
@@ -121,7 +125,13 @@ class TourBook extends Component {
   
   handleBooking(){
     const { instance, numberOfPax } = this.state.submittedContent
-    const { tour } = this.props
+    const { tour, dispatchCurrentMessage } = this.props
+    const paypalContent = { 
+      orderId: shortid.generate(),
+      tourId: tour.id,
+      amount: tour.price.discountAmount * numberOfPax
+    } 
+    
     this.setState({ loading: true },
     instance.requestPaymentMethod((err, payload) => {
       if(!err) {
@@ -134,11 +144,7 @@ class TourBook extends Component {
           body: JSON.stringify({ 
             payload: { nonce: payload.nonce },
             transaction: { 
-              paypal: { 
-                orderId: shortid.generate(),
-                tourId: tour.id,
-                amount: tour.price.discountAmount * numberOfPax
-              } 
+              paypal: paypalContent
             } 
           })
         })
@@ -147,12 +153,14 @@ class TourBook extends Component {
           if(data.status==='success'){
             this.setState({ loading: false })
             this.handleNext()
+            this.sendEmail(paypalContent)
           } else {
             this.setState({ errorPayment : true})
+            dispatchCurrentMessage('Error: Unsuccessful Payment. Please contact us at inquiry@vietnamtoursforbooks.com.')
           }
         })
       } else {
-        console.log('Error with payload', err)
+        dispatchCurrentMessage('Error: Cannot request payment method. Please contact us at inquiry@vietnamtoursforbooks.com.')
       }
     })
     )
@@ -160,6 +168,28 @@ class TourBook extends Component {
   
   handleClose(){
     this.props.closeTourBook()
+  }
+  
+  sendEmail(order){
+    const { tour, dispatchCurrentMessage } = this.props
+    const { name, email, phone, numberOfPax, note, date } = this.state.submittedContent
+    const url = 'https://hooks.zapier.com/hooks/catch/2690251/s7buaa/'
+    const payload = { order, name, email, phone, numberOfPax, date, note, tour : tour.name  }
+    console.log(payload)
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(response => {
+      if (response.status === 200) {
+        dispatchCurrentMessage(`The confirmation is sent to ${email}`)
+      } else {
+        dispatchCurrentMessage('Payment is successful but we have problem email the confirmation (0). Please contact us at inquiry@vietnamtoursforbooks.com')
+      }
+    })
   }
 
   render() {
@@ -290,5 +320,9 @@ const styles = theme => ({
   }
 });
 
+const mapDispatchToProps = (dispatch) => ({
+    dispatchCurrentMessage: (message) => dispatch(fetchCurrentMessage(message))
+})
 
-export default withMobileDialog()(withStyles(styles, { withTheme: true })(TourBook));
+export default connect(null,
+  mapDispatchToProps)(withMobileDialog()(withStyles(styles, { withTheme: true })(TourBook)));

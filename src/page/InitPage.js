@@ -9,10 +9,14 @@ import WhyChooseUs from './WhyChooseUs';
 import AboutUs  from './AboutUs';
 import ContactUs from './ContactUs';
 import Footer from './Footer';
+import Message from '../utils/Message';
 
 // Style
 import { withStyles } from 'material-ui/styles';
 import Divider from 'material-ui/Divider';
+
+// Store
+import { fetchCloseMessage } from './action';
 
 class App extends Component {
   constructor(props) {
@@ -21,6 +25,7 @@ class App extends Component {
 
   render() {
     const { classes } = this.props
+    const { message, messageOpen, dispatchCloseMessage } = this.props
     return (
       <div>
         <Hero />
@@ -32,6 +37,11 @@ class App extends Component {
         <Divider />
         <ContactUs />
         <Footer />
+        <Message
+          message={message}
+          messageOpen={messageOpen}
+          handleCloseMessage={(event, reason) => dispatchCloseMessage(event, reason)}
+        />
       </div>
     )
   }
@@ -40,9 +50,15 @@ class App extends Component {
 const styles = theme => ({
 });
 
-const mapStateToProps = state => {
-    return { domain : 'yourdomain.com'
-    }
+const mapStateToProps = (state, ownProps) => {
+  const {  message, messageOpen }  = state.MessageReducer.CurrentMessageReducer
+  return {  message, messageOpen }
 }
+const mapDispatchToProps = (dispatch) => ({
+    dispatchCloseMessage: (event, reason) => dispatch(fetchCloseMessage(event, reason))
+})
 
-export default withStyles(styles)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(App));

@@ -12,6 +12,9 @@ import Grid from 'material-ui/Grid';
 // Braintree
 var braintree = require('braintree-web-drop-in');
 
+// Store
+import { fetchCurrentMessage } from '../page/action';
+
 class BookingPayment extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -31,7 +34,7 @@ class BookingPayment extends React.Component {
   }
   componentDidMount() {
     //create braintree
-    const {tour, submittedContent, onChange} = this.props
+    const {tour, submittedContent, onChange, dispatchCurrentMessage} = this.props
     let newPaypal = this.state.paypal
     newPaypal.amount = tour.price.discountAmount * submittedContent.numberOfPax
     this.setState({ paypal: newPaypal })
@@ -56,11 +59,11 @@ class BookingPayment extends React.Component {
             // Get Payload
             onChange({type:'payload', fields: {instance: instance}})
           } else {
-            console.log('Error with Braintree.', error)
+            dispatchCurrentMessage('Error: Cannot load payment option. Please click BACK button and try again or contact us at inquiry@vietnamtoursforbooks.com.')
           }
         })
       } else {
-        console.log('Error: Cannot get client token.')
+       dispatchCurrentMessage('Error: Cannot get client token. Please click BACK button and try again or contact us at inquiry@vietnamtoursforbooks.com.')
       }
     })
   }
@@ -138,4 +141,10 @@ const styles = theme => ({
   }
 })
 
-export default (withStyles(styles)(BookingPayment));
+const mapDispatchToProps = (dispatch) => ({
+    dispatchCurrentMessage: (message) => dispatch(fetchCurrentMessage(message))
+})
+
+export default connect(null,
+  mapDispatchToProps
+)(withStyles(styles)(BookingPayment));
