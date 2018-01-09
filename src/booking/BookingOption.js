@@ -17,7 +17,8 @@ class BookingOption extends Component {
     this.props.onChange({ type: 'option', fields: {[e.target.name]: e.target.value }})
   }
   render() {
-    const { classes, date, numberOfPax, note } = this.props
+    const { classes } = this.props
+    const { date, numberOfPax, note }  = this.props.submittedContent
     return (
       <FormGroup className={classes.root}>
         <TextField

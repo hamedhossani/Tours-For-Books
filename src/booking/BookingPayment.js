@@ -6,42 +6,36 @@ import { Route, Link } from 'react-router-dom';
 
 // Style
 import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
+import Grid from 'material-ui/Grid';
 
 // Braintree
-import BraintreeDropIn from 'braintree-dropin-react';
 var braintree = require('braintree-web-drop-in');
-var shortid = require('shortid');
 
 class BookingPayment extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      clientToken: '',
       paypal: {
         flow: 'checkout',
         amount: '',
         currency: 'USD',
         buttonStyle: {
-          shape: 'rect',
-          size: 'responsive',
-          label: 'paypal',
-          tagline: false
+          layout: 'vertical',  
+          size:   'medium',    
+          shape:  'rect',      
+          color:  'gold'
         }
-      }
+      },
     }
-    this.handlePaymentMethod = this.handlePaymentMethod.bind(this)
-    this.onCreate = this.onCreate.bind(this)
-    this.onDestroyStart = this.onDestroyStart.bind(this)
-    this.onDestroyEnd = this.onDestroyEnd.bind(this)
-    this.onError = this.onError.bind(this)
   }
-  
-  componentWillMount() {
-    const {tour} = this.props
+  componentDidMount() {
+    //create braintree
+    const {tour, submittedContent, onChange} = this.props
     let newPaypal = this.state.paypal
-    newPaypal.amount = tour.price.discountAmount
+    newPaypal.amount = tour.price.discountAmount * submittedContent.numberOfPax
     this.setState({ paypal: newPaypal })
+    
     fetch('/api/client_token', {
       method: 'GET',
       headers: {
@@ -51,83 +45,97 @@ class BookingPayment extends React.Component {
     })
     .then(res => res.json())
     .then(data => {
-      this.setState({clientToken:data.clientToken})
+      if(data.clientToken) {
+        // Create braintree instance
+        braintree.create({
+          authorization: data.clientToken,
+          selector: '#dropin-container',
+          paypal: newPaypal,
+        }, function (error, instance) {
+          if(!error && instance) {
+            // Get Payload
+            onChange({type:'payload', fields: {instance: instance}})
+          } else {
+            console.log('Error with Braintree.', error)
+          }
+        })
+      } else {
+        console.log('Error: Cannot get client token.')
+      }
     })
-  }
-  
-  handlePaymentMethod(payload){
-    const { paypal } = this.state
-    const { tour } = this.props
-    
-    fetch('/api/checkout', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ 
-        payload: { nonce: payload.nonce },
-        transaction: { 
-          paypal: { 
-            orderId: shortid.generate(),
-            tourId: tour.id,
-            amount: tour.price.discountAmount
-          } 
-        } 
-      })
-    })
-    .then(res => res.json())
-    .then(data => {
-      this.props.onSuccessPayment(data)
-    })
-  }
-
-  onCreate(instance){
-    console.log('onCreate')
-  }
-
-  onDestroyStart(){
-    console.log('onDestroyStart')
-  }
-
-  onDestroyEnd(){
-    console.log('onDestroyEnd')
-  }
-
-  onError(error){
-    console.log('onError', error)
   }
   
   render() {
-    const { classes, allowBookNow, submitBookNow, activateBookNow } = this.props
+    const { classes, tour, submittedContent } = this.props
     return (
       <div>
-        {this.state.clientToken &&
-        <BraintreeDropIn
-          className={classes.root}
-          braintree={braintree}
-          authorizationToken={this.state.clientToken}
-          handlePaymentMethod={this.handlePaymentMethod}
-          paypal={this.state.paypal}
-          paypalCredit={this.state.paypal}
-          onCreate={this.onCreate}
-          onDestroyStart={this.onDestroyStart}
-          onDestroyEnd={this.onDestroyEnd}
-          onError={this.onError}
-          renderSubmitButton={(ref) => {submitBookNow? ref.onClick() : ''; console.log(ref.isDisabled); allowBookNow && !ref.isDisabled ?  activateBookNow() : ''}}
-        />
-        }
+        <Typography type='display1' className={classes.marginBottom}><span className={classes.capitalize}>{submittedContent.name}</span>, your new adventure is almost there !</Typography>
+        <Typography type='body1' className={classes.strongText}>Contact Information</Typography>
+        <Grid container className={classes.marginBottom}>
+          <Grid item xs={8}>
+            <Typography type='body1'>Your Name</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography type='body1' className={classes.floatRight}>{submittedContent.name}</Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography type='body1'>Your Phone Number</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography type='body1' className={classes.floatRight}>{submittedContent.phone}</Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography type='body1'>Your Email</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography type='body1' className={classes.floatRight}>{submittedContent.email}</Typography>
+          </Grid>
+        </Grid>
+        <Typography type='body1' className={classes.strongText}>Tour Information</Typography>
+        <Grid container>
+          <Grid item xs={8}>
+            <Typography type='body1'>{tour.name}</Typography>
+            <Typography type='body1' className={classes.smallText}>on {submittedContent.date}</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography type='body1' className={classes.floatRight}>${tour.price.discountAmount}</Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography type='body1'>x {submittedContent.numberOfPax} {submittedContent.numberOfPax > 1 ? "passengers" : "passenger"}</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography type='body1' className={classes.floatRight}>${submittedContent.numberOfPax*tour.price.discountAmount}</Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography type='body1' className={classes.strongText}>Total: </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography type='body1' className={[classes.strongText, classes.floatRight].join(' ')}>${submittedContent.numberOfPax*tour.price.discountAmount}</Typography>
+          </Grid>
+        </Grid>
+        <div id='dropin-container'>
+        </div>
       </div>
     )
   }
 }
 
 const styles = theme => ({
-  // padding: 20,
-  // '&.braintree-dropin-react-submit-btn-wrapper': {
-  //   padding: 10,
-  //   backgroundColor: '#eee',
-  // }
+  marginBottom: {
+    marginBottom: 20
+  },
+  capitalize: {
+    textTransform: 'capitalize'
+  },
+  smallText: {
+    fontSize: '0.7rem'
+  },
+  floatRight: {
+    float: 'right'
+  },
+  strongText: {
+    fontWeight: 'bold'
+  }
 })
 
-export default withStyles(styles)(BookingPayment);
+export default (withStyles(styles)(BookingPayment));

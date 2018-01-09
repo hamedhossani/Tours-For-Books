@@ -21,9 +21,8 @@ import ShareIcon from 'material-ui-icons/Share';
 
 // Components
 import TourDetail from './TourDetail';
-import TourBook from './TourBook';
 import ActionButton from '../utils/ActionButton';
-import TourBookMobile from './TourBookMobile';
+import TourBook from './TourBook';
 
 const styles = theme => ({
   media: {
@@ -215,14 +214,12 @@ class TourCardMediaContent extends Component {
               Book Now
             </ActionButton>
           </DialogActions>
+          <div className={classes.topRight}>
+            <IconButton className={classes.closeDialogButton} onClick={this.handleCancel}><CloseIcon />
+            </IconButton>
+          </div>
         </Dialog>
-        <TourBookMobile tour={tour} booking={this.state.booking} backTourCardMediaContent={this.handleBack}/>
-        <div className={classes.topRight}>
-          <IconButton className={classes.backDialogButton} onClick={this.handleBack}><ForwardIcon />
-          </IconButton>
-          <IconButton className={classes.closeDialogButton} onClick={this.handleCancel}><CloseIcon />
-          </IconButton>
-        </div>
+        <TourBook tour={tour} booking={this.state.booking} backTourCardMediaContent={this.handleBack} closeTourBook={this.handleCancel}/>
       </div>
     )
   }

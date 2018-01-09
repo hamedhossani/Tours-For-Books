@@ -22,7 +22,8 @@ class BookingContact extends Component {
   }
   
   render() {
-    const { classes, name, email, phone } = this.props
+    const { classes } = this.props
+    const { name, email, phone } = this.props
     return (
       <div>
             <FormGroup className={classes.container} noValidate>

@@ -3,56 +3,35 @@ import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 import update from 'react-addons-update';
 import 'whatwg-fetch';
+var shortid = require('shortid');
 
 // Style
 import { withStyles } from 'material-ui/styles';
 import breakpoints from '../theme/breakpoints';
-import Stepper, { Step, StepLabel, StepContent } from 'material-ui/Stepper';
-import Paper from 'material-ui/Paper';
+import Slide from 'material-ui/transitions/Slide';
 import Typography from 'material-ui/Typography';
+import IconButton from 'material-ui/IconButton';
+import Button from 'material-ui/Button';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  withMobileDialog,
+} from 'material-ui/Dialog';
+import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft';
+import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight';
+import { CircularProgress } from 'material-ui/Progress';
 
 // Component
-import BookingAction from '../booking/BookingAction';
-import BookingOption from '../booking/BookingOption';
-import BookingContact from '../booking/BookingContact';
-import BookingPayment from '../booking/BookingPayment';
+import TourBookContent from './TourBookContent';
+import CloseIcon from 'material-ui-icons/Close';
 
-function getSteps(step) {
-  const stepName = ['Pick your day', "Let's connect", 'Make a payment', 'All done!'];
+function getStepName(step) {
+  const stepName = ['Pick your day', "Let's connect", 'Review and Make a payment', 'All done!'];
   return stepName[step]
 }
 
-const BookingContent = (props) => {
-  switch (props.activeStep) {
-    case 0:
-      return <BookingOption onChange={props.onChange} date={props.date} numberOfPax={props.numberOfPax} note={props.note}/>;
-    case 1:
-      return <BookingContact onChange={props.onChange} name={props.name} email={props.email} phone={props.phone}/>;
-    case 2:
-      return !props.isError?
-      <BookingPayment 
-        tour={props.tour} 
-        onSuccessPayment={props.onSuccessPayment} 
-        onErrorPayment={props.onErrorPayment}
-        submittedContent={props.submittedContent}
-        allowBookNow={props.allowBookNow}
-        activateBookNow={props.activateBookNow}
-        submitBookNow={props.submitBookNow}
-        />
-      :
-      <div>
-        <Typography>Oh no! Something went wrong. Please contact us at: </Typography>
-        <Typography color='primary'>inquiry@vietnamtoursforbooks.com</Typography>
-      </div>
-    case 3:
-      return <div>
-        <Typography>Hooray! Thank you for booking a tour with us. We are so excited to show you around.</Typography>
-        <Typography>Please check your email for confirmation.</Typography>
-        {/**TFB logo**/}
-      </div>
-    default:
-      return <div></div>;
-  }
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
 }
 
 class TourBook extends Component {
@@ -60,159 +39,256 @@ class TourBook extends Component {
     super(props);
     this.state = {
       activeStep: 0,
-      isError: false,
-      allowBookNow: true,
-      submitBookNow: false,
-      activeButton: false,
+      disabledNext: true,
+      errorPayment: false,
+      loading: false,
       submittedContent: {
         date: '',
         numberOfPax: '',
+        note: '',
         name: '',
         email: '',
-        phone: ''
+        phone: '',
+        instance: '',
+        payload: ''
       }
     };
-    this.handleNext = this.handleNext.bind(this)
     this.handleBack = this.handleBack.bind(this)
-    this.handleBooking = this.handleBooking.bind(this)
-    this.handleActivateBookNow = this.handleActivateBookNow.bind(this)
-    this.handleSuccessPayment = this.handleSuccessPayment.bind(this)
-    this.handleErrorPayment = this.handleErrorPayment.bind(this)
+    this.handleNext = this.handleNext.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.validateEmail = this.validateEmail.bind(this)
+    this.handleBooking = this.handleBooking.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
   handleNext(){
     this.setState({
       activeStep: this.state.activeStep + 1,
-      activeButton: false
+      disabledNext: true
     });
   };
 
   handleBack(){
-    this.setState({
-      activeStep: this.state.activeStep - 1,
-    });
+    if (this.state.activeStep==0){
+      this.props.backTourCardMediaContent()
+    } else {
+      this.setState({
+        activeStep: this.state.activeStep - 1,
+      });
+    }
   };
   
   handleChange(input) {
-    const { submittedContent } = this.state
+    const { activeStep, submittedContent } = this.state
     if (input.type === 'option' || input.type === 'contact'){
       const newInput = update(submittedContent, {$merge: input.fields})
-      console.log(newInput)
+      this.setState({submittedContent: newInput})
+      switch (activeStep) {
+        case 0:
+          if (newInput.date && newInput.numberOfPax) {
+            this.setState({disabledNext: false})
+          } else {
+            this.setState({disabledNext: true})
+          }
+          break
+        case 1:
+          if (newInput.name && newInput.phone && this.validateEmail(newInput.email)) {
+            this.setState({disabledNext: false})
+          } else {
+            this.setState({disabledNext: true})
+          }
+          break
+        default:
+          this.setState({ disabledNext: true })
+      }
+    } else if (input.type === 'payload') {
+      const newInput = update(submittedContent, {$merge: input.fields})
+      if (newInput.instance) {
+        this.setState({disabledNext: false})
+      } else {
+        this.setState({disabledNext: true})
+      }
       this.setState({submittedContent: newInput})
     }
-    
-    if (submittedContent.date.length>0 && submittedContent.numberOfPax.length>0 
-    || submittedContent.name.length>0 && submittedContent.email.length>0 && submittedContent.phone.length>0) {
-      this.setState({activeButton: true})
-    } else {
-      this.setState({activateButton: false})
+  }
+  
+  validateEmail(input) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input))  {  
+      return true
+    }  else {
+      return false  
     }
   }
-  handleActivateBookNow() {
-    this.setState({allowBookNow: false, activeButton: true})
-  }
-  handleBooking(){
-    this.setState({submitBookNow: true})
-  }
   
-  handleSuccessPayment(result){
-    console.log(result)
-    // Trigger webhook to send email
+  handleBooking(){
+    const { instance, numberOfPax } = this.state.submittedContent
     const { tour } = this.props
-    const { submittedContent } = this.state
-    const url = 'https://hooks.zapier.com/hooks/catch/2690251/s7buaa/'
-    let payload = { tour, submittedContent }
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(payload)
-    })
-    .then(response => {
-      if (response.status === 200) {
-        if (result.status === 'success') {
-          this.handleNext()
-        } else {
-          this.handleErrorPayment
-        }
+    this.setState({ loading: true },
+    instance.requestPaymentMethod((err, payload) => {
+      if(!err) {
+        fetch('/api/checkout', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ 
+            payload: { nonce: payload.nonce },
+            transaction: { 
+              paypal: { 
+                orderId: shortid.generate(),
+                tourId: tour.id,
+                amount: tour.price.discountAmount * numberOfPax
+              } 
+            } 
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.status==='success'){
+            this.setState({ loading: false })
+            this.handleNext()
+          } else {
+            this.setState({ errorPayment : true})
+          }
+        })
       } else {
-        this.setState({ activeButton: false, activeStep: 2, isError: true })
+        console.log('Error with payload', err)
       }
     })
+    )
   }
   
-  handleErrorPayment(){
-    this.setState({ activeStep: 2, isError: true })
+  handleClose(){
+    this.props.closeTourBook()
   }
 
   render() {
-    const { classes, tour } = this.props
-    const steps = getSteps();
-    const { activeStep, isError, allowBookNow, submitBookNow, activeButton, submittedContent } = this.state;
+    const { classes, tour, booking, fullScreen, theme } = this.props
+    const { activeStep, submittedContent, disabledNext, loading, errorPayment } = this.state
     return (
-      <Paper elevation={2} className={classes.root}>
-        <div className={classes.header}>
-          <Typography type='display4'>{tour.name}</Typography> 
+      <Dialog
+          fullScreen={fullScreen}
+          open={booking}
+          transition={Transition}
+          keepMounted
+          aria-labelledby="responsive-dialog-title"
+          className={[classes.dialog, classes.hiddenScrollX].join(' ')}
+      >
+        <DialogContent className={classes.hiddenScrollY}>
+          { !errorPayment ? 
+            <div className={classes.dialogContent}>
+              <Typography type='title'>Step {activeStep + 1} of 4: {getStepName(activeStep)}</Typography>
+              <div>
+                <TourBookContent 
+                  activeStep={activeStep}
+                  tour={tour}
+                  submittedContent={submittedContent}
+                  handleChange={this.handleChange}
+                />
+              </div>
+            </div>
+            :
+            <div className={classes.dialogContent}>
+              <Typography type='title'>Oh no! Something went wrong from our end</Typography>
+              <div>
+                <Typography type='body1'>Please try again or contact us at inquiry@vietnamtoursforbooks.com</Typography>
+              </div>
+            </div>
+          }
+          
+        </DialogContent>
+        {activeStep!==3?
+          <DialogActions>
+            <Button dense onClick={this.handleBack}>
+              {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+              Back
+            </Button>
+            {activeStep === 2 ?
+              <div className={classes.wrapper}>
+                <Button dense onClick={this.handleBooking} disabled={disabledNext || loading} >
+                  Book Now
+                  {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                </Button>
+                {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+              </div>
+              :
+              <Button dense onClick={this.handleNext} disabled={disabledNext} >
+                Next
+                {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+              </Button>  
+            }
+          </DialogActions>
+          :
+          ''
+        }
+        <div className={classes.topRight}>
+          <IconButton className={classes.closeDialogButton} onClick={this.handleClose}><CloseIcon />
+          </IconButton>
         </div>
-        <Stepper activeStep={activeStep} orientation="vertical">
-          {steps.map((label, index) => {
-            return (
-              <Step key={label}>
-                <StepLabel><Typography type='subheading' component='span'>{label}</Typography></StepLabel>
-                <StepContent>
-                  <div>
-                  <BookingContent 
-                    activeStep={activeStep} 
-                    onSuccessPayment={this.handleSuccessPayment}
-                    onErrorPayment={this.handleErrorPayment}
-                    onChange={this.handleChange}
-                    tour={tour}
-                    isError={isError}
-                    submittedContent={submittedContent}
-                    allowBookNow={allowBookNow}
-                    activateBookNow={this.handleActivateBookNow}
-                    submitBookNow={submitBookNow}
-                    date={submittedContent.date}
-                    numberOfPax={submittedContent.numberOfPax}
-                    note={submittedContent.note}
-                    email={submittedContent.email}
-                    name={submittedContent.name}
-                    phone={submittedContent.phone}
-                    />
-                  <BookingAction activeButton={activeButton} steps={steps} activeStep={activeStep} onClickNext={this.handleNext} onClickBack={this.handleBack} onClickBooking={this.handleBooking} />
-                  </div>
-                </StepContent>
-              </Step>
-            );
-          })}
-        </Stepper>
-      </Paper>
+      </Dialog>
     )
   }
 }
 
 const styles = theme => ({
   root: {
-    padding: '5%',
-    paddingTop: 40,
-    flexGrow: 1,
-    [`@media (min-width: ${breakpoints['md']}px)`]:{
-      width: 600
+  },
+  dialog: {
+    '& >div:nth-child(2)': {
+      height: '90vh',
+      width: '100%'
+    },
+    [`@media (max-width: ${breakpoints['sm']}px)`]:{
+      marginTop: 40,
+      height: '90%',
     }
   },
-  button: {
-    marginRight: theme.spacing.unit,
+  dialogContent: {
+    padding: '5%'
   },
-  postSubmitContainer: {
-    marginTop: 0,
-    padding: theme.spacing.unit * 3, // TODO: See TODO note on Stepper
+  hiddenScrollX: {
+    [`@media (min-width: ${breakpoints['md']}px)`]:{
+      '& >div' : {
+        overflowX: 'hidden'
+      }
+    }
   },
+  hiddenScrollY: {
+    [`@media (min-width: ${breakpoints['md']}px)`]:{
+      marginRight: -18,
+    }
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    height: 38,
+    paddingLeft: '5%',
+    marginBottom: theme.spacing.unit,
+  },
+  topRight: {
+    position: 'absolute',
+    top: 15,
+    right: 15,
+    '& div + div':{
+      marginLeft: theme.spacing.unit * 2
+    }
+  },
+  closeDialogButton: {
+    backgroundColor: theme.palette.common.lightWhite,
+    color: theme.palette.common.darkGrey,
+  },
+  wrapper: {
+    position: 'relative'
+  },
+  buttonProgress: {
+    color: theme.palette.primary[500],
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  }
 });
 
-const mapStateToProps = state => {
-    return { domain : 'yourdomain.com'
-    }
-}
 
-export default withStyles(styles)(TourBook);
+export default withMobileDialog()(withStyles(styles, { withTheme: true })(TourBook));
