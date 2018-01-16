@@ -11,14 +11,42 @@ import Paper from 'material-ui/Paper';
 
 // Component
 import TourCard from './TourCard';
+import FilterDesktop from '../filter/FilterDesktop';
 
 // Store
 import { fetchInitialTours } from './action';
 
-class Body extends Component {
+class Tours extends Component {
   constructor(props) {
     super(props);
+    this.state={
+      open: false,
+      localTourOpen: false,
+      customTourOpen: false
+    }
+    this.handleClick = this.handleClick.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleReset = this.handleReset.bind(this)
   }
+  
+  handleClick(){
+    this.setState({open: true})
+  }
+  handleClose(){
+    this.setState({open: false})
+  }
+  handleChange(tourType,checked){
+    this.setState({ [tourType] : checked})
+  }
+  handleReset(){
+    this.setState({localTourOpen: false, customTourOpen: false})
+  }
+  
+  handleFilter(filterState) {
+    this.setState(filterState)
+  }
+  
   componentWillMount(){
     this.props.dispatchFetchInitialTours()
   }
@@ -26,22 +54,33 @@ class Body extends Component {
   render() {
     const { classes, tours } = this.props
     const isMobile = this.props.width < breakpoints['md'];
+    const { open, localTourOpen, customTourOpen } = this.state
     return (
-      <div className={classes.bodyWrapper} id='tours'>
+      <div className={classes.tourWrapper} id='tours'>
         <Grid container spacing={16} className={classes.tourWrapper}>
-          { tours && tours.map(tour => (
-            <Grid item xs={12} sm={6} md={4} key={tour.id}>
-              <TourCard tour={tour} />
-            </Grid>
-          ))}
+          { tours && tours.map((tour) => 
+            ( ((localTourOpen && tour.type === 'local') || (customTourOpen && tour.type === 'custom') || (!localTourOpen && !customTourOpen))&& 
+              <Grid item xs={12} sm={6} md={4} key={tour.id}>
+                <TourCard tour={tour} />
+              </Grid>
+            )
+          )}
         </Grid>
+        {isMobile?
+          ''
+          :
+          <FilterDesktop 
+            open={open} localTourOpen={localTourOpen} customTourOpen={customTourOpen}
+            handleClick={this.handleClick} handleClose={this.handleClose} handleChange={this.handleChange} handleReset={this.handleReset}
+          />
+        }
       </div>
     )
   }
 }
 
 const styles = theme => ({
-  bodyWrapper: {
+  tourWrapper: {
     padding: '5%',
     flexGrow: 1,
   },
@@ -49,7 +88,7 @@ const styles = theme => ({
     marginLeft: 24
   },
   [`@media (min-width: ${breakpoints['md']}px)`]:{
-    bodyWrapper: {
+    tourWrapper: {
       display: 'flex',
       padding: '5% 10%',
       flexDirection: 'row',
@@ -75,4 +114,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(widthWidth(withStyles(styles)(Body)));
+)(widthWidth(withStyles(styles)(Tours)));

@@ -18,11 +18,13 @@ import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import ForwardIcon from 'material-ui-icons/ArrowForward';
 import ShareIcon from 'material-ui-icons/Share';
+import Tooltip from 'material-ui/Tooltip';
 
 // Components
 import TourDetail from './TourDetail';
 import ActionButton from '../utils/ActionButton';
 import TourBook from './TourBook';
+import ContactForm from '../contact/ContactForm';
 
 const styles = theme => ({
   media: {
@@ -41,7 +43,7 @@ const styles = theme => ({
     /* use this value to count block height */
     lineHeight: '1.2em',
     /* max-height = line-height (1.2) * lines max number (3) */
-    maxHeight: '3.6em', 
+    maxHeight: '3.9em', 
     /* fix problem when last visible word doesn't adjoin right side  */
     textAlign: 'justify',  
     /* place for '...' */
@@ -56,12 +58,12 @@ const styles = theme => ({
       right: 0,
       bottom: 0,
       marginRight: '1em',
-      paddingLeft: '0.2em',
+      paddingLeft: '0.5em',
       lineHeight: '1.3em',
       backgroundColor: 'white',
       color: 'black',
       [`@media (min-width: ${breakpoints['sm']}px)`]:{
-        lineHeight: '0.8em',
+        lineHeight: '1.2em',
       }
     },
     /* hide ... if we have text, which is less than or equal to max lines */
@@ -137,7 +139,9 @@ class TourCardMediaContent extends Component {
     super(props);
     this.state={
       open: false,
-      booking: false
+      booking: false,
+      contact: false,
+      tooltip: false
     }
     this.handleClickOpen = this.handleClickOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
@@ -157,12 +161,16 @@ class TourCardMediaContent extends Component {
     this.setState({ booking: true });
   }
   
+  handleContact() {
+    this.setState({ contact: true });
+  }
+  
   handleBack() {
     this.setState({ open: true, booking: false });
   }
   
   handleCancel() {
-    this.setState({ booking: false });
+    this.setState({ open:false, booking: false });
   }
   render() {
     const { classes, tour, fullScreen } = this.props;
@@ -194,7 +202,6 @@ class TourCardMediaContent extends Component {
           transition={Transition}
           keepMounted
           aria-labelledby="responsive-dialog-title"
-          onClick={this.handleClose}
           className={[classes.dialog, classes.hiddenScrollX].join(' ')}
         >
           <DialogContent className={classes.hiddenScrollY} >
@@ -204,17 +211,31 @@ class TourCardMediaContent extends Component {
             <IconButton className={classes.closeDialogButton} onClick={this.handleClose}><CloseIcon />
             </IconButton>
           </div>
-          <DialogActions>
-            <div className={classes.price}>
-              <Typography type='display2'>${tour.price.amount}</Typography>
-              <Typography type='display1'>${tour.price.discountAmount}</Typography>
-            </div>
-            <ActionButton 
-              variant='primary'
-              onClick={this.handleBooking}>
-              Book Now
-            </ActionButton>
-          </DialogActions>
+          { tour.type === 'local' ?
+            <DialogActions>
+              <div className={classes.price}>
+                <Typography type='display2'>${tour.price.amount}</Typography>
+                <Typography type='display1'>${tour.price.discountAmount}</Typography>
+              </div>
+              <ActionButton 
+                variant='primary'
+                onClick={this.handleBooking}>
+                Book Now
+              </ActionButton>
+            </DialogActions>
+            :
+            <DialogActions>
+              <Tooltip title='Email: inquiry@vietnamtoursforbooks.com' open={this.state.tooltip}>
+                <div>
+                <ActionButton 
+                  variant='primary'
+                  onClick={() => this.setState({tooltip: !this.state.tooltip})}>
+                  Contact Us
+                </ActionButton>
+                </div>
+              </Tooltip>
+            </DialogActions>
+          }
           <div className={classes.topRight}>
             <IconButton className={classes.closeDialogButton} onClick={this.handleCancel}><CloseIcon />
             </IconButton>
@@ -224,11 +245,6 @@ class TourCardMediaContent extends Component {
       </div>
     )
   }
-}
-
-const mapStateToProps = state => {
-    return { domain : 'yourdomain.com'
-    }
 }
 
 export default  withMobileDialog()(withStyles(styles)(TourCardMediaContent));

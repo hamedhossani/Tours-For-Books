@@ -28,6 +28,7 @@ import MotorcycleIcon from 'material-ui-icons/Motorcycle';
 import LocationCityIcon from 'material-ui-icons/LocationCity';
 import LocalDrinkIcon from 'material-ui-icons/LocalDrink';
 import MusicNoteIcon from 'material-ui-icons/MusicNote';
+import FilterList from 'material-ui-icons/FilterList';
 
 const Icon = (props) => {
     const { iconName } = props;
@@ -70,6 +71,8 @@ const Icon = (props) => {
             return <FontAwesomeIcon icon={faSun} size='sm' style={{color: '#fff'}} />
         case 'Film':
             return <FontAwesomeIcon icon={faFilmAlt} size='sm' style={{color: '#fff'}} />
+        case 'FilterList':
+            return <FilterList />
         default:
             return null
     }
@@ -77,6 +80,8 @@ const Icon = (props) => {
 
 function getColor(iconName) {
     switch(iconName) {
+        case 'FilterList':
+            return ['#fff', '#189AB4']
         case 'LocalDining':
             return ['#fff', '#FFBB00']
         case 'NaturePeople':

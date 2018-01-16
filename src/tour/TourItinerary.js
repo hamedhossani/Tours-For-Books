@@ -65,7 +65,7 @@ const styles = theme => ({
   },
   activityNoteWrapper: {
     marginLeft: '32px',
-    borderLeft: `1px solid ${theme.palette.common.dardGrey}`,
+    borderLeft: `1px solid ${theme.palette.common.darkGrey}`,
   },
   activityNote: {
     paddingLeft: '16px',

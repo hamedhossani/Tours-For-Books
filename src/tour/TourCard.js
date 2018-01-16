@@ -21,9 +21,13 @@ import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
+import Tooltip from 'material-ui/Tooltip';
 
 // Image
 import MaterialIcon from '../utils/MaterialIcon';
+
+// Component
+import ActionButton from '../utils/ActionButton';
 
 const styles = theme => ({
   card: {
@@ -45,6 +49,9 @@ const styles = theme => ({
   },
   expandOpen: {
     transform: 'rotate(180deg)',
+  },
+  contactButton: {
+    marginLeft: '16px',
   },
   price: {
     display: 'flex',
@@ -71,7 +78,8 @@ class TourCard extends Component {
   constructor(props) {
     super(props);
     this.state={
-      expanded: false
+      expanded: false,
+      tooltip: false,
     }
     this.handleExpandClick = this.handleExpandClick.bind(this)
   }
@@ -85,10 +93,25 @@ class TourCard extends Component {
         <div className={classes.cardHeader}>
           <TourCardMediaContent tour={tour}/>
           <CardActions disableActionSpacing>
-            <div className={classes.price}>
-              <Typography type='display2'>${tour.price.amount}</Typography>
-              <Typography type='display1'>${tour.price.discountAmount}</Typography>
-            </div>
+            { tour.type === 'local' ? 
+              <div className={classes.price}>
+                <Typography type='display2'>${tour.price.amount}</Typography>
+                <Typography type='display1'>${tour.price.discountAmount}</Typography>
+              </div>
+              :
+              <div className={classes.contactButton}>
+                <Tooltip title='Email: inquiry@vietnamtoursforbooks.com' open={this.state.tooltip}>
+                  <div>
+                    <ActionButton 
+                      variant='primary'
+                      onClick={() => this.setState({tooltip: !this.state.tooltip})}
+                      >
+                      Contact Us
+                    </ActionButton>
+                  </div>
+                </Tooltip>
+              </div>
+            }
             <div className={classes.flexGrow} />
             <IconButton onClick={this.handleExpandClick} color='primary'>
               {this.state.expanded ? <ExpandLess /> : <ExpandMore />}
