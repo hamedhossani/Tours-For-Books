@@ -52,7 +52,8 @@ const styles = theme => ({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        padding: '5%'
+        padding: '5%',
+        paddingTop: '20%'
     },
     logo: {
         height: '150px',
