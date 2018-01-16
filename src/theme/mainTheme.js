@@ -341,6 +341,19 @@ export default createMuiTheme({
       root: {
         color: "#189AB4"
       },
+    },
+    MuiModal: {
+      root: {
+        zIndex: 1502
+      }
+    },
+    MuiSwitch: {
+      default: {
+        transform: 'translateX(8px)'
+      },
+      checked: {
+        transform: 'translateX(100%)'
+      }
     }
   }
 });

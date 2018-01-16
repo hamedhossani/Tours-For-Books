@@ -41,7 +41,7 @@ const styles = theme => ({
     /* use this value to count block height */
     lineHeight: '1.2em',
     /* max-height = line-height (1.2) * lines max number (3) */
-    maxHeight: '3.6em', 
+    maxHeight: '3.9em', 
     /* fix problem when last visible word doesn't adjoin right side  */
     textAlign: 'justify',  
     /* place for '...' */
@@ -56,12 +56,12 @@ const styles = theme => ({
       right: 0,
       bottom: 0,
       marginRight: '1em',
-      paddingLeft: '0.2em',
+      paddingLeft: '0.5em',
       lineHeight: '1.3em',
       backgroundColor: 'white',
       color: 'black',
       [`@media (min-width: ${breakpoints['sm']}px)`]:{
-        lineHeight: '0.8em',
+        lineHeight: '1.2em',
       }
     },
     /* hide ... if we have text, which is less than or equal to max lines */
