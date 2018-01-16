@@ -18,11 +18,13 @@ import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import ForwardIcon from 'material-ui-icons/ArrowForward';
 import ShareIcon from 'material-ui-icons/Share';
+import Tooltip from 'material-ui/Tooltip';
 
 // Components
 import TourDetail from './TourDetail';
 import ActionButton from '../utils/ActionButton';
 import TourBook from './TourBook';
+import ContactForm from '../contact/ContactForm';
 
 const styles = theme => ({
   media: {
@@ -137,7 +139,8 @@ class TourCardMediaContent extends Component {
     super(props);
     this.state={
       open: false,
-      booking: false
+      booking: false,
+      contact: false
     }
     this.handleClickOpen = this.handleClickOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
@@ -155,6 +158,10 @@ class TourCardMediaContent extends Component {
   
   handleBooking() {
     this.setState({ booking: true });
+  }
+  
+  handleContact() {
+    this.setState({ contact: true });
   }
   
   handleBack() {
@@ -218,11 +225,14 @@ class TourCardMediaContent extends Component {
             </DialogActions>
             :
             <DialogActions>
-              <ActionButton 
-                variant='primary'
-                onClick={this.handleBooking}>
-                Contact Us
-              </ActionButton>
+              <Tooltip title='Email: inquiry@vietnamtoursforbooks.com'>
+                <div>
+                <ActionButton 
+                  variant='primary'>
+                  Contact Us
+                </ActionButton>
+                </div>
+              </Tooltip>
             </DialogActions>
           }
           <div className={classes.topRight}>
@@ -234,11 +244,6 @@ class TourCardMediaContent extends Component {
       </div>
     )
   }
-}
-
-const mapStateToProps = state => {
-    return { domain : 'yourdomain.com'
-    }
 }
 
 export default  withMobileDialog()(withStyles(styles)(TourCardMediaContent));

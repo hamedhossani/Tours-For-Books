@@ -21,6 +21,7 @@ import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
+import Tooltip from 'material-ui/Tooltip';
 
 // Image
 import MaterialIcon from '../utils/MaterialIcon';
@@ -98,11 +99,15 @@ class TourCard extends Component {
               </div>
               :
               <div className={classes.contactButton}>
-                <ActionButton 
-                  variant='primary'
-                  onClick={this.handleBooking}>
-                  Contact Us
-                </ActionButton>
+                <Tooltip title='Email: inquiry@vietnamtoursforbooks.com'>
+                  <div>
+                    <ActionButton 
+                      variant='primary'
+                      onClick={this.handleBooking}>
+                      Contact Us
+                    </ActionButton>
+                  </div>
+                </Tooltip>
               </div>
             }
             <div className={classes.flexGrow} />
