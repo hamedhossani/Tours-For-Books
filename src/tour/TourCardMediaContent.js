@@ -204,17 +204,27 @@ class TourCardMediaContent extends Component {
             <IconButton className={classes.closeDialogButton} onClick={this.handleClose}><CloseIcon />
             </IconButton>
           </div>
-          <DialogActions>
-            <div className={classes.price}>
-              <Typography type='display2'>${tour.price.amount}</Typography>
-              <Typography type='display1'>${tour.price.discountAmount}</Typography>
-            </div>
-            <ActionButton 
-              variant='primary'
-              onClick={this.handleBooking}>
-              Book Now
-            </ActionButton>
-          </DialogActions>
+          { tour.type === 'local' ?
+            <DialogActions>
+              <div className={classes.price}>
+                <Typography type='display2'>${tour.price.amount}</Typography>
+                <Typography type='display1'>${tour.price.discountAmount}</Typography>
+              </div>
+              <ActionButton 
+                variant='primary'
+                onClick={this.handleBooking}>
+                Book Now
+              </ActionButton>
+            </DialogActions>
+            :
+            <DialogActions>
+              <ActionButton 
+                variant='primary'
+                onClick={this.handleBooking}>
+                Contact Us
+              </ActionButton>
+            </DialogActions>
+          }
           <div className={classes.topRight}>
             <IconButton className={classes.closeDialogButton} onClick={this.handleCancel}><CloseIcon />
             </IconButton>

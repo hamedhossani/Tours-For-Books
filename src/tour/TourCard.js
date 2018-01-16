@@ -25,6 +25,9 @@ import Divider from 'material-ui/Divider';
 // Image
 import MaterialIcon from '../utils/MaterialIcon';
 
+// Component
+import ActionButton from '../utils/ActionButton';
+
 const styles = theme => ({
   card: {
     maxWidth: '100%',
@@ -45,6 +48,9 @@ const styles = theme => ({
   },
   expandOpen: {
     transform: 'rotate(180deg)',
+  },
+  contactButton: {
+    marginLeft: '16px',
   },
   price: {
     display: 'flex',
@@ -85,10 +91,20 @@ class TourCard extends Component {
         <div className={classes.cardHeader}>
           <TourCardMediaContent tour={tour}/>
           <CardActions disableActionSpacing>
-            <div className={classes.price}>
-              <Typography type='display2'>${tour.price.amount}</Typography>
-              <Typography type='display1'>${tour.price.discountAmount}</Typography>
-            </div>
+            { tour.type === 'local' ? 
+              <div className={classes.price}>
+                <Typography type='display2'>${tour.price.amount}</Typography>
+                <Typography type='display1'>${tour.price.discountAmount}</Typography>
+              </div>
+              :
+              <div className={classes.contactButton}>
+                <ActionButton 
+                  variant='primary'
+                  onClick={this.handleBooking}>
+                  Contact Us
+                </ActionButton>
+              </div>
+            }
             <div className={classes.flexGrow} />
             <IconButton onClick={this.handleExpandClick} color='primary'>
               {this.state.expanded ? <ExpandLess /> : <ExpandMore />}
