@@ -28,6 +28,7 @@ class Nav extends Component {
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleScroll = this.handleScroll.bind(this)
   }
   
   handleClick(event){
@@ -75,7 +76,7 @@ class Nav extends Component {
             className={[classes.dialog, classes.hiddenScrollX].join(' ')}
           >
             <DialogContent className={classes.hiddenScrollY}>
-              <NavItem modal={modal}>Something</NavItem>
+              <NavItem modal={modal} />
             </DialogContent>
             <div className={classes.topRight}>
               <IconButton className={classes.closeDialogButton} onClick={this.handleClose}><CloseIcon />

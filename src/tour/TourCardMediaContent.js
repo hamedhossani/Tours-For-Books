@@ -84,7 +84,8 @@ const styles = theme => ({
     [`@media (max-width: ${breakpoints['sm']}px)`]:{
       marginTop: 40,
       height: '90%'
-    }
+    },
+    zIndex: 1600
   },
   hiddenScrollX: {
     [`@media (min-width: ${breakpoints['md']}px)`]:{

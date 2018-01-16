@@ -77,9 +77,10 @@ const styles = theme => ({
     justifyContent: 'space-between',
     padding: '5%'
   },
-  [`@media (max-width: ${breakpoints['sm']}px)`]:{
+  [`@media (max-width: ${breakpoints['md']}px)`]:{
     root: {
       flexDirection: 'column',
+      marginBottom: 50,
       '& p': {
         textAlign: 'center' 
       }
