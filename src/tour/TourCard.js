@@ -78,7 +78,8 @@ class TourCard extends Component {
   constructor(props) {
     super(props);
     this.state={
-      expanded: false
+      expanded: false,
+      tooltip: false,
     }
     this.handleExpandClick = this.handleExpandClick.bind(this)
   }
@@ -99,11 +100,12 @@ class TourCard extends Component {
               </div>
               :
               <div className={classes.contactButton}>
-                <Tooltip title='Email: inquiry@vietnamtoursforbooks.com'>
+                <Tooltip title='Email: inquiry@vietnamtoursforbooks.com' open={this.state.tooltip}>
                   <div>
                     <ActionButton 
                       variant='primary'
-                      onClick={this.handleBooking}>
+                      onClick={() => this.setState({tooltip: !this.state.tooltip})}
+                      >
                       Contact Us
                     </ActionButton>
                   </div>

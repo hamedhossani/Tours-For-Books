@@ -140,7 +140,8 @@ class TourCardMediaContent extends Component {
     this.state={
       open: false,
       booking: false,
-      contact: false
+      contact: false,
+      tooltip: false
     }
     this.handleClickOpen = this.handleClickOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
@@ -169,7 +170,7 @@ class TourCardMediaContent extends Component {
   }
   
   handleCancel() {
-    this.setState({ booking: false });
+    this.setState({ open:false, booking: false });
   }
   render() {
     const { classes, tour, fullScreen } = this.props;
@@ -201,7 +202,6 @@ class TourCardMediaContent extends Component {
           transition={Transition}
           keepMounted
           aria-labelledby="responsive-dialog-title"
-          onClick={this.handleClose}
           className={[classes.dialog, classes.hiddenScrollX].join(' ')}
         >
           <DialogContent className={classes.hiddenScrollY} >
@@ -225,10 +225,11 @@ class TourCardMediaContent extends Component {
             </DialogActions>
             :
             <DialogActions>
-              <Tooltip title='Email: inquiry@vietnamtoursforbooks.com'>
+              <Tooltip title='Email: inquiry@vietnamtoursforbooks.com' open={this.state.tooltip}>
                 <div>
                 <ActionButton 
-                  variant='primary'>
+                  variant='primary'
+                  onClick={() => this.setState({tooltip: !this.state.tooltip})}>
                   Contact Us
                 </ActionButton>
                 </div>

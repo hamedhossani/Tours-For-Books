@@ -5,7 +5,7 @@ import { Route, Link } from 'react-router-dom';
 // Style
 import breakpoints from '../theme/breakpoints';
 import { withStyles } from 'material-ui/styles';
-import Dialog, { DialogContent, DialogActions } from 'material-ui/Dialog';
+import Dialog, { DialogContent, DialogActions, DialogTitle, withMobileDialog } from 'material-ui/Dialog';
 import { FormControlLabel, FormGroup } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 import Button from 'material-ui/Button'
@@ -15,9 +15,11 @@ import Button from 'material-ui/Button'
 const styles = theme => ({
   root: {
     '& >div:nth-child(2)':{
-      position: 'fixed',
-      bottom: theme.spacing.unit*3,
-      right: theme.spacing.unit*3,
+      [`@media (min-width: ${breakpoints['md']}px)`]:{
+        position: 'fixed',
+        bottom: theme.spacing.unit*3,
+        right: theme.spacing.unit*3,
+      }
     }
   },
   formWrapper:{
@@ -31,15 +33,16 @@ class FilterForm extends Component {
   }
 
   render() {
-    const { classes, open, handleClose, handleChange, localTourOpen, customTourOpen, handleReset } = this.props;
+    const { classes, open, handleClose, handleChange, localTourOpen, customTourOpen, handleReset, fullScreen } = this.props;
     return (
       <Dialog
+        fullScreen={fullScreen}
         open={open}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         className={classes.root}
-        onClick={handleClose}
         >
+        <DialogTitle>Filtered By</DialogTitle>
         <DialogContent >
           <div className={classes.formWrapper}>
             <FormGroup>
@@ -68,10 +71,13 @@ class FilterForm extends Component {
           <Button onClick={handleReset} color="primary">
             Reset
           </Button>
+          <Button onClick={handleClose} color="primary" raised>
+            Apply
+          </Button>
         </DialogActions>
       </Dialog>
     )
   }
 }
 
-export default withStyles(styles)(FilterForm);
+export default withMobileDialog()(withStyles(styles)(FilterForm));

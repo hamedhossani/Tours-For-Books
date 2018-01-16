@@ -15,9 +15,12 @@ import FilterForm from './FilterForm';
 const styles = theme => ({
   root: {
     position: 'fixed',
-    bottom: theme.spacing.unit*3,
+    bottom: theme.spacing.unit*10,
+    [`@media (min-width: ${breakpoints['md']}px)`]:{
+      bottom: theme.spacing.unit*3,
+    },
     right: theme.spacing.unit*3
-  }
+  },
 });
 
 class FilterDesktop extends Component {
@@ -29,7 +32,7 @@ class FilterDesktop extends Component {
     const { classes, open, localTourOpen, customTourOpen, handleClick, handleClose, handleChange, handleReset } = this.props;
     return (
       <div className={classes.root}> 
-        <Tooltip id="tooltip-icon" title="Filter">
+        <Tooltip id="tooltip-icon" title="Filter" open={true}>
           <IconButton onClick={handleClick}>
             <MaterialIcon iconName='FilterList' />
           </IconButton>
