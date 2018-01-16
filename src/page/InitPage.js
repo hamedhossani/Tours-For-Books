@@ -4,6 +4,7 @@ import { Route, Link } from 'react-router-dom';
 
 // Components
 import Nav from './Nav';
+import NavMobile from './NavMobile';
 import Hero from './Hero';
 import Tours from '../tour/Tours';
 import WhyChooseUs from './WhyChooseUs';
@@ -33,7 +34,7 @@ class App extends Component {
     return (
       <div>
         { isMobile? 
-          ''
+          <NavMobile />
           :
           <Nav />
         }
