@@ -9,7 +9,7 @@ export default createMuiTheme({
       "white": "#fff",
       "transparent": "rgba(0, 0, 0, 0)",
       "lightWhite": "rgba(250,250,250,0.7)",
-      "dardGrey": "rgba(0, 0, 0, 0.4)",
+      "darkGrey": "rgba(0, 0, 0, 0.4)",
     },
     "contrast": "#fff",
     "primary": {
@@ -340,7 +340,7 @@ export default createMuiTheme({
     MuiButton: {
       root: {
         color: "#189AB4"
-      }
+      },
     }
   }
 });

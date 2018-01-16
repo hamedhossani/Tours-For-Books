@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
+var smoothScroll = require('smoothscroll');
 
 // Style
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
+import ActionButton from '../utils/ActionButton';
+import breakpoints from '../theme/breakpoints';
+import widthWidth from '../utils/withWidth';
 
 // Image
 import heroImage from '../images/central_tour.jpg';
@@ -12,15 +16,27 @@ import heroImage from '../images/central_tour.jpg';
 class Hero extends Component {
   constructor(props) {
     super(props);
+    this.handleScroll = this.handleScroll.bind(this)
+  }
+  handleScroll(event) {
+    event.preventDefault()
+    let tourSection = document.querySelector('#tours') 
+    smoothScroll(tourSection)
   }
   render() {
     const { classes } = this.props;
+    const isMobile = this.props.width < breakpoints['md'];
     let logoImgUrl = `https://storage.googleapis.com/bloggy-170620.appspot.com/appImg/logo.png`
     return (
       <div>
         <div className={classes.heroWrapper}>
-            <div className={classes.logo} style={{backgroundImage: `url(${logoImgUrl})`}}></div>
+            {isMobile? 
+              <div className={classes.logo} style={{backgroundImage: `url(${logoImgUrl})`}}></div>
+              :
+              ''
+            }
             <Typography type='headline' align='center' className={classes.heroText}>start your adventure today</Typography>
+            <ActionButton variant='primary' onClick={this.handleScroll}>Explore</ActionButton>
         </div>
       </div>
     )
@@ -68,4 +84,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default withStyles(styles)(Hero);
+export default widthWidth(withStyles(styles)(Hero));

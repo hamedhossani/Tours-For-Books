@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 
 // Components
+import Nav from './Nav';
 import Hero from './Hero';
 import Tours from '../tour/Tours';
 import WhyChooseUs from './WhyChooseUs';
@@ -13,6 +14,8 @@ import Message from '../utils/Message';
 
 // Style
 import { withStyles } from 'material-ui/styles';
+import breakpoints from '../theme/breakpoints';
+import widthWidth from '../utils/withWidth';
 import Divider from 'material-ui/Divider';
 
 // Store
@@ -26,8 +29,14 @@ class App extends Component {
   render() {
     const { classes } = this.props
     const { message, messageOpen, dispatchCloseMessage } = this.props
+    const isMobile = this.props.width < breakpoints['md'];
     return (
       <div>
+        { isMobile? 
+          ''
+          :
+          <Nav />
+        }
         <Hero />
         <Tours />
         <Divider />
@@ -61,4 +70,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(App));
+)(widthWidth(withStyles(styles)(App)));

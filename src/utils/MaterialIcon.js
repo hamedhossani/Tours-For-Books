@@ -8,7 +8,8 @@ import { faComments,
         faMapMarkerAlt,
         faShip,
         faBus,
-        faSun
+        faSun,
+        faFilmAlt
 } from '@fortawesome/fontawesome-free-solid';
 import { faSmile
     
@@ -67,6 +68,8 @@ const Icon = (props) => {
             return <FontAwesomeIcon icon={faMapMarkerAlt} size='sm' style={{color: '#fff'}} />
         case 'Sun':
             return <FontAwesomeIcon icon={faSun} size='sm' style={{color: '#fff'}} />
+        case 'Film':
+            return <FontAwesomeIcon icon={faFilmAlt} size='sm' style={{color: '#fff'}} />
         default:
             return null
     }
@@ -84,6 +87,8 @@ function getColor(iconName) {
             return ['#fff','#E5008D']
         case 'LocationCity':
             return ['#fff','#7012BC']
+        case 'Film':
+            return ['#fff','#00A54D']
         case 'LocalDrink':
             return ['#fff','#FF4800']  
         case 'MusicNote':

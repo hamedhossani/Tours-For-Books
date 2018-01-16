@@ -27,7 +27,7 @@ class Body extends Component {
     const { classes, tours } = this.props
     const isMobile = this.props.width < breakpoints['md'];
     return (
-      <div className={classes.bodyWrapper}>
+      <div className={classes.bodyWrapper} id='tours'>
         <Grid container spacing={16} className={classes.tourWrapper}>
           { tours && tours.map(tour => (
             <Grid item xs={12} sm={6} md={4} key={tour.id}>

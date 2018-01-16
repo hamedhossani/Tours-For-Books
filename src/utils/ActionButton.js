@@ -20,9 +20,9 @@ const styles = theme => ({
     padding: `0px ${theme.spacing.unit*4}px`,
   },
   secondary: {
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.common.dardGrey,
-    padding: `0px ${theme.spacing.unit}px`,
+    backgroundColor: theme.palette.common.transparent,
+    color: theme.palette.primary[500],
+    padding: `0px ${theme.spacing.unit*4}px`,
   },
   disabled: {
     opacity: 0.5
