@@ -60,7 +60,7 @@ class Nav extends Component {
             <Typography type='body1' className={[classes.strongText, classes.marginLeft].join(' ')} name='visa' onClick={this.handleClick}>
               Apply Visa
             </Typography>
-            <Typography type='body1' className={[classes.strongText, classes.marginLeft].join(' ')} name='transportation' onClick={this.handleClick}>
+            <Typography type='body1' className={[classes.strongText, classes.marginLeft].join(' ')} name='commute' onClick={this.handleClick}>
               Transportation
             </Typography>
             <Typography type='body1' className={[classes.strongText, classes.marginLeft].join(' ')} name='question' onClick={this.handleScroll}>

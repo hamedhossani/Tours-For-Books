@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography';
 import List, {ListItem} from 'material-ui/List';
 
 const NavItemModalContent = (props) => {
-  switch (props.modal) {
+  switch (props.modal) { 
     case 'visa':
       return <div>
         <div className={ props.classes.section}>
@@ -46,7 +46,7 @@ const NavItemModalContent = (props) => {
             <Typography type='body1' component='p'>Upon arrival at Vietnam international airports in Hanoi, Da Nang or Ho Chi Minh city, travelers are required to fill in Entry/exit form (will be emailed together with approval letter), present your approval letter, passport (must be valid for the next six months), photos, and pay for the stamping fee to get Visa stamped on your passport.</Typography>
           </div>
         </div>
-    case 'transportation':
+    case 'commute':
       return <div>
         <div className={ props.classes.section}>
           <Typography type='title' component='h2'>Train Ticket Booking</Typography>

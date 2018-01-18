@@ -12,6 +12,7 @@ import Paper from 'material-ui/Paper';
 // Component
 import TourCard from './TourCard';
 import FilterDesktop from '../filter/FilterDesktop';
+var smoothScroll = require('smoothscroll');
 
 // Store
 import { fetchInitialTours } from './action';
@@ -28,6 +29,7 @@ class Tours extends Component {
     this.handleClose = this.handleClose.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleReset = this.handleReset.bind(this)
+    this.handleApply = this.handleApply.bind(this)
   }
   
   handleClick(){
@@ -43,8 +45,10 @@ class Tours extends Component {
     this.setState({localTourOpen: false, customTourOpen: false})
   }
   
-  handleFilter(filterState) {
-    this.setState(filterState)
+  handleApply() {
+    this.handleClose()
+    let tourSection = document.querySelector('#tours') 
+    smoothScroll(tourSection)
   }
   
   componentWillMount(){
@@ -66,14 +70,10 @@ class Tours extends Component {
             )
           )}
         </Grid>
-        {isMobile?
-          ''
-          :
           <FilterDesktop 
             open={open} localTourOpen={localTourOpen} customTourOpen={customTourOpen}
-            handleClick={this.handleClick} handleClose={this.handleClose} handleChange={this.handleChange} handleReset={this.handleReset}
+            handleClick={this.handleClick} handleApply={this.handleApply} handleChange={this.handleChange} handleReset={this.handleReset}
           />
-        }
       </div>
     )
   }
@@ -83,9 +83,6 @@ const styles = theme => ({
   tourWrapper: {
     padding: '5%',
     flexGrow: 1,
-  },
-  filterWrapper: {
-    marginLeft: 24
   },
   [`@media (min-width: ${breakpoints['md']}px)`]:{
     tourWrapper: {

@@ -158,7 +158,7 @@ class TourCardMediaContent extends Component {
   };
   
   handleBooking() {
-    this.setState({ booking: true });
+    this.setState({ open: false, booking: true });
   }
   
   handleContact() {
@@ -225,15 +225,12 @@ class TourCardMediaContent extends Component {
             </DialogActions>
             :
             <DialogActions>
-              <Tooltip title='Email: inquiry@vietnamtoursforbooks.com' open={this.state.tooltip}>
-                <div>
-                <ActionButton 
-                  variant='primary'
-                  onClick={() => this.setState({tooltip: !this.state.tooltip})}>
-                  Contact Us
-                </ActionButton>
-                </div>
-              </Tooltip>
+              <div className="fb-messengermessageus" 
+                data-messenger_app_id="133018877378513" 
+                data-page_id="1726420851006429"
+                data-color="blue"
+                data-size="large">
+              </div>
             </DialogActions>
           }
           <div className={classes.topRight}>

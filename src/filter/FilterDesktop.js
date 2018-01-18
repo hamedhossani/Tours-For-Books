@@ -19,7 +19,8 @@ const styles = theme => ({
     [`@media (min-width: ${breakpoints['md']}px)`]:{
       bottom: theme.spacing.unit*3,
     },
-    right: theme.spacing.unit*3
+    right: theme.spacing.unit*3,
+    zIndex: 1000,
   },
 });
 
@@ -29,7 +30,7 @@ class FilterDesktop extends Component {
   }
 
   render() {
-    const { classes, open, localTourOpen, customTourOpen, handleClick, handleClose, handleChange, handleReset } = this.props;
+    const { classes, open, localTourOpen, customTourOpen, handleClick, handleApply, handleChange, handleReset } = this.props;
     return (
       <div className={classes.root}> 
         <Tooltip id="tooltip-icon" title="Filter" open={true}>
@@ -39,7 +40,7 @@ class FilterDesktop extends Component {
         </Tooltip>
         <FilterForm 
           open={open} 
-          handleClose={handleClose} handleChange={handleChange} handleReset={handleReset}
+          handleApply={handleApply} handleChange={handleChange} handleReset={handleReset}
           localTourOpen={localTourOpen} customTourOpen={customTourOpen}/>
       </div>
     )

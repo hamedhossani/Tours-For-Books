@@ -86,6 +86,24 @@ class TourCard extends Component {
   handleExpandClick(){
     this.setState({ expanded: !this.state.expanded });
   };
+  componentWillMount(){
+    window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '1953712931511628',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v2.11'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+  }
   render() {
     const { classes, tour } = this.props;
     return (
@@ -100,16 +118,12 @@ class TourCard extends Component {
               </div>
               :
               <div className={classes.contactButton}>
-                <Tooltip title='Email: inquiry@vietnamtoursforbooks.com' open={this.state.tooltip}>
-                  <div>
-                    <ActionButton 
-                      variant='primary'
-                      onClick={() => this.setState({tooltip: !this.state.tooltip})}
-                      >
-                      Contact Us
-                    </ActionButton>
-                  </div>
-                </Tooltip>
+                <div className="fb-messengermessageus" 
+                  data-messenger_app_id="133018877378513" 
+                  data-page_id="1726420851006429"
+                  data-color="blue"
+                  data-size="large">
+                </div>
               </div>
             }
             <div className={classes.flexGrow} />

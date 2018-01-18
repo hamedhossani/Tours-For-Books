@@ -33,7 +33,7 @@ class FilterForm extends Component {
   }
 
   render() {
-    const { classes, open, handleClose, handleChange, localTourOpen, customTourOpen, handleReset, fullScreen } = this.props;
+    const { classes, open, handleApply, handleChange, localTourOpen, customTourOpen, handleReset, fullScreen } = this.props;
     return (
       <Dialog
         fullScreen={fullScreen}
@@ -71,7 +71,7 @@ class FilterForm extends Component {
           <Button onClick={handleReset} color="primary">
             Reset
           </Button>
-          <Button onClick={handleClose} color="primary" raised>
+          <Button onClick={handleApply} color="primary" raised>
             Apply
           </Button>
         </DialogActions>

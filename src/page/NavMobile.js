@@ -68,7 +68,7 @@ class NavMobile extends Component {
         >
           <BottomNavigationButton label="Explore" icon={<ExploreIcon />} onClick={(e) => this.handleScroll(e,'#tours')}/>
           <BottomNavigationButton label="Visa" icon={<VisaIcon />} onClick={(e) => this.handleClick(e, 'visa')} />
-          <BottomNavigationButton label="Transportation" icon={<TransportationIcon />} onClick={(e) => this.handleClick(e, 'transportation')} />
+          <BottomNavigationButton label="Commute" icon={<TransportationIcon />} onClick={(e) => this.handleClick(e, 'commute')} />
           <BottomNavigationButton label="Contact" icon={<PhoneIcon />} onClick={(e) => this.handleScroll(e,'#contactUs')} />
         </BottomNavigation>
         <Dialog
@@ -99,6 +99,11 @@ const styles = theme => ({
     bottom: 0,
     zIndex: 1501
   },
+  topRight: {
+    position: 'absolute',
+    top: 0,
+    right: 0
+  }
 });
 
 export default withMobileDialog()(withStyles(styles)(NavMobile));
