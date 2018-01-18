@@ -354,6 +354,6 @@ export default createMuiTheme({
       checked: {
         transform: 'translateX(100%)'
       }
-    }
+    },
   }
 });
