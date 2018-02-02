@@ -70,10 +70,6 @@ class Tours extends Component {
             )
           )}
         </Grid>
-          <FilterDesktop 
-            open={open} localTourOpen={localTourOpen} customTourOpen={customTourOpen}
-            handleClick={this.handleClick} handleApply={this.handleApply} handleChange={this.handleChange} handleReset={this.handleReset}
-          />
       </div>
     )
   }
