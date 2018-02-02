@@ -20,6 +20,7 @@ class App extends Component {
       <div className={classes.root}>
         <Route exact path='/' render={(props)=><InitPage routing={props}/>}/>
         <Route exact path='/tour/:tour_id' render={(props)=><TourPage routing={props}/>}/>
+        <div className="fb-customerchat" data-page_id="1726420851006429" data-ref=""></div>
       </div>
     )
   }

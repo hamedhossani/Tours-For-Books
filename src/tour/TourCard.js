@@ -89,10 +89,10 @@ class TourCard extends Component {
   componentWillMount(){
     window.fbAsyncInit = function() {
     FB.init({
-      appId            : '1953712931511628',
+      appId            : '1678638095724206',
       autoLogAppEvents : true,
       xfbml            : true,
-      version          : 'v2.11'
+      version          : 'v2.10'
     });
   };
 
