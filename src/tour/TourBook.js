@@ -6,24 +6,24 @@ import 'whatwg-fetch';
 var shortid = require('shortid');
 
 // Style
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import breakpoints from '../theme/breakpoints';
-import Slide from 'material-ui/transitions/Slide';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import Button from 'material-ui/Button';
+import Slide from '@material-ui/core/Slide';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import Dialog, {
   DialogActions,
   DialogContent,
   withMobileDialog,
-} from 'material-ui/Dialog';
-import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft';
-import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight';
-import { CircularProgress } from 'material-ui/Progress';
+} from '@material-ui/core/Dialog';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Component
 import TourBookContent from './TourBookContent';
-import CloseIcon from 'material-ui-icons/Close';
+import CloseIcon from '@material-ui/icons/Close';
 
 // Store
 import { fetchCurrentMessage } from '../page/action';

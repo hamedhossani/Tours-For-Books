@@ -4,8 +4,8 @@ import { Route, Link } from 'react-router-dom';
 var smoothScroll = require('smoothscroll');
 
 // Style
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import ActionButton from '../utils/ActionButton';
 import breakpoints from '../theme/breakpoints';
 import widthWidth from '../utils/withWidth';

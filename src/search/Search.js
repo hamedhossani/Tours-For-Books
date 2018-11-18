@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 
 // Style
-import { withStyles } from 'material-ui/styles';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import LocationIcon from 'material-ui-icons/Room';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import LocationIcon from '@material-ui/icons/Room';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 // Component
 import SearchSuggestion from './SearchSuggestion';

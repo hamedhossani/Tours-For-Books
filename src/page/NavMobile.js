@@ -5,18 +5,18 @@ import breakpoints from '../theme/breakpoints';
 var smoothScroll = require('smoothscroll');
 
 // Style
-import { withStyles } from 'material-ui/styles';
-import BottomNavigation, { BottomNavigationButton } from 'material-ui/BottomNavigation';
-import IconButton from 'material-ui/IconButton';
-import CloseIcon from 'material-ui-icons/Close';
+import { withStyles } from '@material-ui/core/styles';
+import BottomNavigation, { BottomNavigationButton } from '@material-ui/core/BottomNavigation';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import Dialog, {
   DialogContent,
   withMobileDialog,
-} from 'material-ui/Dialog';
-import ExploreIcon from 'material-ui-icons/Explore';
-import VisaIcon from 'material-ui-icons/AssignmentInd';
-import TransportationIcon from 'material-ui-icons/DirectionsBus';
-import PhoneIcon from 'material-ui-icons/Phone';
+} from '@material-ui/core/Dialog';
+import ExploreIcon from '@material-ui/icons/Explore';
+import VisaIcon from '@material-ui/icons/AssignmentInd';
+import TransportationIcon from '@material-ui/icons/DirectionsBus';
+import PhoneIcon from '@material-ui/icons/Phone';
 
 // Component
 import NavItem from './NavItem';

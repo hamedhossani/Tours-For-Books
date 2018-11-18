@@ -10,8 +10,8 @@ import { CookiesProvider } from 'react-cookie';
 
 // Theme
 import mainTheme from './theme/mainTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import createMuiTheme from 'material-ui/styles/createMuiTheme';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
 // Components
 import App from './App';

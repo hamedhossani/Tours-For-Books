@@ -5,9 +5,9 @@ import { Route, Link } from 'react-router-dom';
 // Style
 import widthWidth from '../utils/withWidth';
 import breakpoints from '../theme/breakpoints';
-import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
-import Paper from 'material-ui/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 // Component
 import TourCard from './TourCard';

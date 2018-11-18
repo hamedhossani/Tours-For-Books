@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 
 // Style
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import breakpoints from '../theme/breakpoints';
 import widthWidth from '../utils/withWidth';
-import Typography from 'material-ui/Typography';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import Typography from '@material-ui/core/Typography';
+import List, { ListItem, ListItemText } from '@material-ui/core/List';
 
 //Components
 import TourImage from './TourImage';

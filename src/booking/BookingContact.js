@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 
 // Style
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
-import { FormGroup } from 'material-ui/Form';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import FormGroup from '@material-ui/core/FormGroup';
 
 // Component
 

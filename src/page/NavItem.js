@@ -4,9 +4,9 @@ import { Route, Link } from 'react-router-dom';
 import breakpoints from '../theme/breakpoints';
 
 // Style
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
-import List, {ListItem} from 'material-ui/List';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import List, {ListItem} from '@material-ui/core/List';
 
 const NavItemModalContent = (props) => {
   switch (props.modal) { 

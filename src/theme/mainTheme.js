@@ -1,4 +1,4 @@
-import { createMuiTheme } from 'material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import breakpoints from './breakpoints';
 
 export default createMuiTheme({

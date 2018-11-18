@@ -16,12 +16,14 @@ var config = {
   },
   devtool: 'inline-source-map',
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: 'babel-loader',
-      query: {
-        presets: ["env", 'react']
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react']
+        }
       }
     },{
       test: /\.(png|jpg|gif|svg)$/,
@@ -34,7 +36,10 @@ var config = {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }
     })
-  ]
+  ],
+  devServer: {
+    stats: 'errors-only',
+  },
 };
 
 module.exports = config;

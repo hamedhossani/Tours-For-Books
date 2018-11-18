@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'whatwg-fetch';
 
 // Style
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
 
 // Component
 import BookingOption from '../booking/BookingOption';

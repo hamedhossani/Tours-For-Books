@@ -5,16 +5,16 @@ import breakpoints from '../theme/breakpoints';
 var smoothScroll = require('smoothscroll');
 
 // Style
-import { withStyles } from 'material-ui/styles';
-import Toolbar from 'material-ui/Toolbar';
-import AppBar from 'material-ui/AppBar';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import CloseIcon from 'material-ui-icons/Close';
+import { withStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import AppBar from '@material-ui/core/AppBar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import Dialog, {
   DialogContent,
   withMobileDialog,
-} from 'material-ui/Dialog';
+} from '@material-ui/core/Dialog';
 
 // Component
 import NavItem from './NavItem';

@@ -7,7 +7,7 @@ import InitPage from './page/InitPage';
 import TourPage from './tour/TourPage';
 
 // Style
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 class App extends Component {
   constructor(props) {

@@ -4,9 +4,9 @@ import { Route, Link } from 'react-router-dom';
 
 // Style
 import breakpoints from '../theme/breakpoints';
-import { withStyles } from 'material-ui/styles';
-import Tooltip from 'material-ui/Tooltip';
-import IconButton from 'material-ui/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
 
 // Component
 import MaterialIcon from '../utils/MaterialIcon';

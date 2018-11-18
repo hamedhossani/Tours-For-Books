@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 
 // Style
-import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 // Component
 import ActionButton from '../utils/ActionButton';

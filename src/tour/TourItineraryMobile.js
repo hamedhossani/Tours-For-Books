@@ -5,9 +5,9 @@ import SwipeableViews from 'react-swipeable-views';
 import SupportTouch from '../utils/SupportTouch';
 
 // Style
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import widthWidth from '../utils/withWidth';
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
 import MaterialIcon from '../utils/MaterialIcon';
 
 

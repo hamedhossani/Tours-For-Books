@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 
 // Style
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
-import Grid from 'material-ui/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 // Braintree
 var braintree = require('braintree-web-drop-in');

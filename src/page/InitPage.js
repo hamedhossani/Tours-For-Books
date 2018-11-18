@@ -14,10 +14,10 @@ import Footer from './Footer';
 import Message from '../utils/Message';
 
 // Style
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import breakpoints from '../theme/breakpoints';
 import widthWidth from '../utils/withWidth';
-import Divider from 'material-ui/Divider';
+import Divider from '@material-ui/core/Divider';
 
 // Store
 import { fetchCloseMessage } from './action';

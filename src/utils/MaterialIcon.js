@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import fontawesome from '@fortawesome/fontawesome'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
@@ -17,18 +17,18 @@ import { faSmile
 
 
 // Styles
-import Avatar from 'material-ui/Avatar';
-import ExploreIcon from 'material-ui-icons/LocalSee';
-import DiningIcon from 'material-ui-icons/LocalDining';
-import ExperienceIcon from 'material-ui-icons/NaturePeople';
-import GuiderIcon from 'material-ui-icons/SupervisorAccount';
-import WalkingIcon from 'material-ui-icons/DirectionsWalk';
-import BikingIcon from 'material-ui-icons/DirectionsBike';
-import MotorcycleIcon from 'material-ui-icons/Motorcycle';
-import LocationCityIcon from 'material-ui-icons/LocationCity';
-import LocalDrinkIcon from 'material-ui-icons/LocalDrink';
-import MusicNoteIcon from 'material-ui-icons/MusicNote';
-import FilterList from 'material-ui-icons/FilterList';
+import Avatar from '@material-ui/core/Avatar';
+import ExploreIcon from '@material-ui/icons/LocalSee';
+import DiningIcon from '@material-ui/icons/LocalDining';
+import ExperienceIcon from '@material-ui/icons/NaturePeople';
+import GuiderIcon from '@material-ui/icons/SupervisorAccount';
+import WalkingIcon from '@material-ui/icons/DirectionsWalk';
+import BikingIcon from '@material-ui/icons/DirectionsBike';
+import MotorcycleIcon from '@material-ui/icons/Motorcycle';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
+import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import FilterList from '@material-ui/icons/FilterList';
 
 const Icon = (props) => {
     const { iconName } = props;

@@ -5,9 +5,9 @@ import update from 'react-addons-update';
 
 // Style
 import breakpoints from '../theme/breakpoints';
-import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import MaterialIcon from '../utils/MaterialIcon';
 
 class TourImage extends Component {

@@ -6,22 +6,22 @@ import TourCardMediaContent from './TourCardMediaContent';
 
 // Style
 import breakpoints from '../theme/breakpoints';
-import { withStyles } from 'material-ui/styles';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
+import { withStyles } from '@material-ui/core/styles';
+import Card, { CardActions, CardContent } from '@material-ui/core/Card';
 import List, {
   ListItem,
   ListItemAvatar,
   ListItemText,
-} from 'material-ui/List';
-import IconButton from 'material-ui/IconButton';
-import Button from 'material-ui/Button';
-import ShareIcon from 'material-ui-icons/Share';
-import Collapse from 'material-ui/transitions/Collapse';
-import ExpandLess from 'material-ui-icons/ExpandLess';
-import ExpandMore from 'material-ui-icons/ExpandMore';
-import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
-import Tooltip from 'material-ui/Tooltip';
+} from '@material-ui/core/List';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import ShareIcon from '@material-ui/icons/Share';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import Tooltip from '@material-ui/core/Tooltip';
 
 // Image
 import MaterialIcon from '../utils/MaterialIcon';

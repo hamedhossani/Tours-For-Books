@@ -5,15 +5,15 @@ import { Route, Link } from 'react-router-dom';
 
 // Style
 import breakpoints from '../theme/breakpoints';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import List, { ListItem, ListItemText } from '@material-ui/core/List';
 import Dialog, {
   DialogContent,
   DialogContentText,
   DialogTitle,
   withMobileDialog,
-} from 'material-ui/Dialog';
+} from '@material-ui/core/Dialog';
 
 class Footer extends Component {
   constructor(props) {

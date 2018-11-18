@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 // Define a custom style for button
 const styles = theme => ({

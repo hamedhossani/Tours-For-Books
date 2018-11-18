@@ -6,8 +6,8 @@ import { Route, Link } from 'react-router-dom';
 // Style
 import widthWidth from '../utils/withWidth';
 import breakpoints from '../theme/breakpoints';
-import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
 // Components
 import TourDetail from './TourDetail';
@@ -17,7 +17,7 @@ import ContactUs from '../page/ContactUs';
 
 // Store
 import { fetchOneTourById } from './action';
-import Divider from 'material-ui/Divider';
+import Divider from '@material-ui/core/Divider';
 
 class TourPage extends Component {
   constructor(props) {

@@ -4,13 +4,13 @@ import { Route, Link } from 'react-router-dom';
 
 // Style
 import breakpoints from '../theme/breakpoints';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import ExpansionPanel, {
   ExpansionPanelDetails,
   ExpansionPanelSummary,
-} from 'material-ui/ExpansionPanel';
-import Typography from 'material-ui/Typography';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
+} from '@material-ui/core/ExpansionPanel';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 class WhyChooseUs extends Component {
   constructor(props) {

@@ -5,20 +5,20 @@ import { Route, Link } from 'react-router-dom';
 // Style
 import widthWidth from '../utils/withWidth';
 import breakpoints from '../theme/breakpoints';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
-import { CardContent, CardMedia } from 'material-ui/Card';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import { CardContent, CardMedia } from '@material-ui/core/Card';
 import Dialog, {
   DialogActions,
   DialogContent,
   withMobileDialog,
-} from 'material-ui/Dialog';
-import Slide from 'material-ui/transitions/Slide';
-import IconButton from 'material-ui/IconButton';
-import CloseIcon from 'material-ui-icons/Close';
-import ForwardIcon from 'material-ui-icons/ArrowForward';
-import ShareIcon from 'material-ui-icons/Share';
-import Tooltip from 'material-ui/Tooltip';
+} from '@material-ui/core/Dialog';
+import Slide from '@material-ui/core/Slide';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import ForwardIcon from '@material-ui/icons/ArrowForward';
+import ShareIcon from '@material-ui/icons/Share';
+import Tooltip from '@material-ui/core/Tooltip';
 
 // Components
 import TourDetail from './TourDetail';
