@@ -19,18 +19,20 @@ app.use(function(req, res, next) {
 app.use(express.static(path.resolve(__dirname, 'public')))
 
 // DB CONNECT/INIT
-var admin = require('firebase-admin');
+import 'firebase-functions';
+
+import * as admin from 'firebase-admin';
 var serviceAccount = require(path.resolve(__dirname, 'serviceAccountKey.json'));
-var storageBucket = process.env.STORAGE_BUCKET
 
-admin.initializeApp({
+var api = {
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: process.env.DB_URL,
-  storageBucket: storageBucket
-});
+  databaseURL: functions.config().api.dburl,
+  storageBucket: functions.config().api.storagebucket,
+}
+var app = admin.initializeApp(api);
 
-var db = admin.database();
-var storage = admin.storage();
+var db = app.database();
+var storage = app.storage();
 
 app.get('/api/tours', (req, res) => {
   db.ref('tours').once('value', (data) => {
