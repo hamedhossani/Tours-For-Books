@@ -26,13 +26,13 @@ var serviceAccount = require(path.resolve(__dirname, 'serviceAccountKey.json'));
 
 var api = {
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: functions.config().api.dburl,
-  storageBucket: functions.config().api.storagebucket,
+  databaseURL: process.env.DB_URL, //functions.config().api.dburl, 
+  storageBucket: process.env.SB, //functions.config().api.storagebucket,
 }
-var app = admin.initializeApp(api);
+var firebase = admin.initializeApp(api);
 
-var db = app.database();
-var storage = app.storage();
+var db = firebase.database();
+var storage = firebase.storage();
 
 app.get('/api/tours', (req, res) => {
   db.ref('tours').once('value', (data) => {

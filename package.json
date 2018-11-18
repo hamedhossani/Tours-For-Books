@@ -35,11 +35,11 @@
     "firebase": "^5.5.8",
     "firebase-admin": "^6.1.0",
     "firebase-functions": "^2.1.0",
-    "react": "^15.6.2",
+    "react": "^16.6.3",
     "react-addons-update": "^15.6.2",
     "react-autosuggest": "^9.3.2",
-    "react-cookie": "^3.0.4",
-    "react-dom": "^15.6.2",
+    "react-cookie": "^2.2.0",
+    "react-dom": "^16.6.3",
     "react-google-maps": "^7.1.0",
     "react-paypal-express-checkout": "^1.0.3",
     "react-redux": "^5.0.6",
@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
-    "babel-register": "^6.26.0",
+    "@babel/register": "^7.0.0",
     "webpack-dev-server": "^3.1.10"
   }
 }

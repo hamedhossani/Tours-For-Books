@@ -5,7 +5,11 @@ import { Route, Link } from 'react-router-dom';
 // Style
 import breakpoints from '../theme/breakpoints';
 import { withStyles } from '@material-ui/core/styles';
-import Dialog, { DialogContent, DialogActions, DialogTitle, withMobileDialog } from '@material-ui/core/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
   import FormGroup from '@material-ui/core/FormGroup';
 import Switch from '@material-ui/core/Switch';
@@ -81,4 +85,4 @@ class FilterForm extends Component {
   }
 }
 
-export default withMobileDialog()(withStyles(styles)(FilterForm));
+export default withStyles(styles)(withMobileDialog()(FilterForm));

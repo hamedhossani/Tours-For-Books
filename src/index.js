@@ -6,12 +6,11 @@ import { Provider } from 'react-redux';
 import { Route, BrowserRouter } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './rootReducer';
-import { CookiesProvider } from 'react-cookie';
+// import { CookiesProvider } from 'react-cookie';
 
 // Theme
 import mainTheme from './theme/mainTheme';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 // Components
 import App from './App';
@@ -31,7 +30,7 @@ const store = createStore(
 )
 // Render
 ReactDOM.render(
-  <CookiesProvider>
+  // <CookiesProvider>
     <Provider store = {store}>
         <MuiThemeProvider theme={createMuiTheme(mainTheme)}>
           <BrowserRouter>
@@ -39,7 +38,7 @@ ReactDOM.render(
           </BrowserRouter>
         </MuiThemeProvider>
     </Provider>
-  </CookiesProvider>
+  // </CookiesProvider>
     , document.getElementById('main')
 );          
 registerServiceWorker();

@@ -6,7 +6,8 @@ import breakpoints from '../theme/breakpoints';
 // Style
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import List, {ListItem} from '@material-ui/core/List';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 const NavItemModalContent = (props) => {
   switch (props.modal) { 

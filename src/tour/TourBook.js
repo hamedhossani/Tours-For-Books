@@ -12,11 +12,10 @@ import Slide from '@material-ui/core/Slide';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  withMobileDialog,
-} from '@material-ui/core/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import  DialogActions from '@material-ui/core/DialogActions';
+import  DialogContent from '@material-ui/core/DialogContent';
+import  withMobileDialog from '@material-ui/core/withMobileDialog';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -325,4 +324,4 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default connect(null,
-  mapDispatchToProps)(withMobileDialog()(withStyles(styles, { withTheme: true })(TourBook)));
+  mapDispatchToProps)(withStyles(styles, { withTheme: true })(withMobileDialog()(TourBook)));

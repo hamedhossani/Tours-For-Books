@@ -7,13 +7,14 @@ import { Route, Link } from 'react-router-dom';
 import breakpoints from '../theme/breakpoints';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import List, { ListItem, ListItemText } from '@material-ui/core/List';
-import Dialog, {
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  withMobileDialog,
-} from '@material-ui/core/Dialog';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import  DialogContentText from '@material-ui/core/DialogContentText';
+import  DialogTitle from '@material-ui/core/DialogTitle';
+import  withMobileDialog from '@material-ui/core/withMobileDialog';
 
 class Footer extends Component {
   constructor(props) {
@@ -97,4 +98,4 @@ Footer.propTypes = {
   fullScreen: PropTypes.bool.isRequired,
 };
 
-export default withMobileDialog()(withStyles(styles)(Footer));
+export default withStyles(styles)(withMobileDialog()(Footer));

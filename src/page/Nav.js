@@ -11,10 +11,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import Dialog, {
-  DialogContent,
-  withMobileDialog,
-} from '@material-ui/core/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 // Component
 import NavItem from './NavItem';
@@ -153,4 +152,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default withMobileDialog()(withStyles(styles)(Nav));
+export default withStyles(styles)(withMobileDialog()(Nav));

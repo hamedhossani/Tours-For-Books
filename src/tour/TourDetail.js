@@ -7,7 +7,9 @@ import { withStyles } from '@material-ui/core/styles';
 import breakpoints from '../theme/breakpoints';
 import widthWidth from '../utils/withWidth';
 import Typography from '@material-ui/core/Typography';
-import List, { ListItem, ListItemText } from '@material-ui/core/List';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 //Components
 import TourImage from './TourImage';

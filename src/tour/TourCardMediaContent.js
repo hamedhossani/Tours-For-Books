@@ -7,12 +7,12 @@ import widthWidth from '../utils/withWidth';
 import breakpoints from '../theme/breakpoints';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { CardContent, CardMedia } from '@material-ui/core/Card';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  withMobileDialog,
-} from '@material-ui/core/Dialog';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Dialog from '@material-ui/core/Dialog';
+import  DialogActions from '@material-ui/core/DialogActions';
+import  DialogContent from '@material-ui/core/DialogContent';
+import  withMobileDialog from '@material-ui/core/withMobileDialog';
 import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -244,4 +244,4 @@ class TourCardMediaContent extends Component {
   }
 }
 
-export default  withMobileDialog()(withStyles(styles)(TourCardMediaContent));
+export default  withStyles(styles)(withMobileDialog()(TourCardMediaContent));

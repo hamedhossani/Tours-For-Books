@@ -9,10 +9,9 @@ import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation, { BottomNavigationButton } from '@material-ui/core/BottomNavigation';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import Dialog, {
-  DialogContent,
-  withMobileDialog,
-} from '@material-ui/core/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import ExploreIcon from '@material-ui/icons/Explore';
 import VisaIcon from '@material-ui/icons/AssignmentInd';
 import TransportationIcon from '@material-ui/icons/DirectionsBus';
@@ -106,4 +105,4 @@ const styles = theme => ({
   }
 });
 
-export default withMobileDialog()(withStyles(styles)(NavMobile));
+export default withStyles(styles)(withMobileDialog()(NavMobile));
