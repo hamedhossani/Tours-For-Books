@@ -13,6 +13,10 @@ const styles = {
 };
 
 class Pagination extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
   handleClick(event, index){
     this.props.onChangeIndex(index);
   };
