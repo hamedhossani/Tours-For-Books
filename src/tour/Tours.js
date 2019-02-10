@@ -30,6 +30,7 @@ class Tours extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleReset = this.handleReset.bind(this)
     this.handleApply = this.handleApply.bind(this)
+    this.handleCategory = this.handleCategory.bind(this)
   }
   
   handleClick(){
@@ -50,6 +51,9 @@ class Tours extends Component {
     let tourSection = document.querySelector('#tours') 
     smoothScroll(tourSection)
   }
+  handleCategory(category){
+    this.setState({category : category})
+  }
   
   componentWillMount(){
     this.props.dispatchFetchInitialTours()
@@ -62,6 +66,9 @@ class Tours extends Component {
     return (
       <div className={classes.tourWrapper} id='tours'>
         <Grid container spacing={16} className={classes.tourWrapper}>
+          <Grid item xs={12} md={12}>
+            <TourCategory handleCategory={this.handleCategory}/>
+          </Grid>
           { tours && tours.map((tour) => 
             ( ((localTourOpen && tour.type === 'local') || (customTourOpen && tour.type === 'custom') || (!localTourOpen && !customTourOpen))&& 
               <Grid item xs={12} sm={6} md={4} key={tour.id}>
@@ -78,6 +85,7 @@ class Tours extends Component {
 const styles = theme => ({
   tourWrapper: {
     padding: '5%',
+    'padding-top':'1%',
     flexGrow: 1,
   },
   [`@media (min-width: ${breakpoints['md']}px)`]:{
